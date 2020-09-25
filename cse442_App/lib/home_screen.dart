@@ -21,7 +21,6 @@ class HomeScreenState extends State<HomeScreen> {
       TextField(
         // use "onSubmitted" for performing action when "enter" is clicked
         style: TextStyle(color: Colors.blue),
-        autofocus: true,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
