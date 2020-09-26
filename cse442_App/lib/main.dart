@@ -1,16 +1,26 @@
 import 'dart:ui';
 
-import 'package:cse442_App/home_screen.dart';
+import 'package:Flutter_complete_testing/home_screen.dart';
+import 'package:Flutter_complete_testing/Login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyAppTest());
+}
+
+class MyAppTest extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: LoginScreen(),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
 }
