@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:Flutter_complete_testing/home_screen.dart';
-import 'package:Flutter_complete_testing/Login_page.dart';
+import 'home_screen.dart';
+import 'Login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
