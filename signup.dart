@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
+import 'main.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -53,9 +55,9 @@ class SignUpState extends State<SignUp> {
           return 'Email is Required *';
         }
         if (!RegExp(
-                r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(value)) {
-          return "Please nter a valid email address.";
+          return "Valid email address required *";
         }
         return null;
       },
@@ -144,13 +146,15 @@ class SignUpState extends State<SignUp> {
                   _buildPassword(),
                   _buildLocation(),
                   _buildPhone(),
-                  SizedBox(height: 100, width: 60),
+                  SizedBox(height: 20, width: 100),
                   RaisedButton(
+                    padding: EdgeInsets.all(20),
+                    elevation: 5.0,
                     child: Text("Sign up",
                         style: TextStyle(
                             fontFamily: 'san-serif',
                             color: Colors.lightBlue,
-                            fontSize: 16)),
+                            fontSize: 18)),
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
@@ -160,7 +164,10 @@ class SignUpState extends State<SignUp> {
                         return;
                       }
                       _formKey.currentState.save();
-                      print(_name);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
                     },
                   )
                 ],
