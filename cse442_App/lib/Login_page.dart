@@ -11,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   Widget _emailinput() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
@@ -22,6 +24,7 @@ class LoginScreenState extends State<LoginScreen> {
         child: TextField(keyboardType: TextInputType.emailAddress,
           style: (TextStyle(color: Colors.black)),
           decoration: InputDecoration(prefixIcon: Icon(Icons.email), hintText: 'Enter your email'),
+          controller : emailController,
         ),
       )
     ],);
@@ -37,6 +40,7 @@ class LoginScreenState extends State<LoginScreen> {
         child: TextField(obscureText: true, keyboardType: TextInputType.emailAddress,
           style: (TextStyle(color: Colors.black)),
           decoration: InputDecoration(prefixIcon: Icon(Icons.lock), hintText: 'Password'),
+          controller : passwordController,
         ),
       )
     ],);
@@ -49,6 +53,8 @@ class LoginScreenState extends State<LoginScreen> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
+          print(emailController.text);
+          print(passwordController.text);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => MyApp()),

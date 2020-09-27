@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'home_screen.dart';
 import 'Login_page.dart';
 import 'package:flutter/material.dart';
+import 'login_or_signup.dart';
 
 void main() {
   runApp(MyAppTest());
@@ -13,7 +14,8 @@ class MyAppTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginScreen(),
+      // home: LoginScreen(),
+      home: Home(),
     );
   }
 }
