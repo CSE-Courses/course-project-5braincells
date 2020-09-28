@@ -1,5 +1,7 @@
+const { ObjectId } = require('mongoose');
 const mongoose = require('mongoose');
  const timestamp = require('mongoose-timestamp');
+ 
 
 
  const UsersSchema = new mongoose.Schema({
@@ -34,6 +36,18 @@ const mongoose = require('mongoose');
      required: true,
      default :"",
 
+   },
+   listOfJobs:{
+     type : [ObjectId],
+     default : [],
+   },
+   location: {
+     type : String,
+     default:"",
+   },
+   phone :{
+    type : String,
+    default : ""
    }
 
 

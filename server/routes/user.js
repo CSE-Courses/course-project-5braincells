@@ -29,16 +29,22 @@ module.exports = app =>{
       const lastname = req.body.lastname;
       const email = req.body.email;
       const password = req.body.password;
+      const location = req.body.location;
+      const phone = req.body.phone;
+      
 
         const newUser = new Users();
         newUser.firstname = firstname;
         newUser.lastname = lastname;
         newUser.password =  bcrypt.hashSync(password,14);
         newUser.email = email;
+        newUser.listOfJobs = [];
+        newUser.phone = phone;
+        newUser.location = location;
         const user = await newUser.save();
 
 
-        res.sendStatus(200);
+        res.send(user);
       }
       catch(err){
         res.sendStatus(400);
