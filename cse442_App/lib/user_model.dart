@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final user = userFromJson(jsonString);
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-String userToJson(User data) => json.encode(data.toJson());
+String userModelToJson(UserModel data) => json.encode(data.toJson());
 
-class User {
-    User({
+class UserModel {
+    UserModel({
         this.firstname,
         this.lastname,
         this.email,
@@ -35,7 +35,7 @@ class User {
     DateTime createdAt;
     int v;
 
-    factory User.fromJson(Map<String, dynamic> json) => User(
+    factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         firstname: json["firstname"],
         lastname: json["lastname"],
         email: json["email"],
@@ -51,7 +51,6 @@ class User {
 
     Map<String, dynamic> toJson() => {
         "firstname": firstname,
-        "lastname": lastname,
         "email": email,
         "password": password,
         "listOfJobs": List<dynamic>.from(listOfJobs.map((x) => x)),

@@ -13,14 +13,6 @@ const mongoose = require('mongoose');
      default :"",
      trim:true
    },
-
-   lastname:{
-     type:String,
-     default :"",
-     trim:true
-
-   },
-
    email:{
      type :String,
      required: true,

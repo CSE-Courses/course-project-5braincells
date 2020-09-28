@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'main.dart';
+import 'user_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+
+
+
+
+
 
 class SignUp extends StatefulWidget {
   @override
@@ -9,6 +18,31 @@ class SignUp extends StatefulWidget {
   }
 }
 
+Future<UserModel> createUser(String _name, String _email, String _password, String _location, String _phoneNumber) async {
+    print("Create User is called");
+    
+    final String apiUrl = "https://StupidServer.yingweili1.repl.co/signup";
+    final response = await http.post(apiUrl,  headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    }, body: json.encode({
+      "firstname": _name,
+    "password" : _password,
+    "email" : _email,
+    "phone" : _phoneNumber,
+    "location" : _location
+    })
+    );
+    print(response.body);
+    if(response.statusCode == 201){
+      final String resString = response.body;
+      return userModelFromJson(resString);
+    }
+    else{
+      return null;
+    }
+}
+
+
 class SignUpState extends State<SignUp> {
   String _name;
   String _email;
@@ -16,6 +50,13 @@ class SignUpState extends State<SignUp> {
   String _location;
   String _phoneNumber;
   bool _obscureText = true;
+
+    final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+    final TextEditingController locationController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+ 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -33,6 +74,7 @@ class SignUpState extends State<SignUp> {
           icon: Icon(Icons.person),
           labelText: 'Name',
           fillColor: Colors.blue),
+          controller: nameController,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required *';
@@ -50,6 +92,7 @@ class SignUpState extends State<SignUp> {
           hintText: "app@example.com",
           icon: Icon(Icons.email),
           labelText: 'Email Address'),
+          controller: emailController,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Email is Required *';
@@ -71,6 +114,7 @@ class SignUpState extends State<SignUp> {
     // new FlatButton(
     //     onPressed: _toggle(), child: new Text(_obscureText ? "Show" : "Hide"));
     return new TextFormField(
+      controller: passwordController,
       obscureText: _obscureText,
       keyboardType: TextInputType.visiblePassword,
       decoration:
@@ -88,6 +132,7 @@ class SignUpState extends State<SignUp> {
 
   Widget _buildLocation() {
     return TextFormField(
+      controller: locationController,
       decoration: InputDecoration(
           hintText: "City, State",
           icon: Icon(Icons.location_city),
@@ -105,6 +150,7 @@ class SignUpState extends State<SignUp> {
 
   Widget _buildPhone() {
     return TextFormField(
+      controller: phoneController,
       decoration: InputDecoration(
           icon: Icon(Icons.contact_phone), labelText: 'Phone Number'),
       validator: (String value) {
@@ -159,7 +205,18 @@ class SignUpState extends State<SignUp> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
                         side: BorderSide(color: Colors.blueAccent)),
-                    onPressed: () {
+                    onPressed: () async {
+                      final name = nameController.text;
+                      final email = emailController.text;
+                      final password = passwordController.text;
+                      final location  = locationController.text;
+                      final phoneNumber = phoneController.text;
+                      print(name);
+                      final UserModel user = await createUser(name, email, password, location, phoneNumber);
+                      print(user);
+                      if(user != null){
+                        print("Worked");
+                      }
                       if (!_formKey.currentState.validate()) {
                         return;
                       }
