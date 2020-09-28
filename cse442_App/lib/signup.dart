@@ -21,7 +21,7 @@ class SignUp extends StatefulWidget {
 Future<UserModel> createUser(String _name, String _email, String _password, String _location, String _phoneNumber) async {
     print("Create User is called");
     
-    final String apiUrl = "https://StupidServer.yingweili1.repl.co/signup";
+    final String apiUrl = "https://job-5cells.herokuapp.com/signup";
     final response = await http.post(apiUrl,  headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     }, body: json.encode({
