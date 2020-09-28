@@ -46,7 +46,7 @@ module.exports = app =>{
         const user = await newUser.save();
 
 
-        res.send(user);
+        res.status(201).send(user);
       }
       catch(err){
         res.sendStatus(400);
