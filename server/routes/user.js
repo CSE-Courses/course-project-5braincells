@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 
 module.exports = app =>{
 
+  app.get('/', (res,req) =>{
+    res.send(`<div>Hello </div>`)
+  })
 
 
   app.get('/user' , async(req,res,next)=>{
