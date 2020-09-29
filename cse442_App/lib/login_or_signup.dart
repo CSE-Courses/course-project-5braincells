@@ -9,10 +9,9 @@ class Home extends StatelessWidget {
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Log in or Sign Up'),
-        centerTitle: true,
-        backgroundColor: Colors.blue[200],
-      ),
+          title: Text("Service App"),
+          backgroundColor: Colors.blueAccent,
+          centerTitle: true),
       body: Column(
         children: <Widget>[
           new Padding(
@@ -20,20 +19,35 @@ class Home extends StatelessWidget {
           ),
           Center(
               child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  },
-                  child: Text('Log In'),
-                  color: Colors.lightBlue[200])),
+            elevation: 5.0,
+            color: Colors.white,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
+            child: Text(
+              'Log In',
+              style: TextStyle(
+                fontFamily: 'san-serif',
+                color: Colors.lightBlue,
+              ),
+            ),
+          )),
           Center(
             child: RaisedButton(
+                elevation: 5.0,
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignUp()));
                 },
-                child: Text('Sign up'),
-                color: Colors.lightBlue[200]),
+                child: Text(
+                  'Sign up',
+                  style: TextStyle(
+                    fontFamily: 'san-serif',
+                    color: Colors.white,
+                  ),
+                ),
+                color: Colors.lightBlue),
           ),
         ],
       ),
