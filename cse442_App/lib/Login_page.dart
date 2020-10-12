@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'main.dart';
+import 'user_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -8,6 +12,30 @@ class LoginScreen extends StatefulWidget {
     // TODO: implement createState
     return LoginScreenState();
   }
+}
+bool failedLogin = false;
+
+Future<UserModel> login( String _email, String _password) async {
+    print("Create User is called");
+    
+    final String apiUrl = "https://job-5cells.herokuapp.com/login";
+    final response = await http.post(apiUrl,  headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    }, body: json.encode({
+     
+    "password" : _password,
+    "email" : _email,
+
+    })
+    );
+    print(response.body);
+    if(response.statusCode == 200){
+      final String resString = response.body;
+      return userModelFromJson(resString);
+    }
+    else{
+      return null;
+    }
 }
 
 class LoginScreenState extends State<LoginScreen> {
@@ -52,13 +80,24 @@ class LoginScreenState extends State<LoginScreen> {
       width: 140.0,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () {
+        onPressed: () async {
           print(emailController.text);
           print(passwordController.text);
-          Navigator.push(
+          final UserModel user = await login(emailController.text, passwordController.text);
+          if(user != null){
+            Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => MyApp()),
           );
+          }
+          else{
+          
+            setState(() { failedLogin = true; });
+          }
+         
+         
+          
+          
         },
         padding: EdgeInsets.all(20.0),
         shape: RoundedRectangleBorder(
@@ -136,8 +175,14 @@ class LoginScreenState extends State<LoginScreen> {
                 _emailinput(),
                 SizedBox(height: 30.0),
                 _passwordinput(),
+                Visibility(
+                  child: Text("Email or Password is Incorrect", style : TextStyle(color: Colors.red)),
+                  visible: failedLogin,
+                  
+                ),
                 _LoginBtn(),
                 _forgotPassword(),
+                
               ],
             ),
           ),
