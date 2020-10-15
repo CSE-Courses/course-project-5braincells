@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
  const timestamp = require('mongoose-timestamp');
 
 
- const RatingSchema = new mongoose.Schema({
+ const RatingsSchema = new mongoose.Schema({
    //add requirements
 
 
    stars: {
-     type:number,
+     type:String,
      default :0,
      trim:true
    },
@@ -22,7 +22,7 @@ const mongoose = require('mongoose');
 
 
  });
- RatingSchema.plugin(timestamp);
+ RatingsSchema.plugin(timestamp);
 
- const Rating = mongoose.model('JobDescription',RatingSchema);
- module.exports = Rating;
+ const Ratings = mongoose.model('Ratings',RatingsSchema);
+ module.exports = Ratings;
