@@ -1,6 +1,7 @@
 const Users = require('../models/Users');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const Listings = require('../models/Listings');
 
 module.exports = app =>{
 
@@ -54,6 +55,42 @@ module.exports = app =>{
 
 
 });
+//add listings
+app.post('/addListing', async(req,res) =>{
+  const user_id = req.body.user_id;
+
+  const newList = new Listings();
+  newList.jobType = req.body.jobType;
+  newList.language = req.body.language;
+  newList.description = req.body.description;
+
+  const List = await newList.save();
+  if(List){
+    list_id = List._id;
+
+    try{
+      Users.findOne({_id : user_id}, async(err, user) =>{
+        if(user){
+          list = user.listOfJobs;
+          list.push(list_id);
+          toPush = { listOfJobs : list};
+          toPush = JSON.stringify(toPush);
+
+          const ello = await Users.findByIdAndUpdate(user_id, {"$push" :{"listOfJobs": list_id}});
+          res.send(list_id);
+        }
+      })
+
+     
+    } catch(err){
+      res.send(404);
+      return next(new errors.ResourceNotFoundError(`There is no user with id of ${user_id}`));
+    }
+
+    
+
+  }
+})
 
 app.post('/login', async(req,res) =>{
   console.log(req.body)

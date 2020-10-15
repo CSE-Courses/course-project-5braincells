@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
  const timestamp = require('mongoose-timestamp');
 
 
- const JobDescribtionSchema = new mongoose.Schema({
+ const ListingsSchema = new mongoose.Schema({
    //add requirements
 
-
+   jobType :{
+      type: String,
+      default :"",
+      trim:true
+   },
    language: {
      type:String,
      default :"",
@@ -22,7 +26,7 @@ const mongoose = require('mongoose');
 
 
  });
- JobDescribtionSchema.plugin(timestamp);
+ ListingsSchema.plugin(timestamp);
 
- const JobDescription = mongoose.model('JobDescription',JobDescribtionSchema);
- module.exports = JobDescription;
+ const Listings = mongoose.model('Listings',ListingsSchema);
+ module.exports = Listings;
