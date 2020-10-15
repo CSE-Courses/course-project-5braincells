@@ -1,45 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
 
-// class TabbedAppBar extends StatelessWidget {
-//   final List<Tab> tabs = <Tab>[
-//     Tab(text: "My Info"),
-//     Tab(text: "My Listings"),
-//     Tab(text: "Reviews")
-//   ];
-//   @override
-//   Widget build(BuildContext context) {
-//     return DefaultTabController(
-//       length: tabs.length,
-//       child: Builder(builder: (BuildContext context) {
-//         final TabController tabController = DefaultTabController.of(context);
-//         tabController.addListener(() {
-//           if (!tabController.indexIsChanging) {}
-//         });
-//         return Scaffold(
-//           appBar: AppBar(
-//             bottom: new PreferredSize(
-//                 preferredSize: new Size(200.0, 200.0),
-//                 child: TabBar(
-//                   isScrollable: true,
-//                   tabs: tabs,
-//                 )),
-//           ),
-//           body: TabBarView(
-//             children: tabs.map((Tab tab) {
-//               return Center(
-//                 child: Text(
-//                   tab.text + ' Tab',
-//                   style: Theme.of(context).textTheme.headline5,
-//                 ),
-//               );
-//             }).toList(),
-//           ),
-//         );
-//       }),
-//     );
-//   }
-// }
 
 class ProfileScreen extends StatefulWidget {
   @override
