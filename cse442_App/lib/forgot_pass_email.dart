@@ -34,8 +34,8 @@ class Forgot extends StatelessWidget {
             elevation: 5.0,
             color: Colors.blue,
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => LoginScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
             },
             child: Text(
               'Submit',
