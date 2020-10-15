@@ -2,6 +2,7 @@ const Users = require('../models/Users');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Listings = require('../models/Listings');
+const e = require('express');
 
 module.exports = app =>{
 
@@ -28,26 +29,35 @@ module.exports = app =>{
       try{
 
 
-      const firstname = req.body.firstname;
-      const lastname = req.body.lastname;
-      const email = req.body.email;
-      const password = req.body.password;
-      const location = req.body.location;
-      const phone = req.body.phone;
+        const firstname = req.body.firstname;
+        const lastname = req.body.lastname;
+        const email = req.body.email;
+        const password = req.body.password;
+        const location = req.body.location;
+        const phone = req.body.phone;
+  
+        Users.findOne({email:email}, async function(err, user){
       
-
-        const newUser = new Users();
-        newUser.firstname = firstname;
-        newUser.lastname = lastname;
-        newUser.password =  bcrypt.hashSync(password,14);
-        newUser.email = email;
-        newUser.listOfJobs = [];
-        newUser.phone = phone;
-        newUser.location = location;
-        const user = await newUser.save();
-
-
-        res.status(201).send(user);
+          if(!user) {
+            const newUser = new Users();
+            newUser.firstname = firstname;
+            newUser.lastname = lastname;
+            newUser.password =  bcrypt.hashSync(password,14);
+            newUser.email = email;
+            newUser.listOfJobs = [];
+            newUser.phone = phone;
+            newUser.location = location;
+            const user = await newUser.save();
+    
+    
+            res.status(201).send(user);
+          }
+          else{
+            res.send("User Exist")
+          }
+          
+        })
+       
       }
       catch(err){
         res.sendStatus(400);
