@@ -48,6 +48,10 @@ const mongoose = require('mongoose');
    phone :{
     type : String,
     default : ""
+   },
+   ratings :{
+     type :[ObjectId],
+     default: []
    }
 
 
