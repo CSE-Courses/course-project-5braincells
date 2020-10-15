@@ -6,6 +6,7 @@ app.use(bodyParser.json())
 
 require('./routes/user')(app);
 require('./routes/rating')(app);
+require('./routes/listing')(app);
 
 
 module.exports = app;
