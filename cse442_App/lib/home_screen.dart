@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'service_list.dart';
+import 'request_list.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -94,6 +96,29 @@ class HomeScreenState extends State<HomeScreen> {
             onPressed: () => "CLICK",
           ),
         ],
+      ),
+      Container(
+        child: ButtonBar(
+          alignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RaisedButton(
+              color: Colors.lightBlueAccent,
+              child: Text("Services"),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ServiceList()));
+              },
+            ),
+            RaisedButton(
+              color: Colors.lightBlueAccent,
+              child: Text("Requests"),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RequestList()));
+              },
+            ),
+          ],
+        ),
       ),
     ]));
   }
