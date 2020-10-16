@@ -40,6 +40,18 @@ module.exports = app =>{
     }
   })
 
+  app.get('/jobType/:jobType' , async(req,res)=>{
+    let job = req.params.jobType;
+
+
+    try{
+        const list = await Listings.find({jobType: job});
+        res.send(list);
+    }
+    catch(err){
+      res.send(err)
+    }
+  })
 
 
 }
