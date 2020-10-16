@@ -28,6 +28,18 @@ module.exports = app =>{
 
 })
 
+  app.get('/allListings' , async(req,res)=>{
+
+
+    try{
+        const list = await Listings.find({});
+        res.send(list);
+    }
+    catch(err){
+      res.send(err)
+    }
+  })
+
 
 
 }

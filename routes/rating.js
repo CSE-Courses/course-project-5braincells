@@ -47,8 +47,8 @@ app.get('/getAvgStars/:id' , async( req,res) =>{
         
         res.send(total);
     }
-    catch(e){
-
+    catch(err){
+            res.send(err);
     }
 })
 
