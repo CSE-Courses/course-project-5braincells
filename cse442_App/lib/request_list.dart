@@ -16,6 +16,11 @@ class RequestListState extends State<RequestList> {
         title: Text("List of Requests"),
         centerTitle: true,
       ),
+      body: ListView(
+        children: [
+          Text("Test of Request"),
+        ],
+      ),
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'home_screen.dart';
-import 'Login_Page.dart';
+import 'login_page.dart';
 import 'package:flutter/material.dart';
 import 'login_or_signup.dart';
-import 'Profile_Screen.dart';
+import 'profile_screen.dart';
 
 void main() {
   runApp(MyAppTest());

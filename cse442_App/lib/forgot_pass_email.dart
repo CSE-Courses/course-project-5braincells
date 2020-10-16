@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'main.dart';
-import 'Login_Page.dart';
+import 'login_page.dart';
 import 'signup.dart';
 
 class Forgot extends StatelessWidget {
