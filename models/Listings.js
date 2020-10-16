@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
  const timestamp = require('mongoose-timestamp');
-
+ const { ObjectId } = require('mongoose');
 
  const ListingsSchema = new mongoose.Schema({
    //add requirements
@@ -21,6 +21,10 @@ const mongoose = require('mongoose');
      default :""
 
    },
+   owner:{
+     type: ObjectId,
+     required : true
+   }
 
 
 

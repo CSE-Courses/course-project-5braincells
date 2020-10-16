@@ -74,6 +74,7 @@ app.post('/addListing', async(req,res) =>{
   newList.jobType = req.body.jobType;
   newList.language = req.body.language;
   newList.description = req.body.description;
+  newList.owner = user_id;
 
   const List = await newList.save();
   if(List){
