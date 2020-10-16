@@ -79,7 +79,7 @@ module.exports = app =>{
 //add listings
 app.post('/addListing', async(req,res) =>{
   const user_id = req.body.user_id;
-
+  console.log(user_id)
   const newList = new Listings();
   newList.jobType = req.body.jobType;
   newList.language = req.body.language;
@@ -92,6 +92,8 @@ app.post('/addListing', async(req,res) =>{
 
     try{
       Users.findOne({_id : user_id}, async(err, user) =>{
+        console.log(user_id)
+        
         if(user){
           const ello = await Users.findByIdAndUpdate(user_id, {"$push" :{"listOfJobs": list_id}});
           res.send(list_id);
