@@ -1,45 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
-
-// class TabbedAppBar extends StatelessWidget {
-//   final List<Tab> tabs = <Tab>[
-//     Tab(text: "My Info"),
-//     Tab(text: "My Listings"),
-//     Tab(text: "Reviews")
-//   ];
-//   @override
-//   Widget build(BuildContext context) {
-//     return DefaultTabController(
-//       length: tabs.length,
-//       child: Builder(builder: (BuildContext context) {
-//         final TabController tabController = DefaultTabController.of(context);
-//         tabController.addListener(() {
-//           if (!tabController.indexIsChanging) {}
-//         });
-//         return Scaffold(
-//           appBar: AppBar(
-//             bottom: new PreferredSize(
-//                 preferredSize: new Size(200.0, 200.0),
-//                 child: TabBar(
-//                   isScrollable: true,
-//                   tabs: tabs,
-//                 )),
-//           ),
-//           body: TabBarView(
-//             children: tabs.map((Tab tab) {
-//               return Center(
-//                 child: Text(
-//                   tab.text + ' Tab',
-//                   style: Theme.of(context).textTheme.headline5,
-//                 ),
-//               );
-//             }).toList(),
-//           ),
-//         );
-//       }),
-//     );
-//   }
-// }
+import 'user_model.dart';
+import 'dart:async';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -88,6 +52,19 @@ class ProfileScreenState extends State<ProfileScreen> {
           )));
     }
     return tabs;
+  }
+
+  Widget reviews(uid) {
+    //Future<List<>
+    int commentLen = 5;
+    return ListView.builder(
+      itemCount: commentLen,
+      itemBuilder: (context, index) {
+        return ListTile(
+            //title: Text('${comment[index]}'),
+            );
+      },
+    );
   }
 
   List<Widget> getBios(List<String> bios) {
@@ -292,5 +269,26 @@ class ProfileScreenState extends State<ProfileScreen> {
     //     ),
     //   ),
     // ));
+  }
+}
+
+class userReviews extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return userReviewsState();
+  }
+}
+
+class userReviewsState extends State<userReviews> {
+  Future<List<String>> _getComments(uid) async {
+    var data = await (http.get(
+        "https://job-5cells.herokuapp.com/getRatingById/5f7267a78d607a000420675e"));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
   }
 }
