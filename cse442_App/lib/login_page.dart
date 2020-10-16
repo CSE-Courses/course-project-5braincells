@@ -97,9 +97,10 @@ class LoginScreenState extends State<LoginScreen> {
           final UserModel user =
               await login(emailController.text, passwordController.text);
           if (user != null) {
+            print(user);
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MyApp()),
+              MaterialPageRoute(builder: (context) => MyApp(user: user)),
             );
           } else {
             setState(() {

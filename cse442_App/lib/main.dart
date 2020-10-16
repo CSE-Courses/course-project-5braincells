@@ -5,6 +5,8 @@ import 'login_page.dart';
 import 'package:flutter/material.dart';
 import 'login_or_signup.dart';
 import 'profile_screen.dart';
+import 'user_model.dart';
+import 'dart:convert';
 
 void main() {
   runApp(MyAppTest());
@@ -22,24 +24,40 @@ class MyAppTest extends StatelessWidget {
 }
 
 class MyApp extends StatefulWidget {
+  final UserModel user;
+  MyApp({this.user});
+
+  UserModel getUser() {
+    return this.user;
+  }
+
   @override
   State<StatefulWidget> createState() {
-    return _MyAppState();
+    print("This is user in main.dart");
+    print(user.id);
+    return _MyAppState(user: user);
   }
 }
 
 class _MyAppState extends State<MyApp> {
+  final UserModel user;
+  _MyAppState({this.user});
+
   int _selectedPage = 0;
-  final _pageOptions = [
-    HomeScreen(),
-    Text("Trending Page"),
-    Text("Calendar Page"),
-    Text("Bookmarked Page"),
-    ProfileScreen()
-  ];
 
   @override
   Widget build(BuildContext context) {
+    Widget home = HomeScreen(user: user);
+    Widget profile = ProfileScreen(user: user);
+
+    final _pageOptions = [
+      home,
+      Text("Trending Page"),
+      Text("Calendar Page"),
+      Text("Bookmarked Page"),
+      profile
+    ];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(

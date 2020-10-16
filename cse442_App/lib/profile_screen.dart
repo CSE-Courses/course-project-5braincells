@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final UserModel user;
+  ProfileScreen({this.user});
   @override
   State<StatefulWidget> createState() {
+    print("profile");
+    print(user.id);
+
     // TODO: implement createState
     return ProfileScreenState();
   }
@@ -13,6 +19,9 @@ class ProfileScreen extends StatefulWidget {
   This widget will contain the Search Bar used to find listings within the app.
 */
 class ProfileScreenState extends State<ProfileScreen> {
+  final UserModel user;
+  ProfileScreenState({this.user});
+
   int userId = 12345;
   String firstName = 'Firstname';
   String lastName = 'Lastname';

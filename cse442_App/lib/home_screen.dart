@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'service_list.dart';
 import 'request_list.dart';
+import 'user_model.dart';
+import 'main.dart';
 
 class HomeScreen extends StatefulWidget {
+  final UserModel user;
+  HomeScreen({this.user});
   @override
   State<StatefulWidget> createState() {
+    print("Home Page");
+    print(user.id);
     // TODO: implement createState
-    return HomeScreenState();
+    return HomeScreenState(user: user);
   }
 }
 
@@ -15,6 +21,9 @@ class HomeScreen extends StatefulWidget {
   This widget will contain the Search Bar used to find listings within the app.
 */
 class HomeScreenState extends State<HomeScreen> {
+  final UserModel user;
+  HomeScreenState({this.user});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
