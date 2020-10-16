@@ -28,4 +28,28 @@ module.exports = app =>{
 
 })
 
+app.get('/getAvgStars/:id' , async( req,res) =>{
+    try{
+        user_id = req.params.id;
+        const user = await  Users.findById(user_id);
+    
+        list_id = user.ratings;
+        total = 0;
+        for(var i = 0; i< list_id.length; i++){
+
+            let x = await Ratings.find(list_id[i]);
+            total = total + parseInt((x[0].stars));
+            
+        }
+        console.log(total)
+        total = total / list_id.length;
+       total = JSON.stringify({avg : total});
+        
+        res.send(total);
+    }
+    catch(e){
+
+    }
+})
+
 }
