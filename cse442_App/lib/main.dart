@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
 
     final _pageOptions = [
       home,
-      Text("Trending Page"),
+      Text("Nearby Page"),
       Text("Calendar Page"),
       Text("Bookmarked Page"),
       profile
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text("Home")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.trending_up), title: Text("Trending")),
+                icon: Icon(Icons.location_on), title: Text("Nearby")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_today), title: Text("Calendar")),
             BottomNavigationBarItem(
