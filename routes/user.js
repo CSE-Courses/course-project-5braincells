@@ -23,7 +23,17 @@ module.exports = app =>{
       }
   })
 
+  app.get('/getById/:id' , async(req,res,next)=>{
+    try{
+      const user = await Users.findById(req.params.id);
 
+    res.send(user);
+    // res.sendStatus(200);
+  }
+  catch(err){
+    res.sendStatus(400);
+  }
+})
 
   app.post('/signup', async (req, res)=>{
 
