@@ -6,8 +6,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ProfileScreen extends StatefulWidget {
+  final UserModel user;
+
+  const ProfileScreen({Key key, this.user}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
+    print(user.id);
     // TODO: implement createState
     return ProfileScreenState();
   }

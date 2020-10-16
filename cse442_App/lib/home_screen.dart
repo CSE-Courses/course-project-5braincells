@@ -1,3 +1,4 @@
+import 'package:cse442_App/user_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

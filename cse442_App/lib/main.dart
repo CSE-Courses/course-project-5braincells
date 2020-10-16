@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:cse442_App/user_model.dart';
+
 import 'home_screen.dart';
 import 'Login_page.dart';
 import 'package:flutter/material.dart';
 import 'login_or_signup.dart';
 import 'Profile_Screen.dart';
+import 'user_model.dart';
 
 void main() {
   runApp(MyAppTest());
