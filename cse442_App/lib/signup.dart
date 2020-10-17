@@ -13,6 +13,7 @@ class SignUp extends StatefulWidget {
   }
 }
 
+bool failedSignUp = false;
 Future<UserModel> createUser(String _name, String _email, String _password,
     String _location, String _phoneNumber) async {
   print("Create User is called");
@@ -186,6 +187,11 @@ class SignUpState extends State<SignUp> {
                   _buildPassword(),
                   _buildLocation(),
                   _buildPhone(),
+                  Visibility(
+                    child: Text("Email already in use",
+                        style: TextStyle(color: Colors.red)),
+                    visible: failedSignUp,
+                  ),
                   SizedBox(height: 20, width: 100),
                   RaisedButton(
                     padding: EdgeInsets.all(20),
@@ -209,17 +215,21 @@ class SignUpState extends State<SignUp> {
                       final UserModel user = await createUser(
                           name, email, password, location, phoneNumber);
                       print(user);
-                      if (user != null) {
-                        print("Worked");
-                      }
                       if (!_formKey.currentState.validate()) {
                         return;
                       }
                       _formKey.currentState.save();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                      if (user != null) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                        print("Worked");
+                      } else {
+                        setState(() {
+                          failedSignUp = true;
+                        });
+                      }
                     },
                   )
                 ],

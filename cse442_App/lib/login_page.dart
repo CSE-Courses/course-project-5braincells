@@ -5,6 +5,8 @@ import 'user_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'forgot_pass_email.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -96,9 +98,10 @@ class LoginScreenState extends State<LoginScreen> {
           final UserModel user =
               await login(emailController.text, passwordController.text);
           if (user != null) {
+            print(user);
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MyApp()),
+              MaterialPageRoute(builder: (context) => MyApp(user: user)),
             );
           } else {
             setState(() {
@@ -129,7 +132,13 @@ class LoginScreenState extends State<LoginScreen> {
       width: 220.0,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Forgot()),
+          );
+        },
+
         shape: RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
         color: Colors.white,
         child: Text(

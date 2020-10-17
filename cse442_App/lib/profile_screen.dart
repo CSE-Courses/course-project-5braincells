@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
-
+import 'dart:async';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final UserModel user;
+  ProfileScreen({this.user});
   @override
   State<StatefulWidget> createState() {
+    print("profile");
+    print(user.id);
     // TODO: implement createState
     return ProfileScreenState();
   }
@@ -15,6 +22,9 @@ class ProfileScreen extends StatefulWidget {
   This widget will contain the Search Bar used to find listings within the app.
 */
 class ProfileScreenState extends State<ProfileScreen> {
+  final UserModel user;
+  ProfileScreenState({this.user});
+
   int userId = 12345;
   String firstName = 'Firstname';
   String lastName = 'Lastname';
@@ -51,6 +61,18 @@ class ProfileScreenState extends State<ProfileScreen> {
     return tabs;
   }
 
+  Widget reviews(uid) {
+    //Future<List<>
+    int commentLen = 5;
+    return ListView.builder(
+      itemCount: commentLen,
+      itemBuilder: (context, index) {
+        return ListTile(
+            //title: Text('${comment[index]}'),
+            );
+      },
+    );
+  }
   List<Widget> getBios(List<String> bios) {
     List<Widget> bioTabs = new List();
     for (String bio in bios) {
@@ -255,3 +277,26 @@ class ProfileScreenState extends State<ProfileScreen> {
     // ));
   }
 }
+
+
+class userReviews extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return userReviewsState();
+  }
+}
+
+class userReviewsState extends State<userReviews> {
+  Future<List<String>> _getComments(uid) async {
+    var data = await (http.get(
+        "https://job-5cells.herokuapp.com/getRatingById/5f7267a78d607a000420675e"));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
