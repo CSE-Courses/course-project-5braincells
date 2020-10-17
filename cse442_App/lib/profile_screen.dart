@@ -73,7 +73,6 @@ class ProfileScreenState extends State<ProfileScreen> {
       },
     );
   }
-
   List<Widget> getBios(List<String> bios) {
     List<Widget> bioTabs = new List();
     for (String bio in bios) {
@@ -279,6 +278,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
+
 class userReviews extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -299,3 +299,4 @@ class userReviewsState extends State<userReviews> {
     throw UnimplementedError();
   }
 }
+
