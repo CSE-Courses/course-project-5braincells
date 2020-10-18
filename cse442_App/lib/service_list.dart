@@ -14,13 +14,23 @@ List<UserListingsModel> testingUserList = new List<UserListingsModel>();
 
 Widget getInformationBox(
     String jobType, String description, String dateCreated) {
+  String finalDescriptionDisplay = "";
+  if (description.length < 17) {
+    finalDescriptionDisplay = description;
+  } else {
+    finalDescriptionDisplay = description.substring(0, 17);
+  }
+
   return Container(
+    margin: EdgeInsets.only(bottom: 10.0),
+    alignment: Alignment.topLeft,
     child: RaisedButton(
       elevation: 5.0,
       onPressed: () {
         print('something');
       },
-      padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 10.0),
+      padding: const EdgeInsets.only(
+          bottom: 10.0, left: 20.0, right: 60.0, top: 10.0),
       shape: RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
       color: Colors.white,
       child: Text(
@@ -28,7 +38,10 @@ Widget getInformationBox(
             jobType.substring(8) +
             "\n" +
             "Date Created: " +
-            dateCreated.substring(0, 16),
+            dateCreated.substring(0, 16) +
+            "\n" +
+            "Description: " +
+            finalDescriptionDisplay,
         style: TextStyle(
           color: Colors.black,
           letterSpacing: 1.2,
@@ -68,27 +81,28 @@ class ServiceListState extends State<ServiceList> {
               ),
               child: Column(children: [
                 Container(
+                    alignment: Alignment.topLeft,
                     child: RaisedButton(
-                  elevation: 5.0,
-                  onPressed: () async {
-                    setState(() {});
-                    testingUserList = await getListing();
-                  },
-                  padding: EdgeInsets.all(20.0),
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.blue)),
-                  color: Colors.white,
-                  child: Text(
-                    'refresh',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      letterSpacing: 1.5,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'OpenSans',
-                    ),
-                  ),
-                )),
+                      elevation: 5.0,
+                      onPressed: () async {
+                        setState(() {});
+                        testingUserList = await getListing();
+                      },
+                      padding: EdgeInsets.all(20.0),
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.blue)),
+                      color: Colors.white,
+                      child: Text(
+                        'refresh',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          letterSpacing: 1.5,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'OpenSans',
+                        ),
+                      ),
+                    )),
                 SizedBox(height: 30.0),
                 for (var userListings in testingUserList)
                   getInformationBox(
