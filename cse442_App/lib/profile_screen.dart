@@ -1,6 +1,3 @@
-// import 'dart:html';
-// import 'dart:js';
-
 import 'reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
@@ -94,24 +91,6 @@ class ProfileScreenState extends State<ProfileScreen> {
   //       _loading = false;
   //     });
   //   });
-  // }
-
-  // Widget review_widget() {
-  //   return Scaffold(
-  //       appBar: AppBar(
-  //         title: Text(_loading ? 'Loading reviews' : 'Reviews'),
-  //       ),
-  //       body: Container(
-  //           child: ListView.builder(
-  //         itemCount: null == _reviews ? 0 : _reviews.length,
-  //         itemBuilder: (context, index) {
-  //           Review review = _reviews[index];
-  //           return ListTile(
-  //             title: Text(review.comment),
-  //             //subtitle: Text(review.stars),
-  //           );
-  //         },
-  //       )));
   // }
 
   List<Widget> getTabs(List<String> tabNames) {
