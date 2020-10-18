@@ -1,9 +1,14 @@
+// import 'dart:html';
+// import 'dart:js';
+
+import 'reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'user_model.dart';
+import 'review_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -12,6 +17,7 @@ class ProfileScreen extends StatefulWidget {
   State<StatefulWidget> createState() {
     print("profile");
     print(user.id);
+
     // TODO: implement createState
     return ProfileScreenState();
   }
@@ -36,13 +42,77 @@ class ProfileScreenState extends State<ProfileScreen> {
     "Le test FitnessGram Pacer est un test de capacité aérobie en plusieurs étapes qui devient progressivement plus difficile à mesure qu'il se poursuit. Le test du stimulateur de 20 mètres commencera dans 30 secondes. Alignez-vous au départ. La vitesse de course démarre lentement mais s'accélère chaque minute après que vous entendez ce signal bodeboop. Un tour de chant doit être terminé chaque fois que vous entendez ce son. N'oubliez pas de courir en ligne droite et de courir le plus longtemps possible. La deuxième fois que vous ne parvenez pas à terminer un tour avant le son, votre test est terminé. Le test commencera au début du mot. À vos marques. Préparez-vous!… Commencez."
     //'English', 'Spanish', 'French'
   ];
-  List<String> tabNames = ["Info", "Listings", "Reviews"];
-  List<String> bios = [
-    "My name is Navid Khan",
-    "This are my listings",
-    "List of reviews pulled from database go here"
-  ];
+  List<String> tabNames = ["Bio", "Listings", "Reviews"];
+
   String imageUrl = 'assets/default.png';
+  Widget bio() {
+    return Scaffold(
+      body: Container(
+        child: Text("data"),
+      ),
+    );
+  }
+
+  static Future<List<Review>> getMyListings() async {}
+
+  Widget listings() {
+    return new Scaffold(
+      body: Container(
+        child: FutureBuilder(
+            future: getMyListings(),
+            builder: (context, snapshot) {
+              return ListView.builder(
+                  itemCount: 4,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        margin: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(0.1),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                          color: Colors.lightBlue,
+                        )),
+                        height: 70,
+                        child: ListTile(
+                          title: Text("Listing Widget from homepage goes here"),
+                        ));
+                  });
+              //}
+            }),
+      ),
+    );
+  }
+
+  // List<Review> _reviews;
+  // bool _loading;
+
+  // void initState() {
+  //   super.initState();
+  //   _loading = true;
+  //   review_services.getComments().then((reviews) {
+  //     setState(() {
+  //       _reviews = reviews;
+  //       _loading = false;
+  //     });
+  //   });
+  // }
+
+  // Widget review_widget() {
+  //   return Scaffold(
+  //       appBar: AppBar(
+  //         title: Text(_loading ? 'Loading reviews' : 'Reviews'),
+  //       ),
+  //       body: Container(
+  //           child: ListView.builder(
+  //         itemCount: null == _reviews ? 0 : _reviews.length,
+  //         itemBuilder: (context, index) {
+  //           Review review = _reviews[index];
+  //           return ListTile(
+  //             title: Text(review.comment),
+  //             //subtitle: Text(review.stars),
+  //           );
+  //         },
+  //       )));
+  // }
 
   List<Widget> getTabs(List<String> tabNames) {
     List<Widget> tabs = new List();
@@ -59,19 +129,6 @@ class ProfileScreenState extends State<ProfileScreen> {
           )));
     }
     return tabs;
-  }
-
-  Widget reviews(uid) {
-    //Future<List<>
-    int commentLen = 5;
-    return ListView.builder(
-      itemCount: commentLen,
-      itemBuilder: (context, index) {
-        return ListTile(
-            //title: Text('${comment[index]}'),
-            );
-      },
-    );
   }
 
   List<Widget> getBios(List<String> bios) {
@@ -196,10 +253,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                     )),
                 SizedBox(
                   height: 50,
+                  width: double.infinity,
                   child: new AppBar(
                     title: TabBar(
                       tabs: getTabs(tabNames),
-                      isScrollable: true,
+                      //isScrollable: true,
                       indicator: UnderlineTabIndicator(
                         insets: EdgeInsets.all(0.1),
                       ),
@@ -207,95 +265,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                     backgroundColor: Colors.lightBlue[200],
                   ),
                 ),
-                Expanded(child: TabBarView(children: getBios(bios)))
+                Expanded(
+                    child: TabBarView(
+                        children: <Widget>[bio(), listings(), Review_widget()]))
               ],
             )),
           ),
         ));
-
-    // AppBar(
-    //   backgroundColor: Colors.black,
-
-    //   flexibleSpace: Column(
-    //     children: <Widget>[
-    //       // Image Avatar
-    //       Center(
-    //         heightFactor: 1.2,
-    //         child: Image(
-    //           image: AssetImage(imageUrl),
-    //           height: 100.0,
-    //           width: 100.0,
-    //         ),
-    //       ),
-
-    //       // Name
-    //       Center(
-    //         child: Text(
-    //           firstName + " " + lastName,
-    //           style: TextStyle(
-    //             fontSize: 32.0,
-    //             fontWeight: FontWeight.bold,
-    //           ),
-    //         ),
-    //       ),
-
-    // Rating
-    //             Center(
-    //               child: Row(
-    //                 children: [
-    //                   Text(
-    //                     rating.toString(),
-    //                     style: TextStyle(
-    //                       fontSize: 26.0,
-    //                       fontWeight: FontWeight.bold,
-    //                     ),
-    //                   ),
-    //                   Text(
-    //                     '/5 Stars',
-    //                     style: TextStyle(
-    //                       fontSize: 15.0,
-    //                       fontWeight: FontWeight.normal,
-    //                     ),
-    //                   ),
-    //                 ],
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //               ),
-    //               heightFactor: 1.5,
-    //             ),
-    //           ],
-    //         ),
-    //         bottom: TabBar(
-    //           tabs: getLanguageTabs(languages),
-    //         ),
-    //       ),
-    //     ),
-
-    //     // Bios for different languages
-    //     body: TabBarView(
-    //       children: getLanguageBios(languageBios),
-    //     ),
-    //   ),
-    // ));
-  }
-}
-
-class userReviews extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return userReviewsState();
-  }
-}
-
-class userReviewsState extends State<userReviews> {
-  Future<List<String>> _getComments(uid) async {
-    var data = await (http.get(
-        "https://job-5cells.herokuapp.com/getRatingById/5f7267a78d607a000420675e"));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }
