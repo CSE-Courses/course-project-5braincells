@@ -52,6 +52,14 @@ const mongoose = require('mongoose');
    ratings :{
      type :[ObjectId],
      default: []
+   },
+   language:{
+     type:String,
+     default:""
+   },
+   description:{
+     type:String,
+     default:""
    }
 
 

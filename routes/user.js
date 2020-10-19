@@ -6,7 +6,7 @@ const Ratings = require('../models/Ratings');
 const e = require('express');
 
 module.exports = app =>{
-
+  mongoose.set('useFindAndModify', false);
   app.get('/', (req,res)=>{
     res.send(`<div>Hello</div>`)
   })
@@ -140,6 +140,90 @@ app.post('/addRatings', async(req,res) =>{
 
     
 
+  }
+})
+app.post('/updateName', async(req,res)=>{
+    user_id = req.body.user_id;
+    updateName = req.body.updateName;
+   
+    try{
+       Users.findByIdAndUpdate(user_id, {"firstname": updateName}, (err,user)=>{
+        if(!user){
+          res.sendStatus(404);
+        }
+        else{
+          res.sendStatus(204)
+        }
+      });
+
+    }
+    catch(err){
+      console.log("triggered")
+        res.send(err);
+    }
+})
+
+app.post('/updateEmail', async(req,res)=>{
+  user_id = req.body.user_id;
+  updateEmail = req.body.updateEmail;
+ 
+  try{
+     Users.findByIdAndUpdate(user_id, {"email": updateEmail}, (err,user)=>{
+      if(!user){
+        res.sendStatus(404);
+      }
+      else{
+        res.sendStatus(204)
+      }
+    });
+
+  }
+  catch(err){
+    console.log("triggered")
+      res.send(err);
+  }
+})
+
+app.post('/updateLanguage', async(req,res)=>{
+  user_id = req.body.user_id;
+  updateLanguage = req.body.updateLanguage;
+ 
+  try{
+     Users.findByIdAndUpdate(user_id, {"$set": {"language": updateLanguage}, upsert:true}, (err,user)=>{
+      if(!user){
+        res.sendStatus(404);
+      }
+      else{
+        res.sendStatus(204)
+      }
+    });
+
+  }
+  catch(err){
+    console.log("triggered")
+      res.send(err);
+  }
+})
+
+
+app.post('/updateDescription', async(req,res)=>{
+  user_id = req.body.user_id;
+  updateDescription = req.body.updateDescription;
+ 
+  try{
+     Users.findByIdAndUpdate(user_id, {"$set": {"description": updateDescription}, upsert:true}, (err,user)=>{
+      if(!user){
+        res.sendStatus(404);
+      }
+      else{
+        res.sendStatus(204)
+      }
+    });
+
+  }
+  catch(err){
+    console.log("triggered")
+      res.send(err);
   }
 })
 
