@@ -22,7 +22,7 @@ class Review_widgetState extends State<Review_widget> {
   final UserModel user;
   Review_widgetState({this.user});
 
-  List<List<Review>> initReview = [[]];
+  List<List<Review>> initReview = [];
   //initialize widiget
   void initState() {
     super.initState();
