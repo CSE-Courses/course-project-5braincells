@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rating_bar/rating_bar.dart';
-import 'reviews.dart';
-import 'dart:convert';
 import 'user_list_list_model.dart';
 import 'package:http/http.dart' as http;
 import 'user_model.dart';
@@ -23,7 +20,7 @@ class Listing_widgetState extends State<Listing_widget> {
   final UserModel user;
   Listing_widgetState({this.user});
 
-  List<List<UserList>> initList = [];
+  List<List<UserList>> initList;
   //initialize widiget
   void initState() {
     super.initState();
@@ -36,6 +33,7 @@ class Listing_widgetState extends State<Listing_widget> {
     final List<List<UserList>> list = await getListings();
     setState(() {
       initList = list;
+      print(initList.length);
     });
   }
 
@@ -46,9 +44,9 @@ class Listing_widgetState extends State<Listing_widget> {
     String toGet =
         "https://job-5cells.herokuapp.com/getListingsById/" + user.id;
     var data = await http.get(toGet);
-    List<List<UserList>> reviews = userListFromJson(data.body);
+    List<List<UserList>> lists = userListFromJson(data.body);
 
-    return reviews;
+    return lists;
   }
 
   //   try {
@@ -88,7 +86,9 @@ class Listing_widgetState extends State<Listing_widget> {
               // print(snapshot.data);
               // print(snapshot.data.length);
 
-              if (snapshot.data == null) {
+              if (snapshot.data == null ||
+                  initList.length == null ||
+                  initList.length == 0) {
                 return Container(child: Center(child: Text("Loading....")));
               } else {
                 return ListView.builder(

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'reviews.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'user_model.dart';
 
