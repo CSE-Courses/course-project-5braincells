@@ -168,72 +168,76 @@ class SignUpState extends State<SignUp> {
           backgroundColor: Colors.blueAccent,
           centerTitle: true),
       body: Container(
-          margin: EdgeInsets.all(20),
+        margin: EdgeInsets.all(20),
+        child: SingleChildScrollView(
           child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  new Align(
-                    alignment: Alignment.center,
-                    child: Text("Sign up an account",
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: 'sans-serif',
-                            fontSize: 22)),
-                  ),
-                  _buildName(),
-                  _buildEmail(),
-                  _buildPassword(),
-                  _buildLocation(),
-                  _buildPhone(),
-                  Visibility(
-                    child: Text("Email already in use",
-                        style: TextStyle(color: Colors.red)),
-                    visible: failedSignUp,
-                  ),
-                  SizedBox(height: 20, width: 100),
-                  RaisedButton(
-                    padding: EdgeInsets.all(20),
-                    elevation: 5.0,
-                    child: Text("Sign up",
-                        style: TextStyle(
-                            fontFamily: 'san-serif',
-                            color: Colors.lightBlue,
-                            fontSize: 18)),
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
-                        side: BorderSide(color: Colors.blueAccent)),
-                    onPressed: () async {
-                      final name = nameController.text;
-                      final email = emailController.text;
-                      final password = passwordController.text;
-                      final location = locationController.text;
-                      final phoneNumber = phoneController.text;
-                      print(name);
-                      final UserModel user = await createUser(
-                          name, email, password, location, phoneNumber);
-                      print(user);
-                      if (!_formKey.currentState.validate()) {
-                        return;
-                      }
-                      _formKey.currentState.save();
-                      if (user != null) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                        print("Worked");
-                      } else {
-                        setState(() {
-                          failedSignUp = true;
-                        });
-                      }
-                    },
-                  )
-                ],
-              ))),
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                new Align(
+                  alignment: Alignment.center,
+                  child: Text("Sign up an account",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontFamily: 'sans-serif',
+                          fontSize: 22)),
+                ),
+                _buildName(),
+                _buildEmail(),
+                _buildPassword(),
+                _buildLocation(),
+                _buildPhone(),
+                Visibility(
+                  child: Text("Email already in use",
+                      style: TextStyle(color: Colors.red)),
+                  visible: failedSignUp,
+                ),
+                SizedBox(height: 20, width: 100),
+                RaisedButton(
+                  padding: EdgeInsets.all(20),
+                  elevation: 5.0,
+                  child: Text("Sign up",
+                      style: TextStyle(
+                          fontFamily: 'san-serif',
+                          color: Colors.lightBlue,
+                          fontSize: 18)),
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.blueAccent)),
+                  onPressed: () async {
+                    final name = nameController.text;
+                    final email = emailController.text;
+                    final password = passwordController.text;
+                    final location = locationController.text;
+                    final phoneNumber = phoneController.text;
+                    print(name);
+                    final UserModel user = await createUser(
+                        name, email, password, location, phoneNumber);
+                    print(user);
+                    if (!_formKey.currentState.validate()) {
+                      return;
+                    }
+                    _formKey.currentState.save();
+                    if (user != null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                      print("Worked");
+                    } else {
+                      setState(() {
+                        failedSignUp = true;
+                      });
+                    }
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
