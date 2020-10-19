@@ -60,6 +60,10 @@ const mongoose = require('mongoose');
    description:{
      type:String,
      default:""
+   },
+   listOfRequest:{
+     type: [ObjectId],
+     default :[]
    }
 
 
