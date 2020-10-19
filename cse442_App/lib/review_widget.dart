@@ -49,32 +49,6 @@ class Review_widgetState extends State<Review_widget> {
     return reviews;
   }
 
-  //   try {
-  //     final response = await http.get(url);
-  //     if (response.statusCode == 200) {
-  //       final List<Review> reviews =
-  //           reviewsFromJson(response.body).cast<Review>();
-  //       print(reviews);
-  //       return reviews;
-  //     } else {
-  //       return List<Review>();
-  //     }
-  //   } catch (e) {
-  //     return List<Review>();
-  //   }
-  // }
-
-  // void initState() {
-  //   super.initState();
-  //   _loading = true;
-  //   review_services.getComments().then((reviews) {
-  //     setState(() {
-  //       _reviews = reviews;
-  //       _loading = false;
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
