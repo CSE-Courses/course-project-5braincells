@@ -40,7 +40,7 @@ module.exports = app =>{
     }
   })
 
-  app.get('/jobType/:jobType' , async(req,res)=>{
+  app.get('/listings/jobType/:jobType' , async(req,res)=>{
     let job = req.params.jobType;
 
 
