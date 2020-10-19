@@ -10,10 +10,8 @@ class HomeScreen extends StatefulWidget {
   HomeScreen({this.user});
   @override
   State<StatefulWidget> createState() {
-    print("Home Page");
-    print(user.id);
     // TODO: implement createState
-    return HomeScreenState();
+    return HomeScreenState(user: user);
   }
 }
 
@@ -26,6 +24,7 @@ class HomeScreenState extends State<HomeScreen> {
   HomeScreenState({this.user});
   @override
   Widget build(BuildContext context) {
+    print(user);
     return Scaffold(
         body: ListView(children: <Widget>[
       // Search Bar
@@ -129,8 +128,11 @@ class HomeScreenState extends State<HomeScreen> {
           height: 140,
           child: RawMaterialButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewListing()));
+              print(user);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NewListing(user: user)));
             },
             splashColor: Colors.blue,
             elevation: 1.0,

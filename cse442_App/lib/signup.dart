@@ -216,10 +216,7 @@ class SignUpState extends State<SignUp> {
                     final UserModel user = await createUser(
                         name, email, password, location, phoneNumber);
                     print(user);
-                    if (!_formKey.currentState.validate()) {
-                      return;
-                    }
-                    _formKey.currentState.save();
+
                     if (user != null) {
                       Navigator.push(
                           context,
@@ -227,6 +224,10 @@ class SignUpState extends State<SignUp> {
                               builder: (context) => LoginScreen()));
                       print("Worked");
                     } else {
+                      if (!_formKey.currentState.validate()) {
+                        return;
+                      }
+                      _formKey.currentState.save();
                       setState(() {
                         failedSignUp = true;
                       });

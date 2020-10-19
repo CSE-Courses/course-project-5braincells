@@ -7,7 +7,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'forgot_pass_email.dart';
 
-
 class LoginScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -138,7 +137,6 @@ class LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => Forgot()),
           );
         },
-
         shape: RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
         color: Colors.white,
         child: Text(
