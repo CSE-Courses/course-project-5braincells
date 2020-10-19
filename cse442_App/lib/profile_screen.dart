@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'user_model.dart';
 import 'review_widget.dart';
+import 'listing_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -247,7 +248,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 Expanded(
                     child: TabBarView(children: <Widget>[
                   bio(),
-                  listings(),
+                  Listing_widget(user: user),
                   Review_widget(user: user)
                 ]))
               ],
