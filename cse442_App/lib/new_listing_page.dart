@@ -16,11 +16,36 @@ class NewListing extends StatefulWidget {
   }
 }
 
+// Function for adding a Service to the database
 Future<String> addListing(
     String jobType, String language, String id, String description) async {
   print("Adding List is called");
 
   final String apiUrl = "https://job-5cells.herokuapp.com/addListing";
+  final response = await http.post(apiUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({
+        "jobType": jobType,
+        "user_id": id,
+        "language": language,
+        "description": description
+      }));
+  print(response.body);
+  if (response.statusCode == 200) {
+    final String resString = response.body;
+    return (resString);
+  } else {
+    return null;
+  }
+}
+
+Future<String> addRequestListing(
+    String jobType, String language, String id, String description) async {
+  print("Adding List is called");
+
+  final String apiUrl = "https://job-5cells.herokuapp.com/addRequest";
   final response = await http.post(apiUrl,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -116,41 +141,80 @@ class NewListingState extends State<NewListing> {
 
   Widget addBtn() {
     return Container(
-      child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () async {
-          if (titleController.text == "" ||
-              languageController.text == "" ||
-              descriptionController.text == "") {
-            setState(() {
-              failed = true;
-            });
-          } else {
-            final String user = await addListing(
-                titleController.text,
-                languageController.text,
-                this.user.id,
-                descriptionController.text);
-            if (user != null) {
-              titleController.text = "";
-              languageController.text = "";
-              descriptionController.text = "";
-              setState(() {
-                added = true;
-              });
-            } else {
-              setState(() {
-                failed = true;
-              });
+      // Added Button Theme to increase button size
+      child: ButtonTheme(
+        minWidth: 120,
+        height: 50,
+        // Add Listing Button
+        child: RaisedButton(
+          elevation: 5.0,
+          color: Colors.white,
+          onPressed: () async {
+            if (_dropDownButtonValue == 1) {
+              if (titleController.text == "" ||
+                  languageController.text == "" ||
+                  descriptionController.text == "") {
+                setState(() {
+                  failed = true;
+                });
+              } else {
+                print("Added Service");
+                final String user = await addListing(
+                    titleController.text,
+                    languageController.text,
+                    this.user.id,
+                    descriptionController.text);
+                if (user != null) {
+                  titleController.text = "";
+                  languageController.text = "";
+                  descriptionController.text = "";
+                  setState(() {
+                    added = true;
+                  });
+                } else {
+                  setState(() {
+                    failed = true;
+                  });
+                }
+              }
             }
-          }
-        },
-        child: Text(
-          'Add Listing!',
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 12.0,
-            fontFamily: 'OpenSans',
+            // Adds listing to Request
+            else {
+              if (titleController.text == "" ||
+                  languageController.text == "" ||
+                  descriptionController.text == "") {
+                setState(() {
+                  failed = true;
+                });
+              } else {
+                print("Added Request");
+                final String user = await addRequestListing(
+                    titleController.text,
+                    languageController.text,
+                    this.user.id,
+                    descriptionController.text);
+                if (user != null) {
+                  titleController.text = "";
+                  languageController.text = "";
+                  descriptionController.text = "";
+                  setState(() {
+                    added = true;
+                  });
+                } else {
+                  setState(() {
+                    failed = true;
+                  });
+                }
+              }
+            }
+          },
+          child: Text(
+            'Add Listing!',
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 16.0,
+              fontFamily: 'OpenSans',
+            ),
           ),
         ),
       ),
@@ -296,16 +360,7 @@ class NewListingState extends State<NewListing> {
                 // Submit button with SnackBar
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text("Creating Listing"),
-                        ));
-                      }
-                    },
-                    child: addBtn(),
-                  ),
+                  child: addBtn(),
                 ),
                 Visibility(
                   child: Text("Listing Added!",
