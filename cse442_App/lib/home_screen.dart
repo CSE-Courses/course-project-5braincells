@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'service_list.dart';
 import 'request_list.dart';
 import 'user_model.dart';
+import 'new_listing_page.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserModel user;
@@ -38,6 +39,7 @@ class HomeScreenState extends State<HomeScreen> {
             hintText:
                 "Search here (Jobs, Services, Requests, Locations, etc.)"),
       ),
+      // First Row of Buttons (Services / Requests)
       ButtonBar(
         buttonPadding: EdgeInsets.all(12),
         alignment: MainAxisAlignment.center,
@@ -74,6 +76,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      // Second Row of Buttons (Tutoring / Transport / Services)
       ButtonBar(
         alignment: MainAxisAlignment.center,
         buttonMinWidth: 100.0,
@@ -96,6 +99,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      // Third Row of Buttons (Ex.4 / Ex.5 / Ex.6)
       ButtonBar(
         alignment: MainAxisAlignment.center,
         buttonMinWidth: 100.0,
@@ -118,11 +122,15 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      // Add Listing Button
       Container(
           alignment: Alignment.bottomRight,
           height: 140,
           child: RawMaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NewListing()));
+            },
             splashColor: Colors.blue,
             elevation: 1.0,
             fillColor: Colors.lightBlueAccent,
