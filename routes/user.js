@@ -144,7 +144,6 @@ app.post('/addRatings', async(req,res) =>{
 })
 
 app.post('/login', async(req,res) =>{
-  console.log(req.body)
   try{
     Users.findOne({email : req.body.email}, (err,user)=>{
       if(err || !user || !bcrypt.compareSync(req.body.password, user.password) ){
@@ -161,7 +160,7 @@ app.post('/login', async(req,res) =>{
     });
   }
   catch(err){
-    res.send(400);
+    res.send(err);
   }
 
 
