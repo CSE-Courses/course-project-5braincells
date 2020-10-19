@@ -142,18 +142,15 @@ app.post('/addRatings', async(req,res) =>{
 
   }
 })
+
 app.post('/updateName', async(req,res)=>{
     user_id = req.body.user_id;
     updateName = req.body.updateName;
    
     try{
-       Users.findByIdAndUpdate(user_id, {"firstname": updateName}, (err,user)=>{
-        if(!user){
-          res.sendStatus(404);
-        }
-        else{
-          res.sendStatus(204)
-        }
+       Users.findByIdAndUpdate(user_id, {"firstname": updateName}, async(err,user)=>{
+            let updated = await Users.findById(user_id);
+            res.send(updated);
       });
 
     }
@@ -168,13 +165,9 @@ app.post('/updateEmail', async(req,res)=>{
   updateEmail = req.body.updateEmail;
  
   try{
-     Users.findByIdAndUpdate(user_id, {"email": updateEmail}, (err,user)=>{
-      if(!user){
-        res.sendStatus(404);
-      }
-      else{
-        res.sendStatus(204)
-      }
+     Users.findByIdAndUpdate(user_id, {"email": updateEmail}, async(err,user)=>{
+      let updated = await Users.findById(user_id);
+      res.send(updated);
     });
 
   }
@@ -189,13 +182,9 @@ app.post('/updateLanguage', async(req,res)=>{
   updateLanguage = req.body.updateLanguage;
  
   try{
-     Users.findByIdAndUpdate(user_id, {"$set": {"language": updateLanguage}, upsert:true}, (err,user)=>{
-      if(!user){
-        res.sendStatus(404);
-      }
-      else{
-        res.sendStatus(204)
-      }
+     Users.findByIdAndUpdate(user_id, {"$set": {"language": updateLanguage}, upsert:true}, async(err,user)=>{
+      let updated = await Users.findById(user_id);
+            res.send(updated);
     });
 
   }
@@ -211,13 +200,9 @@ app.post('/updateDescription', async(req,res)=>{
   updateDescription = req.body.updateDescription;
  
   try{
-     Users.findByIdAndUpdate(user_id, {"$set": {"description": updateDescription}, upsert:true}, (err,user)=>{
-      if(!user){
-        res.sendStatus(404);
-      }
-      else{
-        res.sendStatus(204)
-      }
+     Users.findByIdAndUpdate(user_id, {"$set": {"description": updateDescription}, upsert:true}, async(err,user)=>{
+      let updated = await Users.findById(user_id);
+            res.send(updated);
     });
 
   }
