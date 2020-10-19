@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:cse442_App/user_model.dart';
+
 import 'home_screen.dart';
 import 'login_page.dart';
 import 'package:flutter/material.dart';
