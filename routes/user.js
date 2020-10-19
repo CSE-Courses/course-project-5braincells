@@ -145,22 +145,30 @@ app.post('/addRatings', async(req,res) =>{
 
 app.post('/login', async(req,res) =>{
   try{
+
     Users.findOne({email : req.body.email}, (err,user)=>{
-      if(err || !user || !bcrypt.compareSync(req.body.password, user.password) ){
-          res.sendStatus(400);
+    
+      if(!user){
+        res.sendStatus(404)
+      }else{
+        if(err || !bcrypt.compareSync(req.body.password, user.password)){
+          res.sendStatus(404);
+        }
+        else{
+          res.send(user);
+        }
       }
-
-      if(req.body.email == user.email && bcrypt.compareSync(req.body.password, user.password)){
-
-        res.send(user)
-
-      }
-
 
     });
+
+
+    
+ 
+    
   }
   catch(err){
-    res.send(err);
+    console.log("Trig");
+    res.sendStatus(404);
   }
 
 
