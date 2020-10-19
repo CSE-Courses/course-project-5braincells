@@ -204,7 +204,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       children: [
                         Text(
-                          "Nav",
+                          user.firstname,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,

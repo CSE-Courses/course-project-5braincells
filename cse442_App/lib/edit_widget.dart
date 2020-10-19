@@ -1,3 +1,4 @@
+import 'package:cse442_App/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -33,7 +34,7 @@ class EditState extends State<Edit> {
   bool descriptionUpdate = false;
   bool languageUpdate = false;
 
-  Future<bool> updateName(String id, String updateName) async {
+  Future<UserModel> updateName(String id, String updateName) async {
     final String apiUrl = "https://job-5cells.herokuapp.com/updateName";
     final response = await http.post(apiUrl,
         headers: <String, String>{
@@ -44,14 +45,14 @@ class EditState extends State<Edit> {
           "updateName": updateName,
         }));
     print(response.body);
-    if (response.statusCode == 204) {
-      return true;
+    if (response.statusCode == 200) {
+      return userModelFromJson(response.body);
     } else {
       return null;
     }
   }
 
-  Future<bool> updateLanguage(String id, String updateLanguage) async {
+  Future<UserModel> updateLanguage(String id, String updateLanguage) async {
     final String apiUrl = "https://job-5cells.herokuapp.com/updateLanguage";
     final response = await http.post(apiUrl,
         headers: <String, String>{
@@ -62,14 +63,15 @@ class EditState extends State<Edit> {
           "updateLanguage": updateLanguage,
         }));
     print(response.body);
-    if (response.statusCode == 204) {
-      return true;
+    if (response.statusCode == 200) {
+      return userModelFromJson(response.body);
     } else {
       return null;
     }
   }
 
-  Future<bool> updateDescription(String id, String updateDescription) async {
+  Future<UserModel> updateDescription(
+      String id, String updateDescription) async {
     final String apiUrl = "https://job-5cells.herokuapp.com/updateDescription";
     final response = await http.post(apiUrl,
         headers: <String, String>{
@@ -80,14 +82,14 @@ class EditState extends State<Edit> {
           "updateDescription": updateDescription,
         }));
     print(response.body);
-    if (response.statusCode == 204) {
-      return true;
+    if (response.statusCode == 200) {
+      return userModelFromJson(response.body);
     } else {
       return null;
     }
   }
 
-  Future<bool> updateEmail(String id, String updateEmail) async {
+  Future<UserModel> updateEmail(String id, String updateEmail) async {
     final String apiUrl = "https://job-5cells.herokuapp.com/updateEmail";
     final response = await http.post(apiUrl,
         headers: <String, String>{
@@ -98,8 +100,8 @@ class EditState extends State<Edit> {
           "updateEmail": updateEmail,
         }));
     print(response.body);
-    if (response.statusCode == 204) {
-      return true;
+    if (response.statusCode == 200) {
+      return userModelFromJson(response.body);
     } else {
       return null;
     }
@@ -133,13 +135,18 @@ class EditState extends State<Edit> {
             RaisedButton(
               elevation: 5.0,
               onPressed: () async {
-                final bool update =
+                final UserModel update =
                     await updateName(user.id, nameController.text);
-                if (update) {
+                if (update != null) {
                   print("worked");
                   setState(() {
                     nameUpdate = true;
                   });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileScreen(user: update)),
+                  );
                 }
               },
               child: Text(
@@ -174,13 +181,18 @@ class EditState extends State<Edit> {
             RaisedButton(
               elevation: 5.0,
               onPressed: () async {
-                final bool updateE =
+                final UserModel updateE =
                     await updateEmail(user.id, emailController.text);
-                if (updateE) {
+                if (updateE != null) {
                   print("Email Update worked");
                   setState(() {
                     emailUpdate = true;
                   });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileScreen(user: updateE)),
+                  );
                 }
               },
               child: Text(
@@ -216,13 +228,18 @@ class EditState extends State<Edit> {
             RaisedButton(
               elevation: 5.0,
               onPressed: () async {
-                final bool updateDes = await updateDescription(
+                final UserModel updateDes = await updateDescription(
                     user.id, descriptionController.text);
-                if (updateDes) {
+                if (updateDes != null) {
                   print("Description Update worked");
                   setState(() {
                     descriptionUpdate = true;
                   });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileScreen(user: updateDes)),
+                  );
                 }
               },
               child: Text(
@@ -257,13 +274,18 @@ class EditState extends State<Edit> {
             RaisedButton(
               elevation: 5.0,
               onPressed: () async {
-                final bool updateLan =
+                final UserModel updateLan =
                     await updateLanguage(user.id, languageController.text);
-                if (updateLan) {
+                if (updateLan != null) {
                   print("Language Update worked");
                   setState(() {
                     languageUpdate = true;
                   });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileScreen(user: updateLan)),
+                  );
                 }
               },
               child: Text(
