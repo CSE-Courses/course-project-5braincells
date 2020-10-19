@@ -14,6 +14,7 @@ class SignUp extends StatefulWidget {
 }
 
 bool failedSignUp = false;
+bool failedSignUp2 = false;
 Future<UserModel> createUser(String _name, String _email, String _password,
     String _location, String _phoneNumber) async {
   print("Create User is called");
@@ -192,6 +193,11 @@ class SignUpState extends State<SignUp> {
                         style: TextStyle(color: Colors.red)),
                     visible: failedSignUp,
                   ),
+                  Visibility(
+                    child: Text("There is an Empty field",
+                        style: TextStyle(color: Colors.red)),
+                    visible: failedSignUp2,
+                  ),
                   SizedBox(height: 20, width: 100),
                   RaisedButton(
                     padding: EdgeInsets.all(20),
@@ -211,24 +217,36 @@ class SignUpState extends State<SignUp> {
                       final password = passwordController.text;
                       final location = locationController.text;
                       final phoneNumber = phoneController.text;
-                      print(name);
-                      final UserModel user = await createUser(
-                          name, email, password, location, phoneNumber);
-                      print(user);
-                      if (!_formKey.currentState.validate()) {
-                        return;
-                      }
-                      _formKey.currentState.save();
-                      if (user != null) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                        print("Worked");
-                      } else {
+                      if (name == "" ||
+                          email == "" ||
+                          password == "" ||
+                          location == "" ||
+                          phoneNumber == "") {
                         setState(() {
-                          failedSignUp = true;
+                          failedSignUp2 = true;
                         });
+                      } else {
+                        final UserModel user = await createUser(
+                            name, email, password, location, phoneNumber);
+                        print(user);
+                        if (!_formKey.currentState.validate()) {
+                          setState(() {
+                            failedSignUp = true;
+                          });
+                          return;
+                        }
+                        _formKey.currentState.save();
+                        if (user != null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                          print("Worked");
+                        } else {
+                          setState(() {
+                            failedSignUp = true;
+                          });
+                        }
                       }
                     },
                   )
