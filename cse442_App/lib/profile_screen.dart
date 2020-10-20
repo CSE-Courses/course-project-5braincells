@@ -1,4 +1,4 @@
-import 'reviews.dart';
+import 'review_model.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'dart:async';
@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'user_model.dart';
 import 'review_widget.dart';
-import 'listing_widget.dart';
-import 'edit_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -54,32 +52,32 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   static Future<List<Review>> getMyListings() async {}
 
-  // Widget listings() {
-  //   return new Scaffold(
-  //     body: Container(
-  //       child: FutureBuilder(
-  //           future: getMyListings(),
-  //           builder: (context, snapshot) {
-  //             return ListView.builder(
-  //                 itemCount: 4,
-  //                 itemBuilder: (BuildContext context, int index) {
-  //                   return Container(
-  //                       margin: const EdgeInsets.all(12.0),
-  //                       padding: const EdgeInsets.all(0.1),
-  //                       decoration: BoxDecoration(
-  //                           border: Border.all(
-  //                         color: Colors.lightBlue,
-  //                       )),
-  //                       height: 70,
-  //                       child: ListTile(
-  //                         title: Text("Listing Widget from homepage goes here"),
-  //                       ));
-  //                 });
-  //             //}
-  //           }),
-  //     ),
-  //   );
-  // }
+  Widget listings() {
+    return new Scaffold(
+      body: Container(
+        child: FutureBuilder(
+            future: getMyListings(),
+            builder: (context, snapshot) {
+              return ListView.builder(
+                  itemCount: 4,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        margin: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(0.1),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                          color: Colors.lightBlue,
+                        )),
+                        height: 70,
+                        child: ListTile(
+                          title: Text("Listing Widget from homepage goes here"),
+                        ));
+                  });
+              //}
+            }),
+      ),
+    );
+  }
 
   // List<Review> _reviews;
   // bool _loading;
@@ -204,7 +202,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       children: [
                         Text(
-                          user.firstname,
+                          "Nav",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -248,9 +246,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Expanded(
                     child: TabBarView(children: <Widget>[
-                  Edit(user: user),
-                  Listing_widget(user: user),
-                  Review_widget(user: user),
+                  bio(),
+                  listings(),
+                  Review_widget(user: user)
                 ]))
               ],
             )),

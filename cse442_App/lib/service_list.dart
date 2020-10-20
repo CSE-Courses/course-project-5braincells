@@ -53,6 +53,10 @@ Widget getInformationBox(
   );
 }
 
+/*
+  Service List Widget to be used when the "Services" button is tapped.
+  This widget will a list of services from users.
+*/
 class ServiceListState extends State<ServiceList> {
   Future<List<UserListingsModel>> getListing() async {
     print("Getting listings");

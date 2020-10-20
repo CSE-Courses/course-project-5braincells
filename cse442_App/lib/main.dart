@@ -41,6 +41,10 @@ class MyApp extends StatefulWidget {
   }
 }
 
+/*
+  Root App Widget to be used as the base of the application.
+  This widget will contain the top AppBar and BottomNavigationBar as well as the different bodies.
+*/
 class _MyAppState extends State<MyApp> {
   final UserModel user;
   _MyAppState({this.user});
@@ -62,12 +66,16 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       home: Scaffold(
+
+        // Top AppBar with title
         appBar: AppBar(
           title: Text("Service App"),
           backgroundColor: Colors.blue,
           centerTitle: true,
         ),
         body: _pageOptions[_selectedPage],
+
+        // BottomNavigationBar with icons for different pages
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedPage,
           onTap: (int index) {

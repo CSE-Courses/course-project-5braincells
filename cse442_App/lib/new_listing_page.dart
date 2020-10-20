@@ -40,6 +40,10 @@ Future<String> addListing(
   }
 }
 
+/*
+  New Listing Widget to be used to create a new listing.
+  This widget will contain a form to add a new listing.
+*/
 class NewListingState extends State<NewListing> {
   final UserModel user;
   NewListingState({this.user});
@@ -159,6 +163,7 @@ class NewListingState extends State<NewListing> {
 
   @override
   Widget build(BuildContext context) {
+
     // Build a Form widget using the _formKey created above.
     return Scaffold(
         appBar: AppBar(
@@ -169,6 +174,7 @@ class NewListingState extends State<NewListing> {
             key: _formKey,
             child: SingleChildScrollView(
               child: Column(children: <Widget>[
+
                 // Title Field
                 TextFormField(
                   decoration: const InputDecoration(
@@ -185,6 +191,7 @@ class NewListingState extends State<NewListing> {
                     return null;
                   },
                 ),
+
                 // Description Field
                 TextFormField(
                   decoration: const InputDecoration(
@@ -201,6 +208,7 @@ class NewListingState extends State<NewListing> {
                     return null;
                   },
                 ),
+
                 // Language Field
                 TextFormField(
                   decoration: const InputDecoration(
@@ -216,6 +224,7 @@ class NewListingState extends State<NewListing> {
                     return null;
                   },
                 ),
+
                 // City Field
                 TextFormField(
                   decoration: const InputDecoration(
@@ -231,6 +240,7 @@ class NewListingState extends State<NewListing> {
                     return null;
                   },
                 ),
+
                 // State Dropdown Menu
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -263,6 +273,7 @@ class NewListingState extends State<NewListing> {
                     ),
                   ],
                 ),
+
                 // Type of Listing Dropdown Menu
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -293,6 +304,7 @@ class NewListingState extends State<NewListing> {
                     ),
                   ],
                 ),
+
                 // Submit button with SnackBar
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),

@@ -1,4 +1,4 @@
-#Mon Oct 19 06:44:08 EDT 2020
-base.0=/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Tue Oct 20 03:13:07 EDT 2020
+base.0=/Users/brendanmeehan/Programming/Android Studio Projects/course-project-5braincells/cse442_App/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

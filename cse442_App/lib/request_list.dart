@@ -8,6 +8,10 @@ class RequestList extends StatefulWidget {
   }
 }
 
+/*
+  Request List Widget to be used when the "Requests" button is tapped.
+  This widget will a list of service requests from users.
+*/
 class RequestListState extends State<RequestList> {
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,10 @@ import 'main.dart';
 import 'login_page.dart';
 import 'signup.dart';
 
+/*
+  Login or Signup Widget to be used when logged out of the app.
+  This widget will contain two buttons with the option to either login or signup.
+*/
 class Home extends StatelessWidget {
   @override
   Widget build(context) {
@@ -17,22 +21,26 @@ class Home extends StatelessWidget {
           new Padding(
             padding: const EdgeInsets.all(100.0),
           ),
+
+          // Login Button
           Center(
               child: RaisedButton(
-            elevation: 5.0,
-            color: Colors.white,
-            onPressed: () {
-              Navigator.push(context,
+                elevation: 5.0,
+                color: Colors.white,
+                onPressed: () {
+                Navigator.push(context,
                   MaterialPageRoute(builder: (context) => LoginScreen()));
-            },
-            child: Text(
-              'Log In',
-              style: TextStyle(
-                fontFamily: 'san-serif',
-                color: Colors.lightBlue,
-              ),
-            ),
-          )),
+                },
+                child: Text('Log In',
+                  style: TextStyle(
+                  fontFamily: 'san-serif',
+                  color: Colors.lightBlue,
+                  ),
+                ),
+              )
+          ),
+
+          // Signup Button
           Center(
             child: RaisedButton(
                 elevation: 5.0,
@@ -40,8 +48,7 @@ class Home extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignUp()));
                 },
-                child: Text(
-                  'Sign up',
+                child: Text('Sign up',
                   style: TextStyle(
                     fontFamily: 'san-serif',
                     color: Colors.white,

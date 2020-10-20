@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
   }
 }
 
-bool failedLogin = false;
 
+bool failedLogin = false;
 Future<UserModel> login(String _email, String _password) async {
   print("Create User is called");
 

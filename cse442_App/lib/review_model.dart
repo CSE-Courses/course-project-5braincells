@@ -11,6 +11,9 @@ List<List<Review>> reviewsFromJson(String str) => List<List<Review>>.from(json
 String reviewsToJson(List<List<Review>> data) => json.encode(List<dynamic>.from(
     data.map((x) => List<dynamic>.from(x.map((x) => x.toJson())))));
 
+/*
+  Review Model that will hold all necessary data for a single review
+*/
 class Review {
   Review({
     this.stars,
@@ -28,6 +31,7 @@ class Review {
   DateTime createdAt;
   int v;
 
+  // Converts JSON review object to Dart review object
   factory Review.fromJson(Map<String, dynamic> json) => Review(
         stars: json["stars"],
         comment: json["comment"],

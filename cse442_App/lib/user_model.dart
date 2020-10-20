@@ -4,6 +4,9 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
+/*
+  User Model that will hold all necessary data for a single user
+*/
 class UserModel {
   UserModel({
     this.firstname,
@@ -33,6 +36,7 @@ class UserModel {
   DateTime createdAt;
   int v;
 
+  // Converts JSON user object to Dart user object
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         firstname: json["firstname"],
         lastname: json["lastname"],
