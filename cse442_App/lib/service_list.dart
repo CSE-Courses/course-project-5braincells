@@ -35,7 +35,7 @@ Widget getInformationBox(
       color: Colors.white,
       child: Text(
         "Job Type: " +
-            jobType.substring(8) +
+            jobType.substring(3) +
             "\n" +
             "Date Created: " +
             dateCreated.substring(0, 16) +
@@ -61,6 +61,7 @@ class ServiceListState extends State<ServiceList> {
     final response = await http.get(apiUrl);
 
     final String temp = response.body;
+    print(userListingsModelFromJson(temp));
     return userListingsModelFromJson(temp);
   }
 

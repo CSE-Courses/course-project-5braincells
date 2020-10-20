@@ -1,19 +1,56 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'user_model.dart';
 
 class NewListing extends StatefulWidget {
+  final UserModel user;
+  NewListing({this.user});
+
   @override
   State<StatefulWidget> createState() {
+    print(user);
     // TODO: implement createState
-    return NewListingState();
+    return NewListingState(user: user);
+  }
+}
+
+Future<String> addListing(
+    String jobType, String language, String id, String description) async {
+  print("Adding List is called");
+
+  final String apiUrl = "https://job-5cells.herokuapp.com/addListing";
+  final response = await http.post(apiUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({
+        "jobType": jobType,
+        "user_id": id,
+        "language": language,
+        "description": description
+      }));
+  print(response.body);
+  if (response.statusCode == 200) {
+    final String resString = response.body;
+    return (resString);
+  } else {
+    return null;
   }
 }
 
 class NewListingState extends State<NewListing> {
+  final UserModel user;
+  NewListingState({this.user});
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController languageController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+  bool added = false;
+  bool failed = false;
 
   int _dropDownButtonValue = 1;
   String _currentState = 'AK';
@@ -76,6 +113,49 @@ class NewListingState extends State<NewListing> {
     'WV',
     'WY'
   ];
+
+  Widget addBtn() {
+    return Container(
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: () async {
+          if (titleController.text == "" ||
+              languageController.text == "" ||
+              descriptionController.text == "") {
+            setState(() {
+              failed = true;
+            });
+          } else {
+            final String user = await addListing(
+                titleController.text,
+                languageController.text,
+                this.user.id,
+                descriptionController.text);
+            if (user != null) {
+              titleController.text = "";
+              languageController.text = "";
+              descriptionController.text = "";
+              setState(() {
+                added = true;
+              });
+            } else {
+              setState(() {
+                failed = true;
+              });
+            }
+          }
+        },
+        child: Text(
+          'Add Listing!',
+          style: TextStyle(
+            color: Colors.blue,
+            fontSize: 12.0,
+            fontFamily: 'OpenSans',
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -224,9 +304,19 @@ class NewListingState extends State<NewListing> {
                         ));
                       }
                     },
-                    child: Text("Submit"),
+                    child: addBtn(),
                   ),
                 ),
+                Visibility(
+                  child: Text("Listing Added!",
+                      style: TextStyle(color: Colors.lightBlue)),
+                  visible: added,
+                ),
+                Visibility(
+                  child: Text("Adding Failed!",
+                      style: TextStyle(color: Colors.red)),
+                  visible: failed,
+                )
               ]),
             ),
           ),
