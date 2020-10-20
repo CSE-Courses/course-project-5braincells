@@ -35,7 +35,7 @@ Widget getInformationBox(
       color: Colors.white,
       child: Text(
         "Job Type: " +
-            jobType.substring(3) +
+            jobType +
             "\n" +
             "Date Created: " +
             dateCreated.substring(0, 16) +
@@ -54,6 +54,13 @@ Widget getInformationBox(
 }
 
 class ServiceListState extends State<ServiceList> {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      returnInit();
+    });
+  }
+
   Future<List<UserListingsModel>> getListing() async {
     print("Getting listings");
 
@@ -61,8 +68,19 @@ class ServiceListState extends State<ServiceList> {
     final response = await http.get(apiUrl);
 
     final String temp = response.body;
-    print(userListingsModelFromJson(temp));
     return userListingsModelFromJson(temp);
+  }
+
+  void returnInit() async {
+    List<UserListingsModel> temporaryList = await getListing();
+    setState(() {
+      testingUserList = temporaryList;
+      for (var userListings in testingUserList)
+        print(userListings.jobType.toString() +
+            ", " +
+            userListings.description.toString() +
+            "\n");
+    });
   }
 
   @override
