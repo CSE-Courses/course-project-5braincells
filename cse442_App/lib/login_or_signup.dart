@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'main.dart';
-import 'Login_page.dart';
+import 'login_page.dart';
 import 'signup.dart';
 
 class Home extends StatelessWidget {
@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text("Service App"),
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.blue,
           centerTitle: true),
       body: Column(
         children: <Widget>[
