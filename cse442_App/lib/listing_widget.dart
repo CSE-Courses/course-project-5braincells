@@ -45,7 +45,10 @@ class Listing_widgetState extends State<Listing_widget> {
         "https://job-5cells.herokuapp.com/getListingsById/" + user.id;
     var data = await http.get(toGet);
     List<List<UserList>> lists = userListFromJson(data.body);
-
+    setState(() {
+      initList = lists;
+      print(initList.length);
+    });
     return lists;
   }
 

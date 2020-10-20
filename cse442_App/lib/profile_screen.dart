@@ -8,6 +8,8 @@ import 'user_model.dart';
 import 'review_widget.dart';
 import 'listing_widget.dart';
 import 'edit_widget.dart';
+import 'avg.dart';
+import 'dart:core';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -29,6 +31,35 @@ class ProfileScreen extends StatefulWidget {
 class ProfileScreenState extends State<ProfileScreen> {
   final UserModel user;
   ProfileScreenState({this.user});
+  double stars = 0.0;
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      asyncGet();
+    });
+  }
+
+  void asyncGet() async {
+    double star = await getAvgStar();
+  }
+
+  Future<double> getAvgStar() async {
+    String toGet = "https://job-5cells.herokuapp.com/getAvgStars/" + user.id;
+    var data = await http.get(toGet);
+    if (!data.body.contains("null")) {
+      Avg avg = avgFromJson(data.body);
+      print(avg);
+      if (avg != null) {
+        setState(() {
+          stars = avg.avg;
+          print(avg.avg);
+        });
+      }
+    }
+
+    return 0.0;
+  }
 
   List<String> tabNames = [
     "Bio",
@@ -174,7 +205,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                         RatingBar.readOnly(
                             size: 30,
                             filledIcon: Icons.star,
-                            initialRating: 4.5,
+                            initialRating: stars,
                             isHalfAllowed: true,
                             halfFilledIcon: Icons.star_half,
                             emptyIcon: Icons.star_border),
