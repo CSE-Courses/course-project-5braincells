@@ -59,8 +59,10 @@ class Review_widgetState extends State<Review_widget> {
               // print(snapshot.data);
               // print(snapshot.data.length);
 
-              if (snapshot.data == null) {
+              if (snapshot.data == null || initReview.length == null) {
                 return Container(child: Center(child: Text("Loading....")));
+              } else if (initReview.length == 0) {
+                return Container(child: Center(child: Text("No reviews yet.")));
               } else {
                 return ListView.builder(
                     itemCount: initReview.length,

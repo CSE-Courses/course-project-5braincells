@@ -67,7 +67,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                         ". I live in " +
                         user.location +
                         ". You can checkout my available listings in the next tab. My preferred language is " +
-                        // user.language +
+                        user.language +
                         ".",
                     style: TextStyle(
                         fontSize: 18, fontStyle: FontStyle.italic, height: 1.8),
