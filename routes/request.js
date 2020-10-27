@@ -53,7 +53,7 @@ module.exports = app =>{
     }
   })
 
-  app.post('/ requests/language' , async(req,res)=>{
+  app.post('/requests/language' , async(req,res)=>{
     let lang = req.body.language;
 
 
