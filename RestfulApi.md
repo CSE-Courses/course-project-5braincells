@@ -495,4 +495,30 @@ Sample Response : [{"jobType":"IT Service","language":"English","description":"F
 
 ___________________________________________________________________________
 
+Purpose : Return all the Requests in the database with the given langauge
+
+URL : '/requests/language'
+
+Method: POST
+
+URL Params: None
+
+Data Parameters: {
+    "language" : (language of listing),
+}
+Sucess Response: Code: 200 Content : list of all of the requests with the given language
+
+Error Response: Code: 400 Content: {error: Bad Request}
+
+Sample call : curl -d '{
+    "language": "English"
+}' -H "Content-Type: application/json" -X POST https://job-5cells.herokuapp.com/requests/language
+
+
+Sample Response : [{"jobType":"Plumbing","language":"English","description":"Need a plumber for my house",          
+                    "_id":"5f8f25d49957d00018c0620a","owner":"5f8f255e9957d00018c06208","updatedAt":"2020-10-20T18:00:52.956Z","createdAt":"2020-10-20T18:00:52.956Z","__v":0},{"jobType":"Dishwashing","language":"English","description":"Need someone to wash my dishes","_id":"5f8fa9e1f3f549001837b48f","owner":"5f8f255e9957d00018c06208","updatedAt":"2020-10-21T03:24:17.761Z","createdAt":"2020-10-21T03:24:17.761Z","__v":0}]
+
+
+___________________________________________________________________________
+
 
