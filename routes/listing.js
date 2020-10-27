@@ -53,5 +53,18 @@ module.exports = app =>{
     }
   })
 
+  app.post('/listings/language' , async(req,res)=>{
+    let lang = req.body.language;
+
+
+    try{
+        const list = await Listings.find({language: lang});
+        res.send(list);
+    }
+    catch(err){
+      res.send(err)
+    }
+  })
+
 
 }
