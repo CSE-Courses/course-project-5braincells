@@ -58,8 +58,15 @@ module.exports = app =>{
 
 
     try{
+      if(lang != 'All'){
         const list = await Listings.find({language: lang});
         res.send(list);
+      }
+      else{
+        const list2 = await Listings.find({});
+        res.send(list2);
+      }
+       
     }
     catch(err){
       res.send(err)
