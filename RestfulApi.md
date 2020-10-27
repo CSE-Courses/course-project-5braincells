@@ -467,6 +467,32 @@ Sample Response : [{"jobType":"Flying","language":"English","description":"I wil
                     "_id":"5f8d423825b8e100188a684a","owner":"5f88cfd834b4e3000458fd6c","updatedAt":"2020-10-19T07:37:28.395Z","createdAt":"2020-10-19T07:37:28.395Z","__v":0},{"jobType":"Flying","language":"German","description":"Teachin Flight","_id":"5f8d6cba1b79a100182e3958","owner":"5f88cfd834b4e3000458fd6c","updatedAt":"2020-10-19T10:38:50.816Z","createdAt":"2020-10-19T10:38:50.816Z","__v":0}]
 
 
+___________________________________________________________________________
 
+Purpose : Return all the listings in the database with the given langauge
+
+URL : '/listings/language'
+
+Method: POST
+
+URL Params: None
+
+Data Parameters: {
+    "language" : (language of listing),
+}
+Sucess Response: Code: 200 Content : list of all of the listings with the given language
+
+Error Response: Code: 400 Content: {error: Bad Request}
+
+Sample call : curl -d '{
+    "language": "English"
+}' -H "Content-Type: application/json" -X POST https://job-5cells.herokuapp.com/listings/language
+
+
+Sample Response : [{"jobType":"IT Service","language":"English","description":"Fix your PC","_id":"5f8f25a99957d00018c06209",
+                    "owner":"5f8f255e9957d00018c06208","updatedAt":"2020-10-20T18:00:09.965Z","createdAt":"2020-10-20T18:00:09.965Z","__v":0},{"jobType":"Tutor","language":"English","description":"Calculus tutoring","_id":"5f8f586a9957d00018c0621a","owner":"5f8f255e9957d00018c06208","updatedAt":"2020-10-20T21:36:42.667Z","createdAt":"2020-10-20T21:36:42.667Z","__v":0}]
+
+
+___________________________________________________________________________
 
 
