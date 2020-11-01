@@ -72,13 +72,16 @@ class NewListingState extends State<NewListing> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController languageController = TextEditingController();
+  // final TextEditingController languageController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   bool added = false;
   bool failed = false;
 
-  int _dropDownButtonValue = 1;
+  int _dropDownStateValue = 1;
   String _currentState = 'AK';
+  int _dropDownLanguageValue = 1;
+  String _currentLanguage = "English";
+
   var _statesList = [
     'AK',
     'AL',
@@ -139,6 +142,40 @@ class NewListingState extends State<NewListing> {
     'WY'
   ];
 
+  var _topLanguages = [
+    'English',
+    'Spanish',
+    'Arabic',
+    'Armenian',
+    'Bengali',
+    'Cantonese',
+    'Creole',
+    'Croatian',
+    'French',
+    'German',
+    'Greek',
+    'Gujarati',
+    'Hebrew',
+    'Hindi',
+    'Italian',
+    'Japanese',
+    'Korean',
+    'Mandarin',
+    'Persian',
+    'Polish',
+    'Portuguese',
+    'Punjabi',
+    'Russian',
+    'Serbian',
+    'Tagalog',
+    'Tai–Kadai',
+    'Tamil',
+    'Telugu',
+    'Urdu',
+    'Vietnamese',
+    'Yiddish',
+    'Pig Latin'
+  ];
   Widget addBtn() {
     return Container(
       // Added Button Theme to increase button size
@@ -150,23 +187,18 @@ class NewListingState extends State<NewListing> {
           elevation: 5.0,
           color: Colors.white,
           onPressed: () async {
-            if (_dropDownButtonValue == 1) {
+            if (_dropDownStateValue == 1) {
               if (titleController.text == "" ||
-                  languageController.text == "" ||
                   descriptionController.text == "") {
                 setState(() {
                   failed = true;
                 });
               } else {
                 print("Added Service");
-                final String user = await addListing(
-                    titleController.text,
-                    languageController.text,
-                    this.user.id,
-                    descriptionController.text);
+                final String user = await addListing(titleController.text,
+                    _currentLanguage, this.user.id, descriptionController.text);
                 if (user != null) {
                   titleController.text = "";
-                  languageController.text = "";
                   descriptionController.text = "";
                   setState(() {
                     added = true;
@@ -181,7 +213,6 @@ class NewListingState extends State<NewListing> {
             // Adds listing to Request
             else {
               if (titleController.text == "" ||
-                  languageController.text == "" ||
                   descriptionController.text == "") {
                 setState(() {
                   failed = true;
@@ -190,12 +221,11 @@ class NewListingState extends State<NewListing> {
                 print("Added Request");
                 final String user = await addRequestListing(
                     titleController.text,
-                    languageController.text,
+                    _currentLanguage,
                     this.user.id,
                     descriptionController.text);
                 if (user != null) {
                   titleController.text = "";
-                  languageController.text = "";
                   descriptionController.text = "";
                   setState(() {
                     added = true;
@@ -265,21 +295,6 @@ class NewListingState extends State<NewListing> {
                     return null;
                   },
                 ),
-                // Language Field
-                TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.language),
-                    hintText: "Listing Language",
-                    labelText: "Language",
-                  ),
-                  controller: languageController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return "Please enter a Language";
-                    }
-                    return null;
-                  },
-                ),
                 // City Field
                 TextFormField(
                   decoration: const InputDecoration(
@@ -295,69 +310,133 @@ class NewListingState extends State<NewListing> {
                     return null;
                   },
                 ),
-                // State Dropdown Menu
+                // Row containing Language Field, State Field, Type of Listing Field, and All Dropdown Menus.
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Icon(Icons.place),
-                        Text(
-                          "State",
-                          style: TextStyle(
-                            fontSize: 16,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // First Column containing Language, State, and Type of Listing
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // State Field
+                        Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                              Icon(Icons.place),
+                              Text(
+                                "State",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Language Field
+                        Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                              Icon(Icons.language),
+                              Text(
+                                "Language",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Type of Listing Field
+                        Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                              Icon(Icons.content_paste),
+                              Text(
+                                "Type of Listing",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                    DropdownButton<String>(
-                      items: _statesList.map((String dropDownStringItem) {
-                        return DropdownMenuItem<String>(
-                          value: dropDownStringItem,
-                          child: Text(dropDownStringItem),
-                        );
-                      }).toList(),
-                      onChanged: (newStateSelected) {
-                        setState(() {
-                          this._currentState = newStateSelected;
-                        });
-                      },
-                      value: _currentState,
-                    ),
-                  ],
-                ),
-                // Type of Listing Dropdown Menu
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Text(
-                      "Type of Listing",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    DropdownButton(
-                      value: _dropDownButtonValue,
-                      items: [
-                        DropdownMenuItem(
-                          child: Text("Service"),
-                          value: 1,
+                    // Second Column containing Language Dropdown, State Dropdown, and Type of Listing Dropdown Menu
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // State Dropdown Menu
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 15, 5, 15),
+                          child: DropdownButton<String>(
+                            items: _statesList.map((String dropDownStringItem) {
+                              return DropdownMenuItem<String>(
+                                value: dropDownStringItem,
+                                child: Text(dropDownStringItem),
+                              );
+                            }).toList(),
+                            onChanged: (newStateSelected) {
+                              setState(() {
+                                this._currentState = newStateSelected;
+                              });
+                            },
+                            value: _currentState,
+                          ),
                         ),
-                        DropdownMenuItem(
-                          child: Text("Request"),
-                          value: 2,
+                        // Language Dropdown Menu
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 15, 5, 15),
+                          child: DropdownButton<String>(
+                            items:
+                                _topLanguages.map((String dropDownStringItem) {
+                              return DropdownMenuItem<String>(
+                                value: dropDownStringItem,
+                                child: Text(dropDownStringItem),
+                              );
+                            }).toList(),
+                            onChanged: (newLanguageSelected) {
+                              setState(() {
+                                this._currentLanguage = newLanguageSelected;
+                              });
+                            },
+                            value: _currentLanguage,
+                          ),
+                        ),
+                        // Type of Listing Dropdown Menu
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 15, 5, 15),
+                          child: DropdownButton(
+                            value: _dropDownStateValue,
+                            items: [
+                              DropdownMenuItem(
+                                child: Text("Service"),
+                                value: 1,
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Request"),
+                                value: 2,
+                              ),
+                            ],
+                            onChanged: (newDropDownButtonValue) {
+                              setState(() {
+                                _dropDownStateValue = newDropDownButtonValue;
+                              });
+                            },
+                          ),
                         ),
                       ],
-                      onChanged: (newDropDownButtonValue) {
-                        setState(() {
-                          _dropDownButtonValue = newDropDownButtonValue;
-                        });
-                      },
                     ),
                   ],
                 ),
-                // Submit button with SnackBar
+                // Add Listing button
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: addBtn(),
