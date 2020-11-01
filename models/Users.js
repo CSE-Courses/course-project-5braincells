@@ -64,6 +64,10 @@ const mongoose = require('mongoose');
    listOfRequest:{
      type: [ObjectId],
      default :[]
+   },
+   verify:{
+     type : Boolean,
+     default: false
    }
 
 
