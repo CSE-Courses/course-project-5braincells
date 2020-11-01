@@ -16,55 +16,6 @@ class NewListing extends StatefulWidget {
   }
 }
 
-// Function for adding a Service to the database
-Future<String> addListing(
-    String jobType, String language, String id, String description) async {
-  print("Adding List is called");
-
-  final String apiUrl = "https://job-5cells.herokuapp.com/addListing";
-  final response = await http.post(apiUrl,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: json.encode({
-        "jobType": jobType,
-        "user_id": id,
-        "language": language,
-        "description": description
-      }));
-  print(response.body);
-  if (response.statusCode == 200) {
-    final String resString = response.body;
-    return (resString);
-  } else {
-    return null;
-  }
-}
-
-Future<String> addRequestListing(
-    String jobType, String language, String id, String description) async {
-  print("Adding List is called");
-
-  final String apiUrl = "https://job-5cells.herokuapp.com/addRequest";
-  final response = await http.post(apiUrl,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: json.encode({
-        "jobType": jobType,
-        "user_id": id,
-        "language": language,
-        "description": description
-      }));
-  print(response.body);
-  if (response.statusCode == 200) {
-    final String resString = response.body;
-    return (resString);
-  } else {
-    return null;
-  }
-}
-
 class NewListingState extends State<NewListing> {
   final UserModel user;
   NewListingState({this.user});
@@ -176,80 +127,6 @@ class NewListingState extends State<NewListing> {
     'Yiddish',
     'Pig Latin'
   ];
-  Widget addBtn() {
-    return Container(
-      // Added Button Theme to increase button size
-      child: ButtonTheme(
-        minWidth: 120,
-        height: 50,
-        // Add Listing Button
-        child: RaisedButton(
-          elevation: 5.0,
-          color: Colors.white,
-          onPressed: () async {
-            if (_dropDownStateValue == 1) {
-              if (titleController.text == "" ||
-                  descriptionController.text == "") {
-                setState(() {
-                  failed = true;
-                });
-              } else {
-                print("Added Service");
-                final String user = await addListing(titleController.text,
-                    _currentLanguage, this.user.id, descriptionController.text);
-                if (user != null) {
-                  titleController.text = "";
-                  descriptionController.text = "";
-                  setState(() {
-                    added = true;
-                  });
-                } else {
-                  setState(() {
-                    failed = true;
-                  });
-                }
-              }
-            }
-            // Adds listing to Request
-            else {
-              if (titleController.text == "" ||
-                  descriptionController.text == "") {
-                setState(() {
-                  failed = true;
-                });
-              } else {
-                print("Added Request");
-                final String user = await addRequestListing(
-                    titleController.text,
-                    _currentLanguage,
-                    this.user.id,
-                    descriptionController.text);
-                if (user != null) {
-                  titleController.text = "";
-                  descriptionController.text = "";
-                  setState(() {
-                    added = true;
-                  });
-                } else {
-                  setState(() {
-                    failed = true;
-                  });
-                }
-              }
-            }
-          },
-          child: Text(
-            'Add Listing!',
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 16.0,
-              fontFamily: 'OpenSans',
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -436,7 +313,7 @@ class NewListingState extends State<NewListing> {
                     ),
                   ],
                 ),
-                // Add Listing button
+                // Padding for Add Listing Button
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: addBtn(),
@@ -457,8 +334,129 @@ class NewListingState extends State<NewListing> {
         ));
   }
 
-  // ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar() {
-  //   return Scaffold.of(context)
-  //       .showSnackBar(SnackBar(content: Text("Processing data")));
-  // }
+  // Add Listing Button
+  Widget addBtn() {
+    return Container(
+      // Added Button Theme to increase button size
+      child: ButtonTheme(
+        minWidth: 120,
+        height: 50,
+        // Add Listing Button
+        child: RaisedButton(
+          elevation: 5.0,
+          color: Colors.white,
+          onPressed: () async {
+            if (_dropDownStateValue == 1) {
+              if (titleController.text == "" ||
+                  descriptionController.text == "") {
+                setState(() {
+                  failed = true;
+                });
+              } else {
+                print("Added Service");
+                final String user = await addListing(titleController.text,
+                    _currentLanguage, this.user.id, descriptionController.text);
+                if (user != null) {
+                  titleController.text = "";
+                  descriptionController.text = "";
+                  setState(() {
+                    added = true;
+                  });
+                } else {
+                  setState(() {
+                    failed = true;
+                  });
+                }
+              }
+            }
+            // Adds listing to Request
+            else {
+              if (titleController.text == "" ||
+                  descriptionController.text == "") {
+                setState(() {
+                  failed = true;
+                });
+              } else {
+                print("Added Request");
+                final String user = await addRequestListing(
+                    titleController.text,
+                    _currentLanguage,
+                    this.user.id,
+                    descriptionController.text);
+                if (user != null) {
+                  titleController.text = "";
+                  descriptionController.text = "";
+                  setState(() {
+                    added = true;
+                  });
+                } else {
+                  setState(() {
+                    failed = true;
+                  });
+                }
+              }
+            }
+          },
+          child: Text(
+            'Add Listing!',
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 16.0,
+              fontFamily: 'OpenSans',
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Function for adding a Service to the database
+  Future<String> addListing(
+      String jobType, String language, String id, String description) async {
+    print("Adding List is called");
+
+    final String apiUrl = "https://job-5cells.herokuapp.com/addListing";
+    final response = await http.post(apiUrl,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode({
+          "jobType": jobType,
+          "user_id": id,
+          "language": language,
+          "description": description
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final String resString = response.body;
+      return (resString);
+    } else {
+      return null;
+    }
+  }
+
+  // Function for adding a Request to the database
+  Future<String> addRequestListing(
+      String jobType, String language, String id, String description) async {
+    print("Adding List is called");
+
+    final String apiUrl = "https://job-5cells.herokuapp.com/addRequest";
+    final response = await http.post(apiUrl,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode({
+          "jobType": jobType,
+          "user_id": id,
+          "language": language,
+          "description": description
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final String resString = response.body;
+      return (resString);
+    } else {
+      return null;
+    }
+  }
 }
