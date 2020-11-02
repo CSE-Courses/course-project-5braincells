@@ -9,7 +9,7 @@ const e = require('express');
 module.exports = app =>{
   mongoose.set('useFindAndModify', false);
   app.get('/', (req,res)=>{
-    res.send(`<div>Hello</div>`)
+    res.send(`<div>Server's Up!</div>`)
   })
 
   app.get('/user' , async(req,res,next)=>{
@@ -278,6 +278,30 @@ app.post('/login', async(req,res) =>{
 
 })
 
+app.post('/listings/delete', async(req,res) =>{
+  try{
+    const userId = req.body.userId;
+    const listingId = req.body.listingId;
+
+    Listings.findOne({_id : listingId}, async(err, listing) =>{
+        if(listing){
+          const ello = await Users.findByIdAndUpdate(userId, {"$pull" :{"listOfJobs": listingId}});
+          const delSuc = await Listings.findByIdAndDelete(listingId);
+          res.sendStatus(204);
+        }
+        else{
+          res.status(404).send("Listing not Found")
+        }
+     
+    })
+
+   
+    
+  }
+  catch(err){
+    res.send(err);
+  }
+})
 
 
 }
