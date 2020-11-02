@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text("Service App"),
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.blue,
           centerTitle: true),
       body: Column(
         children: <Widget>[

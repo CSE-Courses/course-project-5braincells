@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
+
 import 'dart:convert';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -17,6 +21,9 @@ class UserModel {
     this.location,
     this.phone,
     this.ratings,
+    this.language,
+    this.description,
+    this.listOfRequest,
     this.id,
     this.updatedAt,
     this.createdAt,
@@ -31,6 +38,9 @@ class UserModel {
   String location;
   String phone;
   List<String> ratings;
+  String language;
+  String description;
+  List<String> listOfRequest;
   String id;
   DateTime updatedAt;
   DateTime createdAt;
@@ -46,6 +56,9 @@ class UserModel {
         location: json["location"],
         phone: json["phone"],
         ratings: List<String>.from(json["ratings"].map((x) => x)),
+        language: json["language"],
+        description: json["description"],
+        listOfRequest: List<String>.from(json["listOfRequest"].map((x) => x)),
         id: json["_id"],
         updatedAt: DateTime.parse(json["updatedAt"]),
         createdAt: DateTime.parse(json["createdAt"]),
@@ -61,6 +74,9 @@ class UserModel {
         "location": location,
         "phone": phone,
         "ratings": List<dynamic>.from(ratings.map((x) => x)),
+        "language": language,
+        "description": description,
+        "listOfRequest": List<dynamic>.from(listOfRequest.map((x) => x)),
         "_id": id,
         "updatedAt": updatedAt.toIso8601String(),
         "createdAt": createdAt.toIso8601String(),

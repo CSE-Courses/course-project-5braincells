@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #Tue Oct 20 03:13:07 EDT 2020
 base.0=/Users/brendanmeehan/Programming/Android Studio Projects/course-project-5braincells/cse442_App/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+=======
+#Tue Oct 27 01:35:27 EDT 2020
+base.0=/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+>>>>>>> 194dd9771a5593175ffc9a5ef95e5cbfbc58f7cd
 path.0=classes.dex
 renamed.0=classes.dex

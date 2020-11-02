@@ -45,35 +45,12 @@ class Listing_widgetState extends State<Listing_widget> {
         "https://job-5cells.herokuapp.com/getListingsById/" + user.id;
     var data = await http.get(toGet);
     List<List<UserList>> lists = userListFromJson(data.body);
-
+    setState(() {
+      initList = lists;
+      print(initList.length);
+    });
     return lists;
   }
-
-  //   try {
-  //     final response = await http.get(url);
-  //     if (response.statusCode == 200) {
-  //       final List<Review> reviews =
-  //           reviewsFromJson(response.body).cast<Review>();
-  //       print(reviews);
-  //       return reviews;
-  //     } else {
-  //       return List<Review>();
-  //     }
-  //   } catch (e) {
-  //     return List<Review>();
-  //   }
-  // }
-
-  // void initState() {
-  //   super.initState();
-  //   _loading = true;
-  //   review_services.getComments().then((reviews) {
-  //     setState(() {
-  //       _reviews = reviews;
-  //       _loading = false;
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +63,13 @@ class Listing_widgetState extends State<Listing_widget> {
               // print(snapshot.data);
               // print(snapshot.data.length);
 
-              if (snapshot.data == null ||
-                  initList.length == null ||
-                  initList.length == 0) {
+              if (snapshot.data == null || initList.length == null) {
                 return Container(child: Center(child: Text("Loading....")));
+              } else if (initList.length == 0) {
+                return Container(
+                    child: Center(
+                        child: Text(
+                            "No listings yet. You can add your listings on the homepage")));
               } else {
                 return ListView.builder(
                     itemCount: initList.length,
