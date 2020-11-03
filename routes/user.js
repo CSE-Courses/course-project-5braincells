@@ -325,7 +325,7 @@ app.post('/verify', (req,res) => {
     from: 'cse442.5braincells@gmail.com',
     to: userEmail,
     subject: 'Email verification for Application',
-    text: 'Hello, click the link below to verify your account' + 'https://job-5cells.herokuapp.com/verificationLink?userId=' + userId + '.'
+    text: 'Hello, click the link below to verify your account:' + ' https://job-5cells.herokuapp.com/verificationLink?userId=' + userId + '.'
   };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -333,7 +333,7 @@ transporter.sendMail(mailOptions, function(error, info){
     console.log('TESTING ERROR' + error)
   }
   else{
-    console.log('Email send to userId' + userId);
+    console.log('Email send to userId: ' + userId);
   }
 })
 
@@ -342,16 +342,15 @@ transporter.sendMail(mailOptions, function(error, info){
 
 app.get('/verificationLink', (req,res) =>{
   const userId = req.params.userId;
+  console.log(req.params.userId);
   try{
-    Users.findByIdAndUpdate(user_id, {"verify": true}, async(err,user)=>{
-     let updated = await Users.findById(userId);
-     res.send(updated);
+    Users.findByIdAndUpdate(userId, {"verify": true}, async(err,user)=>{
+     res.send("updated");
    });
 
  }
  catch(err){
    console.log("triggered")
-     res.send(err);
  }
 })
 
