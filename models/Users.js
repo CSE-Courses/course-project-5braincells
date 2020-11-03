@@ -1,4 +1,4 @@
-const { ObjectId , Decimal128} = require('mongoose');
+const { ObjectId } = require('mongoose');
 const mongoose = require('mongoose');
  const timestamp = require('mongoose-timestamp');
  
@@ -70,12 +70,12 @@ const mongoose = require('mongoose');
      default: false
    },
    lat:{
-      type : Decimal128,
-      default : 0.0
+      type : Number,
+      default : 1.0
    },
    long:{
-      type : Decimal128,
-      default : 0.0
+      type : Number,
+      default : 1.0
    }
 
 
