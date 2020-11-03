@@ -29,8 +29,6 @@ Future<UserModel> createUser(String _name, String _email, String _password,
         "email": _email,
         "phone": _phoneNumber,
         "location": _location,
-        "lat": 0.0,
-        "long": 0.0
       }));
   print(response.body);
   if (response.statusCode == 201) {
