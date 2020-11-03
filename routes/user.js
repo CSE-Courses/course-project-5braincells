@@ -325,7 +325,7 @@ app.post('/verify', (req,res) => {
     from: 'cse442.5braincells@gmail.com',
     to: userEmail,
     subject: 'Email verification for Application',
-    text: 'Hello, click the link below to verify your account:' + ' https://job-5cells.herokuapp.com/verificationLink?userId=' + userId + '.'
+    text: 'Hello, click the link below to verify your account:' + ' https://job-5cells.herokuapp.com/verificationLink/' + userId + '.'
   };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -340,7 +340,7 @@ transporter.sendMail(mailOptions, function(error, info){
   res.sendStatus(200);
 });
 
-app.get('/verificationLink', (req,res) =>{
+app.get('/verificationLink/:userId', (req,res) =>{
   const userId = req.params.userId;
   console.log(req.params.userId);
   try{
