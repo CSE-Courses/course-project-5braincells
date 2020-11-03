@@ -66,8 +66,8 @@ const mongoose = require('mongoose');
      default :[]
    },
    verify:{
-     type : Boolean,
-     default: false
+     type : String,
+     default: "false"
    }
 
 
