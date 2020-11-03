@@ -21,11 +21,11 @@ class UserModel {
     this.language,
     this.description,
     this.listOfRequest,
+    this.verify,
     this.id,
     this.updatedAt,
     this.createdAt,
     this.v,
-    this.verify,
   });
 
   String firstname;
@@ -39,11 +39,11 @@ class UserModel {
   String language;
   String description;
   List<String> listOfRequest;
+  bool verify;
   String id;
   DateTime updatedAt;
   DateTime createdAt;
   int v;
-  bool verify;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         firstname: json["firstname"],
@@ -57,11 +57,11 @@ class UserModel {
         language: json["language"],
         description: json["description"],
         listOfRequest: List<String>.from(json["listOfRequest"].map((x) => x)),
+        verify: json["verify"],
         id: json["_id"],
         updatedAt: DateTime.parse(json["updatedAt"]),
         createdAt: DateTime.parse(json["createdAt"]),
         v: json["__v"],
-        verify: json["verified"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -76,10 +76,10 @@ class UserModel {
         "language": language,
         "description": description,
         "listOfRequest": List<dynamic>.from(listOfRequest.map((x) => x)),
+        "verify": verify,
         "_id": id,
         "updatedAt": updatedAt.toIso8601String(),
         "createdAt": createdAt.toIso8601String(),
         "__v": v,
-        "verify": verify,
       };
 }

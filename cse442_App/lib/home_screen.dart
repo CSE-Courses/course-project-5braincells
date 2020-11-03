@@ -26,10 +26,7 @@ Future<bool> sendVerifyEmail(String _userId, String _email) async {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode({
-        "userId": _userId,
-        "email": _email,
-      }));
+      body: json.encode({"userId": _userId, "email": _email}));
   print(response.body);
   if (response.statusCode == 200) {
     return true;
@@ -45,7 +42,7 @@ Future<bool> sendVerifyEmail(String _userId, String _email) async {
 class HomeScreenState extends State<HomeScreen> {
   final UserModel user;
   HomeScreenState({this.user});
-  bool pressGeoON = false;
+  bool pressON = false;
   bool _firstPress = true;
   Widget build(BuildContext context) {
     print(user);
@@ -163,19 +160,21 @@ class HomeScreenState extends State<HomeScreen> {
             width: 0.0,
             child: RaisedButton(
               elevation: 5.0,
-              child: pressGeoON
+              child: pressON
                   ? Text("Verification Email has been sent.")
                   : Text("Click here to send verification email."),
               onPressed: () async {
-                print(user.id);
-                print(user.email);
-                // final bool emailSent = await sendVerifyEmail(
-                //     user.id.toString(), user.email.toString());
-                // if (emailSent)
-                setState(() {
-                  pressGeoON = !pressGeoON;
-                  _firstPress = false;
-                });
+                if (_firstPress) {
+                  print(user.id);
+                  print(user.email);
+                  final bool emailSent = await sendVerifyEmail(
+                      user.id.toString(), user.email.toString());
+                  print(emailSent.toString());
+                  if (emailSent) _firstPress = false;
+                  setState(() {
+                    pressON = !pressON;
+                  });
+                }
               },
               shape:
                   RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
