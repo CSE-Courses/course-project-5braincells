@@ -61,8 +61,8 @@ module.exports = app =>{
             newUser.listOfJobs = [];
             newUser.phone = phone;
             newUser.location = location;
-            newUser.lat = lat;
-            newUser.long = long;
+            newUser.lat = 0.0;
+            newUser.long = 0.0;
             const user = await newUser.save();
     
     
