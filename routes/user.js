@@ -47,8 +47,7 @@ module.exports = app =>{
         const password = req.body.password;
         const location = req.body.location;
         const phone = req.body.phone;
-        const lat = req.body.lat;
-        const long = req.body.long;
+
   
         Users.findOne({email:email}, async function(err, user){
       
@@ -61,8 +60,6 @@ module.exports = app =>{
             newUser.listOfJobs = [];
             newUser.phone = phone;
             newUser.location = location;
-            newUser.lat = 0.0;
-            newUser.long = 0.0;
             const user = await newUser.save();
     
     
