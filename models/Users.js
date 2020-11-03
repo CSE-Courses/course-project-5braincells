@@ -70,11 +70,11 @@ const mongoose = require('mongoose');
      default: false
    },
    lat:{
-      type : Number,
+      type : Double,
       default : 0.0
    },
    long:{
-      type : Number,
+      type : Double,
       default : 0.0
    }
 
