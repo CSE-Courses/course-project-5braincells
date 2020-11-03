@@ -30,7 +30,6 @@ class NewListingState extends State<NewListing> {
 
   int _dropDownStateValue = 1;
   String _currentState = 'AK';
-  int _dropDownLanguageValue = 1;
   String _currentLanguage = "English";
 
   var _statesList = [
