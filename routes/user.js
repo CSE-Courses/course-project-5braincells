@@ -350,7 +350,7 @@ app.get('/verificationLink', (req,res) =>{
 
  }
  catch(err){
-   console.log("triggered")
+   console.log("triggered not working.")
  }
 })
 
