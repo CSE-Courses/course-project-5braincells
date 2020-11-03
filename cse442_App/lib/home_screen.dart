@@ -7,6 +7,7 @@ import 'new_listing_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserModel user;
@@ -44,6 +45,60 @@ class HomeScreenState extends State<HomeScreen> {
   HomeScreenState({this.user});
   bool pressON = false;
   bool _firstPress = true;
+  String location;
+  Position _userPos;
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getLocation();
+    });
+  }
+
+  void getLocation() async {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) async {
+      final String location =
+          await _getAddressFromLatLng(position.latitude, position.longitude);
+      print(location);
+      final String apiUrl = "https://job-5cells.herokuapp.com/login";
+      final response = await http.post(apiUrl,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode({
+            "userId": user.id,
+            "lat": position.latitude,
+            "long": position.longitude,
+            "location": location
+          }));
+
+      setState(() {
+        _userPos = position;
+        user.lat = position.latitude;
+        user.long = position.longitude;
+        user.location = location;
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  Future<String> _getAddressFromLatLng(double lat, double long) async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(lat, long);
+
+      Placemark place = p[0];
+      return "${place.locality}, ${place.postalCode}, ${place.country}";
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Widget build(BuildContext context) {
     print(user);
     print(user.verify);

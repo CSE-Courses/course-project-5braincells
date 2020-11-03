@@ -25,6 +25,8 @@ class UserModel {
     this.id,
     this.updatedAt,
     this.createdAt,
+    this.lat,
+    this.long,
     this.v,
   });
 
@@ -43,6 +45,8 @@ class UserModel {
   String id;
   DateTime updatedAt;
   DateTime createdAt;
+  double lat;
+  double long;
   int v;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -61,6 +65,8 @@ class UserModel {
         id: json["_id"],
         updatedAt: DateTime.parse(json["updatedAt"]),
         createdAt: DateTime.parse(json["createdAt"]),
+        lat: json["lat"],
+        long: json["long"],
         v: json["__v"],
       );
 
@@ -80,6 +86,8 @@ class UserModel {
         "_id": id,
         "updatedAt": updatedAt.toIso8601String(),
         "createdAt": createdAt.toIso8601String(),
+        "lat": lat,
+        "long": long,
         "__v": v,
       };
 }
