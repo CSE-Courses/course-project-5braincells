@@ -18,7 +18,6 @@ class ProfileScreen extends StatefulWidget {
   State<StatefulWidget> createState() {
     print("profile");
     print(user.id);
-
     // TODO: implement createState
     return ProfileScreenState(user: user);
   }
@@ -57,7 +56,6 @@ class ProfileScreenState extends State<ProfileScreen> {
         });
       }
     }
-
     return 0.0;
   }
 
@@ -69,7 +67,6 @@ class ProfileScreenState extends State<ProfileScreen> {
   ];
 
   String result = "";
-
   Widget bio() {
     return Scaffold(
       body: Container(

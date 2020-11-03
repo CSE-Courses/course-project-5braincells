@@ -1,20 +1,90 @@
 import 'dart:convert';
 
+import 'package:cse442_App/profile_screen.dart';
+
+import 'user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'userListings_model.dart';
+import 'avg.dart';
 
 class ServiceList extends StatefulWidget {
   @override
   ServiceListState createState() => ServiceListState();
 }
 
+
+Future<void> createMydialog(BuildContext context, String description,
+    String language, String owner) async {
+  String toGet = "https://job-5cells.herokuapp.com/getById/" + owner;
+  var data = await http.get(toGet);
+  String username = "";
+  UserModel user;
+  if (!data.body.contains("null")) {
+    user = userModelFromJson(data.body);
+    print(user.firstname);
+    username = user.firstname;
+  }
+  double stars = 0.0;
+  String ratingURL = "https://job-5cells.herokuapp.com/getAvgStars/" + owner;
+  var ratingData = await http.get(ratingURL);
+  if (!ratingData.body.contains("null")) {
+    Avg avg = avgFromJson(ratingData.body);
+    if (avg != null) {
+      stars = avg.avg;
+    }
+  }
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Description"),
+          content: SingleChildScrollView(
+              child: ListBody(
+            children: [
+              Text(description),
+              SizedBox(
+                height: 10,
+              ),
+              Text("Preferred language: " + language),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                  child: SizedBox(
+                    child: Container(
+                      child: Text(
+                        'By: ' + username,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileScreen(user: user)),
+                    );
+                  }),
+              SizedBox(
+                height: 10,
+              ),
+              Text("Rating: " + stars.toString())
+            ],
+          )),
+        );
+      });
+}
+
 int _counter = 0;
 List<UserListingsModel> testingUserList = new List<UserListingsModel>();
 final TextEditingController langaugeController = TextEditingController();
 
-Widget getInformationBox(
-    String jobType, String description, String dateCreated) {
+Widget getInformationBox(String jobType, String description, String dateCreated,
+    String owner, String language, BuildContext context) {
   String finalDescriptionDisplay = "";
   if (description.length < 17) {
     finalDescriptionDisplay = description;
@@ -28,7 +98,7 @@ Widget getInformationBox(
     child: RaisedButton(
       elevation: 5.0,
       onPressed: () {
-        print('something');
+        createMydialog(context, description, language, owner);
       },
       padding: const EdgeInsets.only(
           bottom: 10.0, left: 20.0, right: 60.0, top: 10.0),
@@ -195,7 +265,10 @@ class ServiceListState extends State<ServiceList> {
                   getInformationBox(
                       userListings.jobType.toString(),
                       userListings.description.toString(),
-                      userListings.createdAt.toString())
+                      userListings.createdAt.toString(),
+                      userListings.owner,
+                      userListings.language.toString(),
+                      context)
               ]),
             ),
           )
