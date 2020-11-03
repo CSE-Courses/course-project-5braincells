@@ -304,4 +304,55 @@ app.post('/listings/delete', async(req,res) =>{
 })
 
 
+
+const nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport(
+  {
+    service: 'gmail',
+    auth: {
+      user: 'cse442.5braincells@gmail.com',
+      pass: 'qweqwe0987'
+    }
+  }
+);
+
+app.post('/verify', (req,res) => {
+  const userId = req.body.userId;
+  const userEmail = req.body.email;
+
+  var mailOptions = {
+    from: 'cse442.5braincells@gmail.com',
+    to: userEmail,
+    subject: 'Email verification for Application',
+    text: 'Hello, click the link below to verify your account' + 'https://job-5cells.herokuapp.com/verificationLink?userId=' + userId + '.'
+  };
+
+transporter.sendMail(mailOptions, function(error, info){
+  if(error){
+    console.log('TESTING ERROR' + error)
+  }
+  else{
+    console.log('Email send to userId' + userId);
+  }
+})
+
+  res.sendStatus(200);
+});
+
+app.get('/verificationLink', (req,res) =>{
+  const userId = req.params.userId;
+  try{
+    Users.findByIdAndUpdate(user_id, {"verify": true}, async(err,user)=>{
+     let updated = await Users.findById(userId);
+     res.send(updated);
+   });
+
+ }
+ catch(err){
+   console.log("triggered")
+     res.send(err);
+ }
+})
+
 }
