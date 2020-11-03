@@ -25,7 +25,7 @@
 21         FlutterApplication and put your custom class here.
 22    -->
 23    <application
-23-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:8:5-51:19
+23-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:8:5-53:19
 24        android:name="io.flutter.app.FlutterApplication"
 24-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:9:9-57
 25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -38,26 +38,26 @@
 29
 30        <!-- Google Maps API Key -->
 31        <meta-data
-31-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:14:9-15:73
+31-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:14:9-16:18
 32            android:name="com.google.android.geo.API_KEY"
 32-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:14:20-65
 33            android:value="AIzaSyAYHZdkun8H8EXX9cOnL2BIDybq-reMRss" />
 33-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:15:16-71
 34
 35        <activity
-35-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:17:9-45:20
+35-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:19:9-47:20
 36            android:name="com.example.cse442_App.MainActivity"
-36-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:18:13-41
+36-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:20:13-41
 37            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-37-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:21:13-163
+37-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:23:13-163
 38            android:hardwareAccelerated="true"
-38-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:22:13-47
+38-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:24:13-47
 39            android:launchMode="singleTop"
-39-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:19:13-43
+39-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:21:13-43
 40            android:theme="@style/LaunchTheme"
-40-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:20:13-47
+40-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:22:13-47
 41            android:windowSoftInputMode="adjustResize" >
-41-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:23:13-55
+41-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:25:13-55
 42
 43            <!--
 44                 Specifies an Android theme to apply to this Activity as soon as
@@ -66,11 +66,11 @@
 47                 to determine the Window background behind the Flutter UI.
 48            -->
 49            <meta-data
-49-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:28:13-31:17
+49-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:30:13-33:17
 50                android:name="io.flutter.embedding.android.NormalTheme"
-50-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:29:15-70
+50-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:31:15-70
 51                android:resource="@style/NormalTheme" />
-51-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:30:15-52
+51-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:32:15-52
 52            <!--
 53                 Displays an Android View that continues showing the launch screen
 54                 Drawable until Flutter paints its first frame, then this splash
@@ -79,21 +79,21 @@
 57                 Flutter's first frame.
 58            -->
 59            <meta-data
-59-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:37:13-40:17
+59-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:39:13-42:17
 60                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-60-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:38:15-79
+60-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:40:15-79
 61                android:resource="@drawable/launch_background" />
-61-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:39:15-61
+61-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:41:15-61
 62
 63            <intent-filter>
-63-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:41:13-44:29
+63-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:43:13-46:29
 64                <action android:name="android.intent.action.MAIN" />
-64-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:42:17-68
-64-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:42:25-66
+64-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:44:17-68
+64-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:44:25-66
 65
 66                <category android:name="android.intent.category.LAUNCHER" />
-66-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:43:17-76
-66-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:43:27-74
+66-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:45:17-76
+66-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:45:27-74
 67            </intent-filter>
 68        </activity>
 69        <!--
@@ -101,11 +101,11 @@
 71             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 72        -->
 73        <meta-data
-73-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:48:9-50:33
+73-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:50:9-52:33
 74            android:name="flutterEmbedding"
-74-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:49:13-44
+74-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:51:13-44
 75            android:value="2" />
-75-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:50:13-30
+75-->/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:52:13-30
 76
 77        <activity
 77-->[com.google.android.gms:play-services-base:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/AndroidManifest.xml:23:9-26:75

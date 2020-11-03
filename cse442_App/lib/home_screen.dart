@@ -62,6 +62,7 @@ class HomeScreenState extends State<HomeScreen> {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) async {
+      print(position);
       final String location =
           await _getAddressFromLatLng(position.latitude, position.longitude);
       print(location);
