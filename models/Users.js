@@ -68,6 +68,14 @@ const mongoose = require('mongoose');
    verify:{
      type : Boolean,
      default: false
+   },
+   lat:{
+      type : Number,
+      default : 0
+   },
+   long:{
+      type : Number,
+      default : 0
    }
 
 

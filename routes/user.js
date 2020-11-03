@@ -354,4 +354,32 @@ app.get('/verificationLink/:userId', (req,res) =>{
  }
 })
 
+app.post('/update/location', async(req,res) =>{
+  try{
+    const userId = req.body.userId;
+    const lat = req.body.lat;
+    const long = req.body.long;
+    const location = req.body.location;
+
+    Users.findOne({_id : userId}, async(err, user) =>{
+        if(user){
+          const ello = await Users.findByIdAndUpdate(userId, {"$set" : {"lat" : lat, "long":long, "location":location}});
+      
+          
+          res.send(ello);
+        }
+        else{
+          res.status(404).send("User not Found")
+        }
+     
+    })
+
+   
+    
+  }
+  catch(err){
+    res.send(err);
+  }
+})
+
 }
