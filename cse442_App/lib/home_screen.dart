@@ -4,6 +4,9 @@ import 'service_list.dart';
 import 'request_list.dart';
 import 'user_model.dart';
 import 'new_listing_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class HomeScreen extends StatefulWidget {
   final UserModel user;
@@ -15,6 +18,26 @@ class HomeScreen extends StatefulWidget {
   }
 }
 
+Future<bool> sendVerifyEmail(String _userId, String _email) async {
+  print("Sending Verification Email");
+
+  final String apiUrl = "https://job-5cells.herokuapp.com/verify";
+  final response = await http.post(apiUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({
+        "userId": _userId,
+        "email": _email,
+      }));
+  print(response.body);
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /*
   Home Screen Widget to be used when in the "Home" tab of the Navigation bar.
   This widget will contain the Search Bar used to find listings within the app.
@@ -22,9 +45,11 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   final UserModel user;
   HomeScreenState({this.user});
-  @override
+  bool pressGeoON = false;
+  bool _firstPress = true;
   Widget build(BuildContext context) {
     print(user);
+    print(user.verify);
     return Scaffold(
         body: ListView(children: <Widget>[
       // Search Bar
@@ -123,27 +148,83 @@ class HomeScreenState extends State<HomeScreen> {
         ],
       ),
       // Add Listing Button
-      Container(
-          alignment: Alignment.bottomRight,
-          height: 140,
-          child: RawMaterialButton(
-            onPressed: () {
-              print(user);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => NewListing(user: user)));
-            },
-            splashColor: Colors.blue,
-            elevation: 1.0,
-            fillColor: Colors.lightBlueAccent,
-            child: Icon(
-              Icons.add_circle_outline,
-              size: 35,
-            ),
-            padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
-          )),
+      if (user.verify == null || user.verify == false)
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            "Your email has not been verified",
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+
+      if (user.verify == null || user.verify == false)
+        Container(
+            padding: EdgeInsets.symmetric(vertical: 0.0),
+            width: 0.0,
+            child: RaisedButton(
+              elevation: 5.0,
+              child: pressGeoON
+                  ? Text("Verification Email has been sent.")
+                  : Text("Click here to send verification email."),
+              onPressed: () async {
+                print(user.id);
+                print(user.email);
+                // final bool emailSent = await sendVerifyEmail(
+                //     user.id.toString(), user.email.toString());
+                // if (emailSent)
+                setState(() {
+                  pressGeoON = !pressGeoON;
+                  _firstPress = false;
+                });
+              },
+              shape:
+                  RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
+              color: Colors.white,
+            )),
+      if (user.verify == null || user.verify == false)
+        Container(
+            alignment: Alignment.bottomRight,
+            height: 75.0,
+            child: RawMaterialButton(
+              onPressed: () {
+                print(user);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NewListing(user: user)));
+              },
+              splashColor: Colors.blue,
+              elevation: 1.0,
+              fillColor: Colors.lightBlueAccent,
+              child: Icon(
+                Icons.add_circle_outline,
+                size: 35,
+              ),
+              padding: EdgeInsets.all(15.0),
+              shape: CircleBorder(),
+            )),
+      if (user.verify == true)
+        Container(
+            alignment: Alignment.bottomRight,
+            height: 140.0,
+            child: RawMaterialButton(
+              onPressed: () {
+                print(user);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NewListing(user: user)));
+              },
+              splashColor: Colors.blue,
+              elevation: 1.0,
+              fillColor: Colors.lightBlueAccent,
+              child: Icon(
+                Icons.add_circle_outline,
+                size: 35,
+              ),
+              padding: EdgeInsets.all(15.0),
+              shape: CircleBorder(),
+            )),
       // ButtonBar(
       //   alignment: MainAxisAlignment.center,
       //   buttonMinWidth: 100.0,

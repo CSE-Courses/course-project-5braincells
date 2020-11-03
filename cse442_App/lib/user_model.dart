@@ -25,6 +25,7 @@ class UserModel {
     this.updatedAt,
     this.createdAt,
     this.v,
+    this.verify,
   });
 
   String firstname;
@@ -42,6 +43,7 @@ class UserModel {
   DateTime updatedAt;
   DateTime createdAt;
   int v;
+  bool verify;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         firstname: json["firstname"],
@@ -59,6 +61,7 @@ class UserModel {
         updatedAt: DateTime.parse(json["updatedAt"]),
         createdAt: DateTime.parse(json["createdAt"]),
         v: json["__v"],
+        verify: json["verified"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -77,5 +80,6 @@ class UserModel {
         "updatedAt": updatedAt.toIso8601String(),
         "createdAt": createdAt.toIso8601String(),
         "__v": v,
+        "verify": verify,
       };
 }
