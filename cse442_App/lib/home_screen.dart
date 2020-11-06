@@ -4,6 +4,10 @@ import 'service_list.dart';
 import 'request_list.dart';
 import 'user_model.dart';
 import 'new_listing_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserModel user;
@@ -17,6 +21,23 @@ class HomeScreen extends StatefulWidget {
   }
 }
 
+Future<bool> sendVerifyEmail(String _userId, String _email) async {
+  print("Sending Verification Email");
+
+  final String apiUrl = "https://job-5cells.herokuapp.com/verify";
+  final response = await http.post(apiUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({"userId": _userId, "email": _email}));
+  print(response.body);
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /*
   Home Screen Widget to be used when in the "Home" tab of the Navigation bar.
   This widget will contain the Search Bar used to find listings within the app.
@@ -24,8 +45,66 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   final UserModel user;
   HomeScreenState({this.user});
-  @override
+  bool pressON = false;
+  bool _firstPress = true;
+  String location;
+  Position _userPos;
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getLocation();
+    });
+  }
+
+  void getLocation() async {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) async {
+      print(position);
+      final String location =
+          await _getAddressFromLatLng(position.latitude, position.longitude);
+      print(location);
+      final String apiUrl = "https://job-5cells.herokuapp.com/login";
+      final response = await http.post(apiUrl,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode({
+            "userId": user.id,
+            "lat": position.latitude,
+            "long": position.longitude,
+            "location": location
+          }));
+
+      setState(() {
+        _userPos = position;
+        user.lat = position.latitude;
+        user.long = position.longitude;
+        user.location = location;
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  Future<String> _getAddressFromLatLng(double lat, double long) async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(lat, long);
+
+      Placemark place = p[0];
+      return "${place.locality}, ${place.postalCode}, ${place.country}";
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Widget build(BuildContext context) {
+    print(user);
+    print(user.verify);
     return Scaffold(
         body: ListView(children: <Widget>[
       // Search Bar
@@ -124,24 +203,85 @@ class HomeScreenState extends State<HomeScreen> {
         ],
       ),
       // Add Listing Button
-      Container(
-          alignment: Alignment.bottomRight,
-          height: 140,
-          child: RawMaterialButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewListing()));
-            },
-            splashColor: Colors.blue,
-            elevation: 1.0,
-            fillColor: Colors.lightBlueAccent,
-            child: Icon(
-              Icons.add_circle_outline,
-              size: 35,
-            ),
-            padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
-          )),
+      if (user.verify == null || user.verify == false)
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            "Your email has not been verified",
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+
+      if (user.verify == null || user.verify == false)
+        Container(
+            padding: EdgeInsets.symmetric(vertical: 0.0),
+            width: 0.0,
+            child: RaisedButton(
+              elevation: 5.0,
+              child: pressON
+                  ? Text("Verification Email has been sent.")
+                  : Text("Click here to send verification email."),
+              onPressed: () async {
+                if (_firstPress) {
+                  print(user.id);
+                  print(user.email);
+                  final bool emailSent = await sendVerifyEmail(
+                      user.id.toString(), user.email.toString());
+                  print(emailSent.toString());
+                  if (emailSent) _firstPress = false;
+                  setState(() {
+                    pressON = !pressON;
+                  });
+                }
+              },
+              shape:
+                  RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
+              color: Colors.white,
+            )),
+      if (user.verify == null || user.verify == false)
+        Container(
+            alignment: Alignment.bottomRight,
+            height: 75.0,
+            child: RawMaterialButton(
+              onPressed: () {
+                print(user);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NewListing(user: user)));
+              },
+              splashColor: Colors.blue,
+              elevation: 1.0,
+              fillColor: Colors.lightBlueAccent,
+              child: Icon(
+                Icons.add_circle_outline,
+                size: 35,
+              ),
+              padding: EdgeInsets.all(15.0),
+              shape: CircleBorder(),
+            )),
+      if (user.verify == true)
+        Container(
+            alignment: Alignment.bottomRight,
+            height: 140.0,
+            child: RawMaterialButton(
+              onPressed: () {
+                print(user);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NewListing(user: user)));
+              },
+              splashColor: Colors.blue,
+              elevation: 1.0,
+              fillColor: Colors.lightBlueAccent,
+              child: Icon(
+                Icons.add_circle_outline,
+                size: 35,
+              ),
+              padding: EdgeInsets.all(15.0),
+              shape: CircleBorder(),
+            )),
       // ButtonBar(
       //   alignment: MainAxisAlignment.center,
       //   buttonMinWidth: 100.0,

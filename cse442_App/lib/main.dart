@@ -3,10 +3,11 @@ import 'dart:ui';
 import 'package:cse442_App/user_model.dart';
 
 import 'home_screen.dart';
+import 'profile_screen.dart';
+import 'nearby_screen.dart';
 import 'login_page.dart';
 import 'package:flutter/material.dart';
 import 'login_or_signup.dart';
-import 'profile_screen.dart';
 import 'user_model.dart';
 import 'dart:convert';
 
@@ -55,10 +56,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Widget home = HomeScreen(user: user);
     Widget profile = ProfileScreen(user: user);
+    Widget nearby = NearbyScreen(user: user);
 
     final _pageOptions = [
       home,
-      Text("Nearby Page"),
+      nearby,
       Text("Calendar Page"),
       Text("Bookmarked Page"),
       profile

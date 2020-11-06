@@ -70,38 +70,51 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget bio() {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-          child: Column(
-            children: [
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Hello,",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 38,
-                      color: Colors.blue,
-                      fontFamily: 'arial',
+        padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+        child: Wrap(
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 300,
+                child: ListView(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Hello,",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 38,
+                          color: Colors.blue,
+                          fontFamily: 'arial',
+                        ),
+                      ),
                     ),
-                  )),
-              SizedBox(
-                height: 10,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "My name is " +
+                          user.firstname +
+                          ". I live in " +
+                          user.location +
+                          ". You can checkout my available listings in the next tab. My preferred language is " +
+                          user.language +
+                          ".",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "My name is " +
-                        user.firstname +
-                        ". I live in " +
-                        user.location +
-                        ". You can checkout my available listings in the next tab. My preferred language is " +
-                        user.language +
-                        ".",
-                    style: TextStyle(
-                        fontSize: 18, fontStyle: FontStyle.italic, height: 1.8),
-                  ))
-            ],
-          )),
+
+              // ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 

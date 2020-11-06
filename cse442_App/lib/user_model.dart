@@ -24,9 +24,12 @@ class UserModel {
     this.language,
     this.description,
     this.listOfRequest,
+    this.verify,
     this.id,
     this.updatedAt,
     this.createdAt,
+    this.lat,
+    this.long,
     this.v,
   });
 
@@ -41,9 +44,12 @@ class UserModel {
   String language;
   String description;
   List<String> listOfRequest;
+  bool verify;
   String id;
   DateTime updatedAt;
   DateTime createdAt;
+  double lat;
+  double long;
   int v;
 
   // Converts JSON user object to Dart user object
@@ -59,9 +65,12 @@ class UserModel {
         language: json["language"],
         description: json["description"],
         listOfRequest: List<String>.from(json["listOfRequest"].map((x) => x)),
+        verify: json["verify"],
         id: json["_id"],
         updatedAt: DateTime.parse(json["updatedAt"]),
         createdAt: DateTime.parse(json["createdAt"]),
+        lat: json["lat"],
+        long: json["long"],
         v: json["__v"],
       );
 
@@ -77,9 +86,12 @@ class UserModel {
         "language": language,
         "description": description,
         "listOfRequest": List<dynamic>.from(listOfRequest.map((x) => x)),
+        "verify": verify,
         "_id": id,
         "updatedAt": updatedAt.toIso8601String(),
         "createdAt": createdAt.toIso8601String(),
+        "lat": lat,
+        "long": long,
         "__v": v,
       };
 }
