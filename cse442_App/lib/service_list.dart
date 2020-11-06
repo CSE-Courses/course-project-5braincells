@@ -5,14 +5,19 @@ import 'package:cse442_App/profile_screen.dart';
 import 'user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'userListings_model.dart';
 import 'avg.dart';
+import 'profile_screen.dart';
+import 'userListings_model.dart';
+import 'user_model.dart';
 
 class ServiceList extends StatefulWidget {
   @override
   ServiceListState createState() => ServiceListState();
 }
 
+int _counter = 0;
+List<UserListingsModel> testingUserList = new List<UserListingsModel>();
+final TextEditingController langaugeController = TextEditingController();
 
 Future<void> createMydialog(BuildContext context, String description,
     String language, String owner) async {
@@ -78,10 +83,6 @@ Future<void> createMydialog(BuildContext context, String description,
         );
       });
 }
-
-int _counter = 0;
-List<UserListingsModel> testingUserList = new List<UserListingsModel>();
-final TextEditingController langaugeController = TextEditingController();
 
 Widget getInformationBox(String jobType, String description, String dateCreated,
     String owner, String language, BuildContext context) {
