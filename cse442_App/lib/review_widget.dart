@@ -48,6 +48,13 @@ class Review_widgetState extends State<Review_widget> {
     return reviews;
   }
 
+  RaisedButton leaveReviewButton = RaisedButton(
+    onPressed: () {},
+    child: Text("Leave a Review",
+        style: TextStyle(color: Colors.blue)
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -68,24 +75,25 @@ class Review_widgetState extends State<Review_widget> {
                     itemCount: initReview.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: const EdgeInsets.all(12.0),
-                        padding: const EdgeInsets.all(0.1),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                          color: Colors.lightBlue,
-                        )),
-                        height: 70,
-                        child: ListTile(
-                          title: Text(initReview[index][0].comment),
-                          subtitle: RatingBar.readOnly(
-                              size: 16,
-                              filledIcon: Icons.star,
-                              initialRating:
-                                  double.parse(initReview[index][0].stars),
-                              isHalfAllowed: true,
-                              halfFilledIcon: Icons.star_half,
-                              emptyIcon: Icons.star_border),
-                        ),
+                          margin: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(0.1),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.lightBlue,
+                              )
+                          ),
+                          height: 70,
+                          child: ListTile(
+                            title: Text(initReview[index][0].comment),
+                            subtitle: RatingBar.readOnly(
+                                size: 16,
+                                filledIcon: Icons.star,
+                                initialRating:
+                                double.parse(initReview[index][0].stars),
+                                isHalfAllowed: true,
+                                halfFilledIcon: Icons.star_half,
+                                emptyIcon: Icons.star_border),
+                          )
                       );
                     });
               }

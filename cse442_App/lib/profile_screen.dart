@@ -1,3 +1,5 @@
+import 'package:cse442_App/new_review_page.dart';
+
 import 'reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
@@ -13,24 +15,26 @@ import 'dart:core';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel user;
-  ProfileScreen({this.user});
+  final bool sameUser;
+  ProfileScreen({this.user, this.sameUser});
   @override
   State<StatefulWidget> createState() {
     print("profile");
     print(user.id);
 
     // TODO: implement createState
-    return ProfileScreenState(user: user);
+    return ProfileScreenState(user: user, sameUser: sameUser);
   }
 }
 
 /*
-  Home Screen Widget to be used when in the "Home" tab of the Navigation bar.
+  Profile Screen Widget to be used when in the "Profile" tab of the Navigation bar.
   This widget will contain the Search Bar used to find listings within the app.
 */
 class ProfileScreenState extends State<ProfileScreen> {
   final UserModel user;
-  ProfileScreenState({this.user});
+  final bool sameUser;
+  ProfileScreenState({this.user, this.sameUser});
   double stars = 0.0;
 
   void initState() {
@@ -138,6 +142,22 @@ class ProfileScreenState extends State<ProfileScreen> {
     return bioTabs;
   }
 
+  Widget getEditButton(){
+    if (sameUser) {
+      return Container();
+    } else {
+      return FloatingActionButton(
+        onPressed: () {
+          print(user);
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => NewReview(user: user)
+          ));
+        },
+        child: Icon(Icons.rate_review),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -215,28 +235,29 @@ class ProfileScreenState extends State<ProfileScreen> {
                       ],
                     )),
                 SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: new AppBar(
-                    title: TabBar(
-                      tabs: getTabs(tabNames),
-                      //isScrollable: true,
-                      indicator: UnderlineTabIndicator(
-                        insets: EdgeInsets.all(0.1),
-                      ),
+                    height: 50,
+                    width: double.infinity,
+                    child: new AppBar(
+                        title: TabBar(
+                          tabs: getTabs(tabNames),
+                          //isScrollable: true,
+                          indicator: UnderlineTabIndicator(
+                              insets: EdgeInsets.all(0.1),
+                          ),
+                        ),
+                      backgroundColor: Colors.lightBlue[200],
                     ),
-                    backgroundColor: Colors.lightBlue[200],
-                  ),
                 ),
                 Expanded(
                     child: TabBarView(children: <Widget>[
-                  bio(),
-                  Listing_widget(user: user),
-                  Review_widget(user: user),
-                  Edit(user: user)
+                        bio(),
+                        Listing_widget(user: user, sameUser: sameUser),
+                        Review_widget(user: user),
+                        Edit(user: user)
                 ]))
               ],
             )),
+            floatingActionButton: getEditButton(),
           ),
         ));
   }
