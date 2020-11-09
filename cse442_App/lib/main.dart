@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cse442_App/user_model.dart';
 
+import 'edit_widget.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'nearby_screen.dart';
@@ -68,6 +69,29 @@ class _MyAppState extends State<MyApp> {
           title: Text("Service App"),
           backgroundColor: Colors.blue,
           centerTitle: true,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  Icons.search,
+                  size: 26.0,
+                ),
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Edit(user: user)));
+                  },
+                  child: Icon(Icons.settings),
+                ))
+          ],
         ),
         body: _pageOptions[_selectedPage],
         bottomNavigationBar: BottomNavigationBar(
