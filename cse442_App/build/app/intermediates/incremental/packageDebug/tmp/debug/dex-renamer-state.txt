@@ -1,4 +1,4 @@
-#Tue Nov 03 14:30:46 EST 2020
-base.0=/Users/brendanmeehan/Programming/Android Studio Projects/course-project-5braincells/cse442_App/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Mon Nov 09 14:24:49 EST 2020
+base.0=C\:\\Users\\Navid\\Desktop\\flutter_dev\\course-project-5braincells\\cse442_App\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
