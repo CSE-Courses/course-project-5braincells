@@ -61,12 +61,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     return 0.0;
   }
 
-  List<String> tabNames = [
-    "Bio",
-    "Listings",
-    "Reviews",
-    "Edit",
-  ];
+  List<String> tabNames = ["Bio", "Listings", "Reviews"];
 
   String result = "";
 
@@ -156,7 +151,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     return MaterialApp(
         theme: ThemeData(primaryColor: Colors.blue),
         home: DefaultTabController(
-          length: 4,
+          length: 3,
           child: Scaffold(
             resizeToAvoidBottomPadding: false,
             body: Container(
@@ -246,7 +241,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                   bio(),
                   Listing_widget(user: user),
                   Review_widget(user: user),
-                  Edit(user: user)
                 ]))
               ],
             )),
