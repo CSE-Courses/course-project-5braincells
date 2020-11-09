@@ -27,6 +27,8 @@ class EditState extends State<Edit> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController languageController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+  final TextEditingController prevPasswordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
   bool added = false;
   bool failed = false;
   bool nameUpdate = false;
@@ -72,22 +74,29 @@ class EditState extends State<Edit> {
     }
   }
 
-  Future<UserModel> updatePassword(String id, String updatePassword) async {
-    final String apiUrl = "https://job-5cells.herokuapp.com/updatePassword";
+  Future<UserModel> updatePassword(
+      String id, String updatePassword, String password) async {
+    //if(new password == confirm new password) => do this whole thing
+    final String apiUrl = "https://job-5cells.herokuapp.com/update/password";
     final response = await http.post(apiUrl,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: json.encode({
-          "user_id": id,
+          "userId": id,
+          "email": user.email,
+          "password": password,
           "updatePassword": updatePassword,
         }));
     print(response.body);
     if (response.statusCode == 200) {
       return userModelFromJson(response.body);
+    } else if (response.statusCode == 400) {
+      // setStatus({visability : true}) bool variable for Text widget visabily for "Wrong password" be set to true(only 400 if password != currentpassword)
     } else {
       return null;
     }
+    //else setStatus({visaility2: true}) bool variabke for Text wdiget visiability for "Your passwords don't match"
   }
 
   Future<UserModel> updateLanguage(String id, String updateLanguage) async {
@@ -241,30 +250,51 @@ class EditState extends State<Edit> {
                               return showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return AlertDialog(
-                                      title: Text("New Password"),
-                                      content: TextFormField(
-                                        decoration: const InputDecoration(
-                                          icon: Icon(Icons.title),
-                                          hintText: "Password",
-                                          labelText: "Password",
+                                    return SimpleDialog(
+                                      title: Text("Update Password"),
+                                      shape: ,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(8, 8, 8, 8),
+                                      children: [
+                                        TextFormField(
+                                          decoration: const InputDecoration(
+                                            icon: Icon(Icons.lock),
+                                            hintText: "Old Password",
+                                            labelText: "Enter Old Password",
+                                          ),
+                                          controller: prevPasswordController,
+                                          maxLength: 75,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return "Please enter a new password";
+                                            }
+                                            return null;
+                                          },
                                         ),
-                                        controller: nameController,
-                                        maxLength: 75,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return "Please enter a new password";
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      actions: [
+                                        TextFormField(
+                                          decoration: const InputDecoration(
+                                            icon: Icon(Icons.lock),
+                                            hintText: "New Password",
+                                            labelText: "Enter New Password",
+                                          ),
+                                          controller: newPasswordController,
+                                          maxLength: 75,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return "Please enter a new password";
+                                            }
+                                            return null;
+                                          },
+                                        ),
                                         RaisedButton(
                                           elevation: 1.0,
                                           onPressed: () async {
                                             final UserModel updatePass =
-                                                await updatePassword(user.id,
-                                                    nameController.text);
+                                                await updatePassword(
+                                                    user.id,
+                                                    newPasswordController.text,
+                                                    prevPasswordController
+                                                        .text);
                                             if (updatePass != null) {
                                               print("worked");
                                               setState(() {
@@ -294,8 +324,64 @@ class EditState extends State<Edit> {
                                               style: TextStyle(
                                                   color: Colors.blue)),
                                           visible: passUpdate,
-                                        ),
+                                        )
                                       ],
+                                      // content: TextFormField(
+                                      //   decoration: const InputDecoration(
+                                      //     icon: Icon(Icons.title),
+                                      //     hintText: "Password",
+                                      //     labelText: "Password",
+                                      //   ),
+                                      //   controller: nameController,
+                                      //   maxLength: 75,
+                                      //   validator: (value) {
+                                      //     if (value.isEmpty) {
+                                      //       return "Please enter a new password";
+                                      //     }
+                                      //     return null;
+                                      //   },
+                                      // ),
+                                      // actions: [
+                                      //   RaisedButton(
+                                      //     elevation: 1.0,
+                                      //     onPressed: () async {
+                                      //       final UserModel updatePass =
+                                      //           await updatePassword(
+                                      //               user.id,
+                                      //               newPasswordController.text,
+                                      //               prevPasswordController
+                                      //                   .text);
+                                      //       if (updatePass != null) {
+                                      //         print("worked");
+                                      //         setState(() {
+                                      //           passUpdate = true;
+                                      //         });
+                                      //         Navigator.push(
+                                      //           context,
+                                      //           MaterialPageRoute(
+                                      //               builder: (context) =>
+                                      //                   ProfileScreen(
+                                      //                       user: updatePass)),
+                                      //         );
+                                      //       }
+                                      //     },
+                                      //     child: Text(
+                                      //       'Update!',
+                                      //       style: TextStyle(
+                                      //         color: Colors.blue,
+                                      //         fontSize: 12.0,
+                                      //         fontFamily: 'OpenSans',
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      //   Visibility(
+                                      //     child: Text(
+                                      //         "Password Update Successful!",
+                                      //         style: TextStyle(
+                                      //             color: Colors.blue)),
+                                      //     visible: passUpdate,
+                                      //   ),
+                                      // ],
                                     );
                                   });
                             },
