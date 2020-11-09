@@ -12,21 +12,21 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\debug\AndroidManifest.xml:6:22-64
+14-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/debug/AndroidManifest.xml:6:5-66
+14-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/debug/AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Include required permissions for Google Maps API to run. -->
-15-->[:geolocator] C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
-15-->[:geolocator] C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+15-->[:geolocator] /Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/build/geolocator/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+15-->[:geolocator] /Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/build/geolocator/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
-16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
+16-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:23:5-79
+16-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:23:22-76
 17
 18    <uses-feature
-18-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+18-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:26:5-28:35
 19        android:glEsVersion="0x00020000"
-19-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+19-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:27:9-41
 20        android:required="true" />
-20-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+20-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:28:9-32
 21    <!--
 22 io.flutter.app.FlutterApplication is an android.app.Application that
 23         calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -35,39 +35,39 @@
 26         FlutterApplication and put your custom class here.
 27    -->
 28    <application
-28-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:8:5-53:19
+28-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:8:5-53:19
 29        android:name="io.flutter.app.FlutterApplication"
-29-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:9:9-57
+29-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:9:9-57
 30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-30-->[androidx.core:core:1.2.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\b6252bb7f30c7dceb20e97dfa6dfae00\core-1.2.0\AndroidManifest.xml:24:18-86
+30-->[androidx.core:core:1.2.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/b6252bb7f30c7dceb20e97dfa6dfae00/core-1.2.0/AndroidManifest.xml:24:18-86
 31        android:debuggable="true"
 32        android:icon="@mipmap/ic_launcher"
-32-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:11:9-43
+32-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:11:9-43
 33        android:label="cse442_App" >
-33-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:10:9-35
+33-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:10:9-35
 34
 35        <!-- Google Maps API Key -->
 36        <meta-data
-36-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:14:9-16:18
+36-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:14:9-16:18
 37            android:name="com.google.android.geo.API_KEY"
-37-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:14:20-65
+37-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:14:20-65
 38            android:value="AIzaSyAYHZdkun8H8EXX9cOnL2BIDybq-reMRss" />
-38-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:15:16-71
+38-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:15:16-71
 39
 40        <activity
-40-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:19:9-47:20
+40-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:19:9-47:20
 41            android:name="com.example.cse442_App.MainActivity"
-41-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:20:13-41
+41-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:20:13-41
 42            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-42-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:23:13-163
+42-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:23:13-163
 43            android:hardwareAccelerated="true"
-43-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:24:13-47
+43-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:24:13-47
 44            android:launchMode="singleTop"
-44-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:21:13-43
+44-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:21:13-43
 45            android:theme="@style/LaunchTheme"
-45-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:22:13-47
+45-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:22:13-47
 46            android:windowSoftInputMode="adjustResize" >
-46-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:25:13-55
+46-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:25:13-55
 47
 48            <!--
 49                 Specifies an Android theme to apply to this Activity as soon as
@@ -76,11 +76,11 @@
 52                 to determine the Window background behind the Flutter UI.
 53            -->
 54            <meta-data
-54-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:30:13-33:17
+54-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:30:13-33:17
 55                android:name="io.flutter.embedding.android.NormalTheme"
-55-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:31:15-70
+55-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:31:15-70
 56                android:resource="@style/NormalTheme" />
-56-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:32:15-52
+56-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:32:15-52
 57            <!--
 58                 Displays an Android View that continues showing the launch screen
 59                 Drawable until Flutter paints its first frame, then this splash
@@ -89,21 +89,21 @@
 62                 Flutter's first frame.
 63            -->
 64            <meta-data
-64-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:39:13-42:17
+64-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:39:13-42:17
 65                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-65-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:40:15-79
+65-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:40:15-79
 66                android:resource="@drawable/launch_background" />
-66-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:41:15-61
+66-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:41:15-61
 67
 68            <intent-filter>
-68-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:43:13-46:29
+68-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:43:13-46:29
 69                <action android:name="android.intent.action.MAIN" />
-69-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:44:17-68
-69-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:44:25-66
+69-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:44:17-68
+69-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:44:25-66
 70
 71                <category android:name="android.intent.category.LAUNCHER" />
-71-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:45:17-76
-71-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:45:27-74
+71-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:45:17-76
+71-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:45:27-74
 72            </intent-filter>
 73        </activity>
 74        <!--
@@ -111,34 +111,34 @@
 76             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 77        -->
 78        <meta-data
-78-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:50:9-52:33
+78-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:50:9-52:33
 79            android:name="flutterEmbedding"
-79-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:51:13-44
+79-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:51:13-44
 80            android:value="2" />
-80-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:52:13-30
+80-->/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/android/app/src/main/AndroidManifest.xml:52:13-30
 81        <!-- Needs to be explicitly declared on P+ -->
 82        <uses-library
-82-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+82-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:33:9-35:40
 83            android:name="org.apache.http.legacy"
-83-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+83-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:34:13-50
 84            android:required="false" />
-84-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+84-->[com.google.android.gms:play-services-maps:17.0.0] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/6b9b7fc1ad481537ed0a66d62976ec46/play-services-maps-17.0.0/AndroidManifest.xml:35:13-37
 85
 86        <activity
-86-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:23:9-26:75
+86-->[com.google.android.gms:play-services-base:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/AndroidManifest.xml:23:9-26:75
 87            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-87-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:24:13-79
+87-->[com.google.android.gms:play-services-base:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/AndroidManifest.xml:24:13-79
 88            android:exported="false"
-88-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:25:13-37
+88-->[com.google.android.gms:play-services-base:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/AndroidManifest.xml:25:13-37
 89            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-89-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:26:13-72
+89-->[com.google.android.gms:play-services-base:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/AndroidManifest.xml:26:13-72
 90
 91        <meta-data
-91-->[com.google.android.gms:play-services-basement:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\4f37da3899c131b9dc2f0273fb9911be\jetified-play-services-basement-17.2.1\AndroidManifest.xml:23:9-25:69
+91-->[com.google.android.gms:play-services-basement:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/38c8ccb83289a02e3fd4544efdb4670b/jetified-play-services-basement-17.2.1/AndroidManifest.xml:23:9-25:69
 92            android:name="com.google.android.gms.version"
-92-->[com.google.android.gms:play-services-basement:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\4f37da3899c131b9dc2f0273fb9911be\jetified-play-services-basement-17.2.1\AndroidManifest.xml:24:13-58
+92-->[com.google.android.gms:play-services-basement:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/38c8ccb83289a02e3fd4544efdb4670b/jetified-play-services-basement-17.2.1/AndroidManifest.xml:24:13-58
 93            android:value="@integer/google_play_services_version" />
-93-->[com.google.android.gms:play-services-basement:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\4f37da3899c131b9dc2f0273fb9911be\jetified-play-services-basement-17.2.1\AndroidManifest.xml:25:13-66
+93-->[com.google.android.gms:play-services-basement:17.2.1] /Users/yingweili/.gradle/caches/transforms-2/files-2.1/38c8ccb83289a02e3fd4544efdb4670b/jetified-play-services-basement-17.2.1/AndroidManifest.xml:25:13-66
 94    </application>
 95
 96</manifest>

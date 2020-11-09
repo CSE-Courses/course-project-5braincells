@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'user_list_list_model.dart';
 import 'package:http/http.dart' as http;
 import 'user_model.dart';
+import 'dart:convert';
 
 // ignore: camel_case_types
 class Listing_widget extends StatefulWidget {
@@ -54,12 +55,35 @@ class Listing_widgetState extends State<Listing_widget> {
     return lists;
   }
 
-  Widget getDeleteButton() {
+  void deleteListing(String uid, String listId) async {
+    print(uid);
+    print(listId);
+    final String apiUrl = "https://job-5cells.herokuapp.com/listings/delete";
+    final response = await http.post(apiUrl,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode({
+          "userId": uid,
+          "listingId": listId,
+        }));
+    print(response.body);
+    if (response.statusCode == 204) {
+      final List<List<UserList>> newList = await getListings();
+      setState(() {
+        initList = newList;
+      });
+    } else {
+      return null;
+    }
+  }
+
+  Widget getDeleteButton(id) {
     if (sameUser) {
       return IconButton(
         icon: Icon(Icons.delete),
         onPressed: () {
-          // Delete the listing
+          deleteListing(user.id, id);
         },
       );
     } else {
@@ -109,7 +133,7 @@ class Listing_widgetState extends State<Listing_widget> {
                               initList[index][0].jobType.toString()),
                           subtitle:
                               Text(initList[index][0].description.toString()),
-                          trailing: getDeleteButton(),
+                          trailing: getDeleteButton(initList[index][0].id),
                         ),
                       );
                     });
