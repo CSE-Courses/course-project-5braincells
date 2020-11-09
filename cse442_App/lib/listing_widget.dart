@@ -7,18 +7,20 @@ import 'user_model.dart';
 // ignore: camel_case_types
 class Listing_widget extends StatefulWidget {
   final UserModel user;
-  Listing_widget({this.user});
+  final bool sameUser;
+  Listing_widget({this.user, this.sameUser});
 
   State<StatefulWidget> createState() {
     print(user);
-    return Listing_widgetState(user: user);
+    return Listing_widgetState(user: user, sameUser: sameUser);
   }
 }
 
 // ignore: camel_case_types
 class Listing_widgetState extends State<Listing_widget> {
   final UserModel user;
-  Listing_widgetState({this.user});
+  final bool sameUser;
+  Listing_widgetState({this.user, this.sameUser});
 
   List<List<UserList>> initList;
   //initialize widiget
@@ -50,6 +52,24 @@ class Listing_widgetState extends State<Listing_widget> {
       print(initList.length);
     });
     return lists;
+  }
+
+  Widget getDeleteButton() {
+    if (sameUser) {
+      return IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {
+          // Delete the listing
+        },
+      );
+    } else {
+      return IconButton(
+        icon: Icon(Icons.message),
+        onPressed: () {
+          // Delete the listing
+        },
+      );
+    }
   }
 
   @override
@@ -89,6 +109,7 @@ class Listing_widgetState extends State<Listing_widget> {
                               initList[index][0].jobType.toString()),
                           subtitle:
                               Text(initList[index][0].description.toString()),
+                          trailing: getDeleteButton(),
                         ),
                       );
                     });

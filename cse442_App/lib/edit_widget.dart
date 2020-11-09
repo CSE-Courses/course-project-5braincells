@@ -252,7 +252,7 @@ class EditState extends State<Edit> {
                                   builder: (context) {
                                     return SimpleDialog(
                                       title: Text("Update Password"),
-                                      shape: ,
+                                      // shape: ,
                                       contentPadding:
                                           EdgeInsets.fromLTRB(8, 8, 8, 8),
                                       children: [

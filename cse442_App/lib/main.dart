@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Widget home = HomeScreen(user: user);
-    Widget profile = ProfileScreen(user: user);
+    Widget profile = ProfileScreen(user: user, sameUser: true);
     Widget nearby = NearbyScreen(user: user);
 
     final _pageOptions = [

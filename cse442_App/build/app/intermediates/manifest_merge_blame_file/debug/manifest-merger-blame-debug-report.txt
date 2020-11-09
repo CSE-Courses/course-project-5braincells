@@ -1,0 +1,144 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.cse442_App"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\debug\AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Include required permissions for Google Maps API to run. -->
+15-->[:geolocator] C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+15-->[:geolocator] C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
+17
+18    <uses-feature
+18-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+19        android:glEsVersion="0x00020000"
+19-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+20        android:required="true" />
+20-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+21    <!--
+22 io.flutter.app.FlutterApplication is an android.app.Application that
+23         calls FlutterMain.startInitialization(this); in its onCreate method.
+24         In most cases you can leave this as-is, but you if you want to provide
+25         additional functionality it is fine to subclass or reimplement
+26         FlutterApplication and put your custom class here.
+27    -->
+28    <application
+28-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:8:5-53:19
+29        android:name="io.flutter.app.FlutterApplication"
+29-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:9:9-57
+30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+30-->[androidx.core:core:1.2.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\b6252bb7f30c7dceb20e97dfa6dfae00\core-1.2.0\AndroidManifest.xml:24:18-86
+31        android:debuggable="true"
+32        android:icon="@mipmap/ic_launcher"
+32-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:11:9-43
+33        android:label="cse442_App" >
+33-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:10:9-35
+34
+35        <!-- Google Maps API Key -->
+36        <meta-data
+36-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:14:9-16:18
+37            android:name="com.google.android.geo.API_KEY"
+37-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:14:20-65
+38            android:value="AIzaSyAYHZdkun8H8EXX9cOnL2BIDybq-reMRss" />
+38-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:15:16-71
+39
+40        <activity
+40-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:19:9-47:20
+41            android:name="com.example.cse442_App.MainActivity"
+41-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:20:13-41
+42            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+42-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:23:13-163
+43            android:hardwareAccelerated="true"
+43-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:24:13-47
+44            android:launchMode="singleTop"
+44-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:21:13-43
+45            android:theme="@style/LaunchTheme"
+45-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:22:13-47
+46            android:windowSoftInputMode="adjustResize" >
+46-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:25:13-55
+47
+48            <!--
+49                 Specifies an Android theme to apply to this Activity as soon as
+50                 the Android process has started. This theme is visible to the user
+51                 while the Flutter UI initializes. After that, this theme continues
+52                 to determine the Window background behind the Flutter UI.
+53            -->
+54            <meta-data
+54-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:30:13-33:17
+55                android:name="io.flutter.embedding.android.NormalTheme"
+55-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:31:15-70
+56                android:resource="@style/NormalTheme" />
+56-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:32:15-52
+57            <!--
+58                 Displays an Android View that continues showing the launch screen
+59                 Drawable until Flutter paints its first frame, then this splash
+60                 screen fades out. A splash screen is useful to avoid any visual
+61                 gap between the end of Android's launch screen and the painting of
+62                 Flutter's first frame.
+63            -->
+64            <meta-data
+64-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:39:13-42:17
+65                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+65-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:40:15-79
+66                android:resource="@drawable/launch_background" />
+66-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:41:15-61
+67
+68            <intent-filter>
+68-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:43:13-46:29
+69                <action android:name="android.intent.action.MAIN" />
+69-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:44:17-68
+69-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:44:25-66
+70
+71                <category android:name="android.intent.category.LAUNCHER" />
+71-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:45:17-76
+71-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:45:27-74
+72            </intent-filter>
+73        </activity>
+74        <!--
+75             Don't delete the meta-data below.
+76             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+77        -->
+78        <meta-data
+78-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:50:9-52:33
+79            android:name="flutterEmbedding"
+79-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:51:13-44
+80            android:value="2" />
+80-->C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App\android\app\src\main\AndroidManifest.xml:52:13-30
+81        <!-- Needs to be explicitly declared on P+ -->
+82        <uses-library
+82-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+83            android:name="org.apache.http.legacy"
+83-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+84            android:required="false" />
+84-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\6b9b7fc1ad481537ed0a66d62976ec46\play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+85
+86        <activity
+86-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:23:9-26:75
+87            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+87-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:24:13-79
+88            android:exported="false"
+88-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:25:13-37
+89            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+89-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\f81e9fffe318fdc5660099e12e35729e\play-services-base-17.2.1\AndroidManifest.xml:26:13-72
+90
+91        <meta-data
+91-->[com.google.android.gms:play-services-basement:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\4f37da3899c131b9dc2f0273fb9911be\jetified-play-services-basement-17.2.1\AndroidManifest.xml:23:9-25:69
+92            android:name="com.google.android.gms.version"
+92-->[com.google.android.gms:play-services-basement:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\4f37da3899c131b9dc2f0273fb9911be\jetified-play-services-basement-17.2.1\AndroidManifest.xml:24:13-58
+93            android:value="@integer/google_play_services_version" />
+93-->[com.google.android.gms:play-services-basement:17.2.1] C:\Users\Navid\.gradle\caches\transforms-2\files-2.1\4f37da3899c131b9dc2f0273fb9911be\jetified-play-services-basement-17.2.1\AndroidManifest.xml:25:13-66
+94    </application>
+95
+96</manifest>
