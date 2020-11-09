@@ -383,4 +383,59 @@ app.post('/update/location', async(req,res) =>{
   }
 })
 
+app.post('/update/password' ,async(req,res) =>{
+  try{
+    userId = req.body.userId
+    password = req.body.password;
+    newPassword = req.body.newPassword;
+    updatedPassword =  bcrypt.hashSync(newPassword,14);
+    email  = req.body.email;
+
+
+    Users.findOne({email : req.body.email}, async(err,user)=>{
+    
+      if(!user){
+        res.sendStatus(404)
+      }else{
+        if(err || !bcrypt.compareSync(req.body.password, user.password)){
+          res.status(400).send("Wrong Password");
+        }
+        else{
+          const ello = await Users.findByIdAndUpdate(userId, {"$set" : {"password" : updatedPassword}});
+          res.status(204).send(ello);
+        }
+      }
+
+    });
+
+   
+
+  }catch(err){
+    res.status(404).send(err)
+  }
+})
+
+app.post('/multipleLocations', async(req,res) =>{
+  try{
+      userId = req.body.userId;
+      listOfOwners = [];
+      points = [];
+      let listings = await Listings.find({});
+      for(i = 0; i<listings.length; i++){
+        listOfOwners.push(listings[i].owner);
+      }
+      for(i = 0; i< listOfOwners.length; i++){
+        let user = await Users.findById(listOfOwners[i])
+        location = user.location
+        if(user.lat && user.long == 1.2){
+          location = "TBD"
+        }
+        points.push({lat: user.lat, long:user.long , location : location})
+      }
+      res.send(points)
+  }catch(err){
+    res.status(404).send("Not Found")
+  }
+})
+
 }
