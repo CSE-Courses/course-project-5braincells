@@ -191,8 +191,10 @@ class HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(15),
                     side: BorderSide(color: Colors.lightBlue, width: 2.0)),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RequestList()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RequestList(user: user)));
                 },
               ),
             ],
