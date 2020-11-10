@@ -259,7 +259,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     child: TabBarView(children: <Widget>[
                   bio(),
                   Listing_widget(user: user, sameUser: sameUser),
-                  Review_widget(user: user)
+                  Review_widget(user: user, sameUser : sameUser)
                 ]))
               ],
             )),

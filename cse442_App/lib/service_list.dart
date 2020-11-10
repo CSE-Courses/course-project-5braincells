@@ -1,15 +1,19 @@
 import 'dart:convert';
-
+import 'dart:developer';
+import 'googleMaps_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'avg.dart';
 import 'profile_screen.dart';
 import 'userListings_model.dart';
 import 'user_model.dart';
+import 'dart:convert';
 
 class ServiceList extends StatefulWidget {
+  final UserModel user;
+  ServiceList({this.user});
   @override
-  ServiceListState createState() => ServiceListState();
+  ServiceListState createState() => ServiceListState(user: user);
 }
 
 int _counter = 0;
@@ -91,12 +95,36 @@ Future<void> createMydialog(BuildContext context, String description,
 }
 
 Widget getInformationBox(String jobType, String description, String dateCreated,
-    String owner, String language, BuildContext context) {
+    String owner, String language, String dist, BuildContext context) {
   String finalDescriptionDisplay = "";
+  String toRender = "";
   if (description.length < 17) {
     finalDescriptionDisplay = description;
   } else {
     finalDescriptionDisplay = description.substring(0, 17);
+  }
+  if (dist == null) {
+    toRender = "Job Type: " +
+        jobType +
+        "\n" +
+        "Date Created: " +
+        dateCreated.substring(0, 16) +
+        "\n" +
+        "Description: " +
+        '\n' +
+        finalDescriptionDisplay;
+  } else {
+    toRender = "Job Type: " +
+        jobType +
+        "\n" +
+        "Date Created: " +
+        dateCreated.substring(0, 16) +
+        "\n" +
+        "Description: " +
+        '\n' +
+        finalDescriptionDisplay +
+        "\nDistance away: " +
+        dist;
   }
 
   return Container(
@@ -112,14 +140,7 @@ Widget getInformationBox(String jobType, String description, String dateCreated,
       shape: RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
       color: Colors.white,
       child: Text(
-        "Job Type: " +
-            jobType +
-            "\n" +
-            "Date Created: " +
-            dateCreated.substring(0, 16) +
-            "\n" +
-            "Description: " +
-            finalDescriptionDisplay,
+        toRender,
         style: TextStyle(
           color: Colors.black,
           letterSpacing: 1.2,
@@ -132,6 +153,9 @@ Widget getInformationBox(String jobType, String description, String dateCreated,
 }
 
 class ServiceListState extends State<ServiceList> {
+  final UserModel user;
+  ServiceListState({this.user});
+
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -167,6 +191,54 @@ class ServiceListState extends State<ServiceList> {
     }
   }
 
+  Future<List<UserListingsModel>> getDistanceList(
+      List<UserListingsModel> list, double lat, double long) async {
+    List<UserListingsModel> listOfLocation = [];
+    List<double> listLoc = [];
+    for (int i = 0; i < list.length; i++) {
+      final String apiUrl =
+          "https://job-5cells.herokuapp.com/getById/" + list[i].owner;
+      final rep1 = await http.get(apiUrl);
+      UserModel aUser = userModelFromJson(rep1.body);
+      String aUserlat = aUser.lat.toString();
+      String aUserlong = aUser.long.toString();
+
+      if (aUserlat != null && aUserlat != '1.2' && aUserlong != "1.2") {
+        final String apiUrl2 =
+            "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" +
+                lat.toString() +
+                "," +
+                long.toString() +
+                "&destinations=" +
+                aUserlat +
+                ',' +
+                aUserlong +
+                "&key=AIzaSyAYHZdkun8H8EXX9cOnL2BIDybq-reMRss";
+        final response = await http.get(apiUrl2);
+        Location location = locationFromJson(response.body);
+        String loc = (location.rows[0].elements[0].distance.text);
+        print("loc = " + loc);
+        double aLoc = double.parse(loc.split(' ')[0]);
+        print("loc = " + aLoc.toString());
+        listLoc.add(aLoc);
+        list[i].distAway = loc;
+        listOfLocation.add(list[i]);
+      }
+      print(listLoc);
+      //   final response = await http.get(apiUrl2);
+      //   Location location = locationFromJson(response.body);
+      //   print(location);
+      // String loc = (location.rows[0].elements[0].distance.toString());
+      // print("loc loc = " + loc);
+      // int aLoc = int.parse(loc.split(' ')[0]);
+      // print("aloc  = " + aLoc.toString());
+      // listLoc.add(aLoc);
+      // }
+    }
+    // print(listLoc);
+    return listOfLocation;
+  }
+
   void returnInit() async {
     List<UserListingsModel> temporaryList = await getListing();
     setState(() {
@@ -196,19 +268,33 @@ class ServiceListState extends State<ServiceList> {
               ),
               child: Column(children: [
                 Container(
+                  child: IconButton(
+                    icon: Icon(Icons.refresh),
+                    onPressed: () async {
+                      testingUserList = await getListing();
+                      setState(() {
+                        testingUserList = testingUserList;
+                      });
+                    },
+                  ),
+                ),
+                Container(
                     alignment: Alignment.topLeft,
                     child: RaisedButton(
                       elevation: 5.0,
                       onPressed: () async {
-                        setState(() {});
-                        testingUserList = await getListing();
+                        testingUserList = await getDistanceList(
+                            testingUserList, user.lat, user.long);
+                        setState(() {
+                          testingUserList = testingUserList;
+                        });
                       },
                       padding: EdgeInsets.all(20.0),
                       shape: RoundedRectangleBorder(
                           side: BorderSide(color: Colors.blue)),
                       color: Colors.white,
                       child: Text(
-                        'refresh',
+                        'Get Nearby',
                         style: TextStyle(
                           color: Colors.blue,
                           letterSpacing: 1.5,
@@ -271,6 +357,7 @@ class ServiceListState extends State<ServiceList> {
                       userListings.createdAt.toString(),
                       userListings.owner,
                       userListings.language.toString(),
+                      userListings.distAway,
                       context)
               ]),
             ),

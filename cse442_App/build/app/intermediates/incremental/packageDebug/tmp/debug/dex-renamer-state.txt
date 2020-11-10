@@ -1,4 +1,4 @@
-#Mon Nov 09 17:40:33 EST 2020
+#Tue Nov 10 00:57:42 EST 2020
 base.0=/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
