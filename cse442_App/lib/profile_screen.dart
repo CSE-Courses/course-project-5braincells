@@ -192,12 +192,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   "https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-04.jpg"),
                               fit: BoxFit.cover)),
                     ),
-                    Padding(
-                        padding: EdgeInsets.fromLTRB(240, 60, 0, 0),
-                        child: IconButton(
-                          icon: Icon(Icons.camera_alt),
-                          onPressed: () {},
-                        )),
+//                     Padding(
+//                         padding: EdgeInsets.fromLTRB(240, 60, 0, 0),
+//                         child: IconButton(
+//                           icon: Icon(Icons.camera_alt),
+//                           onPressed: () {},
+//                         )),
                     Container(
                       margin: EdgeInsets.only(top: 50, left: 135),
                       height: 120,
