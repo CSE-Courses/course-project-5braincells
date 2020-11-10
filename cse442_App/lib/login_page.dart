@@ -42,83 +42,93 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Widget emailInput() {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-      child: TextFormField(
-        autofocus: true,
-        keyboardType: TextInputType.emailAddress,
-        style: (TextStyle(color: Colors.black)),
-        decoration: InputDecoration(
-            prefixIcon: Icon(Icons.email),
-            hintText: 'Enter your email',
-            labelText: 'Email',
-        ),
-        controller: emailController,
-      ),
-    );
-  }
-
-  Widget passwordInput() {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-      child: TextFormField(
-        obscureText: true,
-        enableSuggestions: false,
-        autocorrect: false,
-        keyboardType: TextInputType.text,
-        style: (TextStyle(color: Colors.black)),
-        decoration: InputDecoration(
-            prefixIcon: Icon(Icons.lock),
-            hintText: 'Enter your password',
-            labelText: 'Password',
-        ),
-        controller: passwordController,
-      ),
-    );
-  }
-
-  Widget loginBtn() {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: ButtonTheme(
-        minWidth: double.infinity,
-        height: 50,
-        child: RaisedButton(
-          elevation: 5,
-          color: Colors.white,
-          child: Text(
-            "Login",
-            style: TextStyle(
-                color: Colors.blue,
-                fontSize: 16,
-                fontFamily: 'OpenSans'
-            ),
+  Widget _emailinput() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Email'),
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          height: 60.0,
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            style: (TextStyle(color: Colors.black)),
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.email), hintText: 'Enter your email'),
+            controller: emailController,
           ),
-          onPressed: () async {
-            print(emailController.text);
-            print(passwordController.text);
-            final UserModel user =
-            await login(emailController.text, passwordController.text);
-            if (user != null) {
-              print(user);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyApp(user: user)),
-              );
-            } else {
-              setState(() {
+        )
+      ],
+    );
+  }
+
+  Widget _passwordinput() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Password'),
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          height: 60.0,
+          child: TextField(
+            obscureText: true,
+            keyboardType: TextInputType.emailAddress,
+            style: (TextStyle(color: Colors.black)),
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.lock), hintText: 'Password'),
+            controller: passwordController,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _LoginBtn() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 25.0),
+      width: 140.0,
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: () async {
+          print(emailController.text);
+          print(passwordController.text);
+          final UserModel user =
+              await login(emailController.text, passwordController.text);
+          if (user != null) {
+            print(user);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyApp(user: user)),
+            );
+          } else {
+            setState(() {
               failedLogin = true;
-              });
-            }},
+            });
+          }
+        },
+        padding: EdgeInsets.all(20.0),
+        shape: RoundedRectangleBorder(side: BorderSide(color: Colors.blue)),
+        color: Colors.white,
+        child: Text(
+          'LOGIN',
+          style: TextStyle(
+            color: Colors.blue,
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'OpenSans',
+          ),
         ),
       ),
     );
   }
 
-  Widget forgotPassword() {
-    return Padding(
-      padding: EdgeInsets.all(10),
+  Widget _forgotPassword() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 25.0),
+      width: 220.0,
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
@@ -152,41 +162,39 @@ class LoginScreenState extends State<LoginScreen> {
           centerTitle: true,
         ),
         body: Stack(
-          children: [
-            Builder(
-              builder: (context) => Form(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child:   Text('Sign in',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 40.0
-                            ),
-                          )
-                      ),
-                      emailInput(),
-                      passwordInput(),
-                      Visibility(
-                        child: Text("Email or Password is Incorrect",
-                            style: TextStyle(color: Colors.red)),
-                        visible: failedLogin,
-                      ),
-                      forgotPassword(),
-                    ],
-                  ),
+          children: <Widget>[
+            Container(
+              height: double.infinity,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 80.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      'Sign in',
+                      style: TextStyle(color: Colors.blue, fontSize: 40.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 30.0),
+                    _emailinput(),
+                    SizedBox(height: 30.0),
+                    _passwordinput(),
+                    Visibility(
+                      child: Text("Email or Password is Incorrect",
+                          style: TextStyle(color: Colors.red)),
+                      visible: failedLogin,
+                    ),
+                    _LoginBtn(),
+                    _forgotPassword(),
+                  ],
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: loginBtn(),
-            ),
           ],
-        )
-    );
+        ));
   }
 }
