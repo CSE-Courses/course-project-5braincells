@@ -76,7 +76,7 @@ class HomeScreenState extends State<HomeScreen> {
       final String location =
           await _getAddressFromLatLng(position.latitude, position.longitude);
       print(location);
-      final String apiUrl = "https://job-5cells.herokuapp.com/login";
+      final String apiUrl = "https://job-5cells.herokuapp.com/update/location";
       final response = await http.post(apiUrl,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -104,6 +104,7 @@ class HomeScreenState extends State<HomeScreen> {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(lat, long);
 
       Placemark place = p[0];
+      print("place" + place.toString());
       return "${place.locality}, ${place.postalCode}, ${place.country}";
     } catch (e) {
       print(e);
