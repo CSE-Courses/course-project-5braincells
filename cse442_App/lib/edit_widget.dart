@@ -237,9 +237,9 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                          user: update,
-                                                          sameUser: sameUser,
-                                                        )),
+                                                            user: update,
+                                                            sameUser:
+                                                                sameUser)),
                                               );
                                             }
                                           },
@@ -330,13 +330,14 @@ class EditState extends State<Edit> {
                                                 passUpdate = true;
                                               });
                                               Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ProfileScreen(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProfileScreen(
                                                             user: updatePass,
-                                                            sameUser: sameUser,
-                                                          )));
+                                                            sameUser:
+                                                                sameUser)),
+                                              );
                                             }
                                           },
                                           child: Text(
