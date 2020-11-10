@@ -29,6 +29,8 @@ class EditState extends State<Edit> {
   final TextEditingController cityController = TextEditingController();
   final TextEditingController prevPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   bool added = false;
   bool failed = false;
   bool nameUpdate = false;
@@ -76,26 +78,33 @@ class EditState extends State<Edit> {
 
   Future<UserModel> updatePassword(
       String id, String updatePassword, String password) async {
-    //if(new password == confirm new password) => do this whole thing
-    final String apiUrl = "https://job-5cells.herokuapp.com/update/password";
-    final response = await http.post(apiUrl,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: json.encode({
-          "userId": id,
-          "email": user.email,
-          "password": password,
-          "updatePassword": updatePassword,
-        }));
-    print(response.body);
-    if (response.statusCode == 200) {
-      return userModelFromJson(response.body);
-    } else if (response.statusCode == 400) {
-      // setStatus({visability : true}) bool variable for Text widget visabily for "Wrong password" be set to true(only 400 if password != currentpassword)
-    } else {
-      return null;
+    if (password == updatePassword) {
+      final String apiUrl = "https://job-5cells.herokuapp.com/update/password";
+      final response = await http.post(apiUrl,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode({
+            "userId": id,
+            "email": user.email,
+            "password": password,
+            "updatePassword": updatePassword,
+          }));
+      print(response.body);
+      if (response.statusCode == 200) {
+        return userModelFromJson(response.body);
+      } else if (response.statusCode == 400) {
+        setState(() {
+          visability:
+          true;
+        });
+
+        // bool variable for Text widget visabily for "Wrong password" be set to true(only 400 if password != currentpassword)
+      } else {
+        return null;
+      }
     }
+
     //else setStatus({visaility2: true}) bool variabke for Text wdiget visiability for "Your passwords don't match"
   }
 
@@ -278,6 +287,21 @@ class EditState extends State<Edit> {
                                             labelText: "Enter New Password",
                                           ),
                                           controller: newPasswordController,
+                                          maxLength: 75,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return "Please enter a new password";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        TextFormField(
+                                          decoration: const InputDecoration(
+                                            icon: Icon(Icons.lock),
+                                            hintText: "New Password",
+                                            labelText: "Confirm New Password",
+                                          ),
+                                          controller: confirmPasswordController,
                                           maxLength: 75,
                                           validator: (value) {
                                             if (value.isEmpty) {

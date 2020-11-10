@@ -92,7 +92,8 @@ class Review_widgetState extends State<Review_widget> {
                                 isHalfAllowed: true,
                                 halfFilledIcon: Icons.star_half,
                                 emptyIcon: Icons.star_border),
-                          ));
+                          ),
+                        );
                     });
               }
             }),

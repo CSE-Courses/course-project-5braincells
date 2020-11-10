@@ -55,13 +55,7 @@ class _MyAppState extends State<MyApp> {
     Widget profile = ProfileScreen(user: user, sameUser: true);
     Widget nearby = NearbyScreen(user: user);
 
-    final _pageOptions = [
-      home,
-      nearby,
-      Text("Calendar Page"),
-      Text("Bookmarked Page"),
-      profile
-    ];
+    final _pageOptions = [home, nearby, Text("Bookmarked Page"), profile];
 
     return MaterialApp(
       home: Scaffold(
@@ -96,8 +90,6 @@ class _MyAppState extends State<MyApp> {
                 icon: Icon(Icons.home), title: Text("Home")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.location_on), title: Text("Nearby")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today), title: Text("Calendar")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.bookmark_border), title: Text("Bookmark")),
             BottomNavigationBarItem(

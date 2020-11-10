@@ -157,8 +157,13 @@ class ProfileScreenState extends State<ProfileScreen> {
       return FloatingActionButton(
         onPressed: () {
           print(user);
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NewReview(user: user)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => NewReview(
+                        user: user,
+                        sameUser: sameUser,
+                      )));
         },
         child: Icon(Icons.rate_review),
       );
@@ -187,6 +192,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   "https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-04.jpg"),
                               fit: BoxFit.cover)),
                     ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(240, 60, 0, 0),
+                        child: IconButton(
+                          icon: Icon(Icons.camera_alt),
+                          onPressed: () {},
+                        )),
                     Container(
                       margin: EdgeInsets.only(top: 50, left: 135),
                       height: 120,
@@ -263,6 +274,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 ]))
               ],
             )),
+            floatingActionButton: getEditButton(),
           ),
         ));
   }
