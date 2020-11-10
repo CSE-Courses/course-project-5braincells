@@ -263,7 +263,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                 ]))
               ],
             )),
-            floatingActionButton: getEditButton(),
           ),
         ));
   }
