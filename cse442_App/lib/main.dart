@@ -2,11 +2,13 @@ import 'dart:ui';
 
 import 'package:cse442_App/user_model.dart';
 
+import 'edit_widget.dart';
 import 'home_screen.dart';
+import 'profile_screen.dart';
+import 'nearby_screen.dart';
 import 'login_page.dart';
 import 'package:flutter/material.dart';
 import 'login_or_signup.dart';
-import 'profile_screen.dart';
 import 'user_model.dart';
 import 'dart:convert';
 
@@ -50,15 +52,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Widget home = HomeScreen(user: user);
-    Widget profile = ProfileScreen(user: user);
+    Widget profile = ProfileScreen(user: user, sameUser: true);
+    Widget nearby = NearbyScreen(user: user);
 
-    final _pageOptions = [
-      home,
-      Text("Nearby Page"),
-      Text("Calendar Page"),
-      Text("Bookmarked Page"),
-      profile
-    ];
+    final _pageOptions = [home, nearby, Text("Bookmarked Page"), profile];
 
     return MaterialApp(
       home: Scaffold(
@@ -66,6 +63,19 @@ class _MyAppState extends State<MyApp> {
           title: Text("Service App"),
           backgroundColor: Colors.blue,
           centerTitle: true,
+          actions: [
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Edit(user: user)));
+                  },
+                  child: Icon(Icons.settings),
+                ))
+          ],
         ),
         body: _pageOptions[_selectedPage],
         bottomNavigationBar: BottomNavigationBar(
@@ -80,8 +90,6 @@ class _MyAppState extends State<MyApp> {
                 icon: Icon(Icons.home), title: Text("Home")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.location_on), title: Text("Nearby")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today), title: Text("Calendar")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.bookmark_border), title: Text("Bookmark")),
             BottomNavigationBarItem(

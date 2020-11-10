@@ -1,11 +1,17 @@
 // This is a generated file; do not edit or check into version control.
+<<<<<<< HEAD
+FLUTTER_ROOT=C:\Users\Navid\Downloads\flutter
+FLUTTER_APPLICATION_PATH=C:\Users\Navid\Desktop\flutter_dev\course-project-5braincells\cse442_App
+FLUTTER_TARGET=lib\main.dart
+=======
 FLUTTER_ROOT=/Users/yingweili/flutter
-FLUTTER_APPLICATION_PATH=/Users/yingweili/Desktop/Master/course-project-5braincells/cse442_App
+FLUTTER_APPLICATION_PATH=/Users/yingweili/Desktop/m2/course-project-5braincells/cse442_App
 FLUTTER_TARGET=lib/main.dart
+>>>>>>> af384753d4a10a1fe7cd42080ecbe3f9ea8122f5
 FLUTTER_BUILD_DIR=build
-SYMROOT=${SOURCE_ROOT}/../build/ios
+SYMROOT=${SOURCE_ROOT}/../build\ios
 OTHER_LDFLAGS=$(inherited) -framework Flutter
-FLUTTER_FRAMEWORK_DIR=/Users/yingweili/flutter/bin/cache/artifacts/engine/ios
+FLUTTER_FRAMEWORK_DIR=C:\Users\Navid\Downloads\flutter\bin\cache\artifacts\engine\ios
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
 DART_OBFUSCATION=false

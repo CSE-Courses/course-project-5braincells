@@ -16,6 +16,7 @@ class UserListingsModel {
     this.updatedAt,
     this.createdAt,
     this.v,
+    this.distAway,
     this.owner,
   });
 
@@ -23,6 +24,7 @@ class UserListingsModel {
   String language;
   String description;
   String id;
+  String distAway;
   DateTime updatedAt;
   DateTime createdAt;
   int v;
