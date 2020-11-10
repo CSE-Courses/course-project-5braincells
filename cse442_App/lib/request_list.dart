@@ -90,6 +90,7 @@ class RequestListState extends State<RequestList> {
                           'By: ' + username,
                           textAlign: TextAlign.left,
                           style: TextStyle(
+                            color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

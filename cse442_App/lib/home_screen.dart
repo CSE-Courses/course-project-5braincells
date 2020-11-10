@@ -178,9 +178,7 @@ class HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ServiceList(
-                                user: user,
-                              )));
+                          builder: (context) => ServiceList(user: user)));
                 },
               ),
               RaisedButton(
