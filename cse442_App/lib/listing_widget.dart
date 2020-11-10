@@ -87,12 +87,14 @@ class Listing_widgetState extends State<Listing_widget> {
         },
       );
     } else {
-      return IconButton(
-        icon: Icon(Icons.message),
-        onPressed: () {
-          // Delete the listing
-        },
-      );
+      return Text("Not mine");
+      //   return IconButton(
+      //     icon: Icon(Icons.message),
+      //     onPressed: () {
+      //       // Delete the listing
+      //     },
+      //   );
+      // }
     }
   }
 

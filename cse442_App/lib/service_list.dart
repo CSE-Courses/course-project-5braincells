@@ -13,6 +13,7 @@ class ServiceList extends StatefulWidget {
 }
 
 int _counter = 0;
+bool sameUser;
 List<UserListingsModel> testingUserList = new List<UserListingsModel>();
 final TextEditingController langaugeController = TextEditingController();
 
@@ -26,6 +27,13 @@ Future<void> createMydialog(BuildContext context, String description,
     user = userModelFromJson(data.body);
     print(user.firstname);
     username = user.firstname;
+    if (owner == user.id) {
+      print(owner);
+      print(user.id);
+      sameUser = true;
+    } else {
+      sameUser = false;
+    }
   }
   double stars = 0.0;
   String ratingURL = "https://job-5cells.herokuapp.com/getAvgStars/" + owner;
@@ -68,7 +76,8 @@ Future<void> createMydialog(BuildContext context, String description,
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ProfileScreen(user: user)),
+                          builder: (context) =>
+                              ProfileScreen(user: user, sameUser: sameUser)),
                     );
                   }),
               SizedBox(

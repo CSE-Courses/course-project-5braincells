@@ -8,18 +8,20 @@ import 'user_model.dart';
 // ignore: camel_case_types
 class Review_widget extends StatefulWidget {
   final UserModel user;
-  Review_widget({this.user});
+  final bool sameUser;
+  Review_widget({this.user, this.sameUser});
 
   State<StatefulWidget> createState() {
     print(user);
-    return Review_widgetState(user: user);
+    return Review_widgetState(user: user, sameUser: sameUser);
   }
 }
 
 // ignore: camel_case_types
 class Review_widgetState extends State<Review_widget> {
   final UserModel user;
-  Review_widgetState({this.user});
+  final bool sameUser;
+  Review_widgetState({this.user, this.sameUser});
 
   List<List<Review>> initReview = [];
   //initialize widiget
@@ -50,9 +52,7 @@ class Review_widgetState extends State<Review_widget> {
 
   RaisedButton leaveReviewButton = RaisedButton(
     onPressed: () {},
-    child: Text("Leave a Review",
-        style: TextStyle(color: Colors.blue)
-    ),
+    child: Text("Leave a Review", style: TextStyle(color: Colors.blue)),
   );
 
   @override
@@ -79,9 +79,8 @@ class Review_widgetState extends State<Review_widget> {
                           padding: const EdgeInsets.all(0.1),
                           decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.lightBlue,
-                              )
-                          ),
+                            color: Colors.lightBlue,
+                          )),
                           height: 70,
                           child: ListTile(
                             title: Text(initReview[index][0].comment),
@@ -89,12 +88,11 @@ class Review_widgetState extends State<Review_widget> {
                                 size: 16,
                                 filledIcon: Icons.star,
                                 initialRating:
-                                double.parse(initReview[index][0].stars),
+                                    double.parse(initReview[index][0].stars),
                                 isHalfAllowed: true,
                                 halfFilledIcon: Icons.star_half,
                                 emptyIcon: Icons.star_border),
-                          )
-                      );
+                          ));
                     });
               }
             }),
