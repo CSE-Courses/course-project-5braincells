@@ -65,50 +65,58 @@ class ProfileScreenState extends State<ProfileScreen> {
     return 0.0;
   }
 
-  List<String> tabNames = [
-    "Bio",
-    "Listings",
-    "Reviews",
-    "Edit",
-  ];
+  List<String> tabNames = ["Bio", "Listings", "Reviews"];
 
   String result = "";
 
   Widget bio() {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-          child: Column(
-            children: [
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Hello,",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 38,
-                      color: Colors.blue,
-                      fontFamily: 'arial',
+        padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+        child: Wrap(
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 300,
+                child: ListView(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Hello,",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 38,
+                          color: Colors.blue,
+                          fontFamily: 'arial',
+                        ),
+                      ),
                     ),
-                  )),
-              SizedBox(
-                height: 10,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "My name is " +
+                          user.firstname +
+                          ". I live in " +
+                          user.location +
+                          ". You can checkout my available listings in the next tab. My preferred language is " +
+                          user.language +
+                          ".",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "My name is " +
-                        user.firstname +
-                        ". I live in " +
-                        user.location +
-                        ". You can checkout my available listings in the next tab. My preferred language is " +
-                        user.language +
-                        ".",
-                    style: TextStyle(
-                        fontSize: 18, fontStyle: FontStyle.italic, height: 1.8),
-                  ))
-            ],
-          )),
+
+              // ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -142,16 +150,20 @@ class ProfileScreenState extends State<ProfileScreen> {
     return bioTabs;
   }
 
-  Widget getEditButton(){
+  Widget getEditButton() {
     if (sameUser) {
       return Container();
     } else {
       return FloatingActionButton(
         onPressed: () {
           print(user);
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => NewReview(user: user)
-          ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => NewReview(
+                        user: user,
+                        sameUser: sameUser,
+                      )));
         },
         child: Icon(Icons.rate_review),
       );
@@ -163,7 +175,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     return MaterialApp(
         theme: ThemeData(primaryColor: Colors.blue),
         home: DefaultTabController(
-          length: 4,
+          length: 3,
           child: Scaffold(
             resizeToAvoidBottomPadding: false,
             body: Container(
@@ -180,6 +192,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   "https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-04.jpg"),
                               fit: BoxFit.cover)),
                     ),
+//                     Padding(
+//                         padding: EdgeInsets.fromLTRB(240, 60, 0, 0),
+//                         child: IconButton(
+//                           icon: Icon(Icons.camera_alt),
+//                           onPressed: () {},
+//                         )),
                     Container(
                       margin: EdgeInsets.only(top: 50, left: 135),
                       height: 120,
@@ -235,25 +253,24 @@ class ProfileScreenState extends State<ProfileScreen> {
                       ],
                     )),
                 SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: new AppBar(
-                        title: TabBar(
-                          tabs: getTabs(tabNames),
-                          //isScrollable: true,
-                          indicator: UnderlineTabIndicator(
-                              insets: EdgeInsets.all(0.1),
-                          ),
-                        ),
-                      backgroundColor: Colors.lightBlue[200],
+                  height: 50,
+                  width: double.infinity,
+                  child: new AppBar(
+                    title: TabBar(
+                      tabs: getTabs(tabNames),
+                      //isScrollable: true,
+                      indicator: UnderlineTabIndicator(
+                        insets: EdgeInsets.all(0.1),
+                      ),
                     ),
+                    backgroundColor: Colors.lightBlue[200],
+                  ),
                 ),
                 Expanded(
                     child: TabBarView(children: <Widget>[
-                        bio(),
-                        Listing_widget(user: user, sameUser: sameUser),
-                        Review_widget(user: user),
-                        Edit(user: user)
+                  bio(),
+                  Listing_widget(user: user, sameUser: sameUser),
+                  Review_widget(user: user, sameUser : sameUser)
                 ]))
               ],
             )),
