@@ -55,7 +55,6 @@ class HomeScreenState extends State<HomeScreen> {
   String location;
   Position _userPos;
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-  final SearchBarController<Post> _searchBarController = SearchBarController();
   // Used in search bar
   bool isReplay = false;
 
@@ -111,17 +110,6 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Function used to get posts from search bar
-  Future<List<Post>> search(String text) async {
-    await Future.delayed(Duration(seconds: text.length == 4 ? 10 : 1));
-    return List.generate(text.length, (int index) {
-      return Post(
-        "Title : $text $index",
-        "Body : $text $index",
-      );
-    });
-  }
-
   // Main build function of home screen
   Widget build(BuildContext context) {
     print(user);
@@ -131,22 +119,42 @@ class HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           // Flappy Search Bar
           Padding(
-            padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-            child: ButtonTheme(
-              height: 70,
-              child: RaisedButton(
-                child: Text(
-                  "Search for Listings",
-                  style: TextStyle(color: Colors.white, fontSize: 26),
+            padding: EdgeInsets.fromLTRB(50, 20, 50, 10),
+            child: RaisedButton(
+              child: Container(
+                height: 55,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                    Colors.cyanAccent,
+                    Colors.lightBlue,
+                    Colors.blue,
+                    Colors.lightBlue,
+                    Colors.cyanAccent,
+                  ]),
                 ),
-                // padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                shape: StadiumBorder(),
-                color: Colors.grey,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FlapSearchBar()));
-                },
+                child: Flex(
+                  direction: Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0)),
+                    Text(
+                      "Search for Listings",
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                  ],
+                ),
               ),
+              padding: EdgeInsets.all(0.0),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FlapSearchBar(user: user)));
+              },
             ),
           ),
 

@@ -71,16 +71,6 @@ class _MyAppState extends State<MyApp> {
           centerTitle: true,
           actions: [
             Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Icon(
-                  Icons.search,
-                  size: 26.0,
-                ),
-              ),
-            ),
-            Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
                   onTap: () {
