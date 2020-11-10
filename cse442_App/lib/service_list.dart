@@ -232,9 +232,9 @@ class ServiceListState extends State<ServiceList> {
         Location location = locationFromJson(response.body);
         String loc = (location.rows[0].elements[0].distance.text);
         print("loc = " + loc);
-        //double aLoc = double.parse(loc.split(' ')[0]);
-        //print("loc = " + aLoc.toString());
-        //listLoc.add(aLoc);
+        // double aLoc = double.parse(loc.split(' ')[0]);
+        // print("loc = " + aLoc.toString());
+        // listLoc.add(aLoc);
         list[i].distAway = loc;
         listOfLocation.add(list[i]);
       }
