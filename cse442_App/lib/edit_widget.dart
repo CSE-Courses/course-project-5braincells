@@ -39,6 +39,7 @@ class EditState extends State<Edit> {
   bool languageUpdate = false;
   bool cityUpdate = false;
   bool passUpdate = false;
+  bool sameUser = true;
 
   Future<UserModel> updateName(String id, String updateName) async {
     final String apiUrl = "https://job-5cells.herokuapp.com/updateName";
@@ -234,7 +235,7 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: update)),
+                                                            user: update, sameUser:sameUser)),
                                               );
                                             }
                                           },
@@ -329,7 +330,7 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updatePass)),
+                                                            user: updatePass, sameUser:sameUser)),
                                               );
                                             }
                                           },
@@ -395,7 +396,7 @@ class EditState extends State<Edit> {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           ProfileScreen(
-                                                              user: updateE)),
+                                                              user: updateE,sameUser:sameUser)),
                                                 );
                                               }
                                             },
@@ -460,7 +461,7 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updateLan)),
+                                                            user: updateLan,sameUser:sameUser)),
                                               );
                                             }
                                           },
@@ -527,7 +528,7 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updateDes)),
+                                                            user: updateDes,sameUser:sameUser)),
                                               );
                                             }
                                           },
@@ -593,7 +594,7 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updateLoc)),
+                                                            user: updateLoc,sameUser:sameUser)),
                                               );
                                             }
                                           },
