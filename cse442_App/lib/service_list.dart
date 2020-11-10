@@ -232,12 +232,13 @@ class ServiceListState extends State<ServiceList> {
         Location location = locationFromJson(response.body);
         String loc = (location.rows[0].elements[0].distance.text);
         print("loc = " + loc);
-        double aLoc = double.parse(loc.split(' ')[0]);
-        print("loc = " + aLoc.toString());
-        listLoc.add(aLoc);
+        //double aLoc = double.parse(loc.split(' ')[0]);
+        //print("loc = " + aLoc.toString());
+        //listLoc.add(aLoc);
         list[i].distAway = loc;
         listOfLocation.add(list[i]);
       }
+      print(listOfLocation);
       print(listLoc);
       //   final response = await http.get(apiUrl2);
       //   Location location = locationFromJson(response.body);
@@ -301,6 +302,7 @@ class ServiceListState extends State<ServiceList> {
                             testingUserList, user.lat, user.long);
                         setState(() {
                           testingUserList = testingUserList;
+                          print(testingUserList);
                         });
                       },
                       padding: EdgeInsets.all(20.0),
