@@ -43,6 +43,7 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   Widget _emailinput() {
+    final node = FocusScope.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -57,6 +58,7 @@ class LoginScreenState extends State<LoginScreen> {
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email), hintText: 'Enter your email'),
             controller: emailController,
+            onEditingComplete: () => node.nextFocus(),
           ),
         )
       ],
@@ -168,7 +170,7 @@ class LoginScreenState extends State<LoginScreen> {
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(
                   horizontal: 40.0,
-                  vertical: 80.0,
+                  vertical: 60.0,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -176,7 +178,10 @@ class LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     Text(
                       'Sign in',
-                      style: TextStyle(color: Colors.blue, fontSize: 40.0),
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 45.0,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 30.0),

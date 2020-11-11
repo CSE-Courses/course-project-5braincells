@@ -5,8 +5,8 @@ import 'package:flappy_search_bar/scaled_tile.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import '../user model/user_list_list_model.dart';
-import '../user model/userListings_model.dart';
+import '../user model/user_list_model.dart';
+import '../user model/user_listings_model.dart';
 import '../user model/user_model.dart';
 
 // class Post {

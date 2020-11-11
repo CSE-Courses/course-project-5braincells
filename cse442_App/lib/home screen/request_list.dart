@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../profile screen/avg.dart';
 import '../profile screen/profile_screen.dart';
-import '../user model/userListings_model.dart';
+import '../user model/user_listings_model.dart';
 
 class RequestList extends StatefulWidget {
   final UserModel user;
