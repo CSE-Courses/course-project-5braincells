@@ -1,9 +1,9 @@
-import 'package:cse442_App/profile_screen.dart';
+import 'package:cse442_App/profile%20screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'user_model.dart';
+import 'user model/user_model.dart';
 
 class Edit extends StatefulWidget {
   final UserModel user;
@@ -235,7 +235,9 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: update, sameUser:sameUser)),
+                                                            user: update,
+                                                            sameUser:
+                                                                sameUser)),
                                               );
                                             }
                                           },
@@ -330,7 +332,9 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updatePass, sameUser:sameUser)),
+                                                            user: updatePass,
+                                                            sameUser:
+                                                                sameUser)),
                                               );
                                             }
                                           },
@@ -396,7 +400,9 @@ class EditState extends State<Edit> {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           ProfileScreen(
-                                                              user: updateE,sameUser:sameUser)),
+                                                              user: updateE,
+                                                              sameUser:
+                                                                  sameUser)),
                                                 );
                                               }
                                             },
@@ -461,7 +467,9 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updateLan,sameUser:sameUser)),
+                                                            user: updateLan,
+                                                            sameUser:
+                                                                sameUser)),
                                               );
                                             }
                                           },
@@ -528,7 +536,9 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updateDes,sameUser:sameUser)),
+                                                            user: updateDes,
+                                                            sameUser:
+                                                                sameUser)),
                                               );
                                             }
                                           },
@@ -594,7 +604,9 @@ class EditState extends State<Edit> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileScreen(
-                                                            user: updateLoc,sameUser:sameUser)),
+                                                            user: updateLoc,
+                                                            sameUser:
+                                                                sameUser)),
                                               );
                                             }
                                           },
