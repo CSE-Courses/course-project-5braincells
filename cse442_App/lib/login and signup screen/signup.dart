@@ -62,6 +62,7 @@ class SignUpState extends State<SignUp> {
   }
 
   Widget _buildName() {
+    final node = FocusScope.of(context);
     return TextFormField(
       decoration: InputDecoration(
           hintText: "Full Name",
@@ -78,10 +79,12 @@ class SignUpState extends State<SignUp> {
       onSaved: (String value) {
         _name = value;
       },
+      onEditingComplete: () => node.nextFocus(),
     );
   }
 
   Widget _buildEmail() {
+    final node = FocusScope.of(context);
     return TextFormField(
       decoration: InputDecoration(
           hintText: "app@example.com",
@@ -102,10 +105,12 @@ class SignUpState extends State<SignUp> {
       onSaved: (String value) {
         _email = value;
       },
+      onEditingComplete: () => node.nextFocus(),
     );
   }
 
   Widget _buildPassword() {
+    final node = FocusScope.of(context);
     // new FlatButton(
     //     onPressed: _toggle(), child: new Text(_obscureText ? "Show" : "Hide"));
     return new TextFormField(
@@ -122,10 +127,12 @@ class SignUpState extends State<SignUp> {
       onSaved: (String value) {
         _password = value;
       },
+      onEditingComplete: () => node.nextFocus(),
     );
   }
 
   Widget _buildLocation() {
+    final node = FocusScope.of(context);
     return TextFormField(
       controller: locationController,
       decoration: InputDecoration(
@@ -140,6 +147,7 @@ class SignUpState extends State<SignUp> {
       onSaved: (String value) {
         _location = value;
       },
+      onEditingComplete: () => node.nextFocus(),
     );
   }
 
