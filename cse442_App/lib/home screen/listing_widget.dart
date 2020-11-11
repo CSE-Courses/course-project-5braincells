@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../user model/user_list_list_model.dart';
+import '../user model/user_list_model.dart';
 import 'package:http/http.dart' as http;
 import '../user model/user_model.dart';
 import 'dart:convert';

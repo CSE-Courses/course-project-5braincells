@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import '../user model/user_list_list_model.dart';
+import '../user model/user_list_model.dart';
 import '../user model/user_model.dart';
 import 'nearby_listings.dart';
 

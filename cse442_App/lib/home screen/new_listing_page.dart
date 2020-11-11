@@ -129,6 +129,7 @@ class NewListingState extends State<NewListing> {
 
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     // Build a Form widget using the _formKey created above.
     return Scaffold(
         appBar: AppBar(
@@ -154,6 +155,7 @@ class NewListingState extends State<NewListing> {
                     }
                     return null;
                   },
+                  onEditingComplete: () => node.nextFocus(),
                 ),
                 // Description Field
                 TextFormField(
@@ -170,6 +172,7 @@ class NewListingState extends State<NewListing> {
                     }
                     return null;
                   },
+                  onEditingComplete: () => node.nextFocus(),
                 ),
                 // City Field
                 TextFormField(
