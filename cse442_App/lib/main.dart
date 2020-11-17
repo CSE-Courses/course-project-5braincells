@@ -1,15 +1,13 @@
 import 'dart:ui';
 
-import 'package:cse442_App/user_model.dart';
-
 import 'edit_widget.dart';
-import 'home_screen.dart';
-import 'profile_screen.dart';
-import 'nearby_screen.dart';
-import 'login_page.dart';
+import 'home screen/home_screen.dart';
+import 'profile screen/profile_screen.dart';
+import 'nearby screen/nearby_screen.dart';
+import 'login and signup screen/login_page.dart';
 import 'package:flutter/material.dart';
-import 'login_or_signup.dart';
-import 'user_model.dart';
+import 'login and signup screen/login_or_signup.dart';
+import 'user model/user_model.dart';
 import 'dart:convert';
 
 void main() {
