@@ -1,7 +1,6 @@
 const { ObjectId } = require('mongoose');
 const mongoose = require('mongoose');
  const timestamp = require('mongoose-timestamp');
- 
 
 
  const UsersSchema = new mongoose.Schema({
@@ -76,6 +75,10 @@ const mongoose = require('mongoose');
    long:{
       type : Number,
       default : 1.2
+   },
+   bookmarks :{
+     type : [ObjectId],
+     default : []
    }
 
 

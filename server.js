@@ -8,6 +8,7 @@ require('./routes/user')(app);
 require('./routes/rating')(app);
 require('./routes/listing')(app);
 require('./routes/request')(app);
+require('./routes/bookmark')(app);
 
 
 module.exports = app;
