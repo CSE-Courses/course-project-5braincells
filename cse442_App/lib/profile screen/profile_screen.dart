@@ -12,6 +12,11 @@ import '../home screen/listing_widget.dart';
 import '../edit_widget.dart';
 import 'avg.dart';
 import 'dart:core';
+import 'dart:io';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+import './uploader.dart';
+import 'image_capture.dart';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -198,6 +203,24 @@ class ProfileScreenState extends State<ProfileScreen> {
 //                           icon: Icon(Icons.camera_alt),
 //                           onPressed: () {},
 //                         )),
+                    RaisedButton(
+                      color: Colors.lightBlueAccent,
+                      child: Text(
+                        "Change Image",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          side:
+                              BorderSide(color: Colors.lightBlue, width: 2.0)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ImageCapture(user: user)));
+                      },
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 50, left: 135),
                       height: 120,

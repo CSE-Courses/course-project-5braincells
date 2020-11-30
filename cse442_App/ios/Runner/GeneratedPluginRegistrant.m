@@ -16,6 +16,18 @@
 @import google_maps_flutter;
 #endif
 
+#if __has_include(<image_cropper/ImageCropperPlugin.h>)
+#import <image_cropper/ImageCropperPlugin.h>
+#else
+@import image_cropper;
+#endif
+
+#if __has_include(<image_picker/ImagePickerPlugin.h>)
+#import <image_picker/ImagePickerPlugin.h>
+#else
+@import image_picker;
+#endif
+
 #if __has_include(<location_permissions/LocationPermissionsPlugin.h>)
 #import <location_permissions/LocationPermissionsPlugin.h>
 #else
@@ -27,6 +39,8 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [GeolocatorPlugin registerWithRegistrar:[registry registrarForPlugin:@"GeolocatorPlugin"]];
   [FLTGoogleMapsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleMapsPlugin"]];
+  [FLTImageCropperPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImageCropperPlugin"]];
+  [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [LocationPermissionsPlugin registerWithRegistrar:[registry registrarForPlugin:@"LocationPermissionsPlugin"]];
 }
 
