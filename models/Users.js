@@ -79,6 +79,10 @@ const mongoose = require('mongoose');
    bookmarks :{
      type : [ObjectId],
      default : []
+   },
+   profilePic :{
+     type : String,
+     default : "https://i.imgur.com/bX2AcOK.png"
    }
 
 

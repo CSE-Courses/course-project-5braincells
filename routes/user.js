@@ -438,4 +438,16 @@ app.post('/multipleLocations', async(req,res) =>{
   }
 })
 
+app.post('/update/img', async(req,res) =>{
+  try{
+    let user_id = req.body.user_id
+    let newImg = req.body.imgSrc
+    const ello = await Users.findByIdAndUpdate(user_id, {"$set" : {"profilePic" : newImg}});
+    const updated = await Users.findById(user_id);
+    res.status(200).send(updated);
+  }catch(err){
+    return err;
+  }
+})
+
 }
