@@ -366,7 +366,7 @@ URL Params: None
 Data Parameters: {
     "jobType" : (job type)
     "language" : (language of request),
-    "description":(discription of request)
+    "description":(discription of request),
     "user_id":(owner of the request)
 }
 Sucess Response: Code: 200 Content : Request Id
@@ -521,4 +521,72 @@ Sample Response : [{"jobType":"Plumbing","language":"English","description":"Nee
 
 ___________________________________________________________________________
 
+Purpose : Make sure the server is up and running
 
+URL : '/getBookmarks'
+
+Method:GET
+
+URL Params: None
+
+Data Parameters: None
+
+Sucess Response: Code: 200 Content : List of all bookmarks
+
+Error Response: Code: 400 Content: {error: Invalid Content}
+
+Sample call : curl https://job-5cells.herokuapp.com/getBookmarks
+
+Sample Response : [{"date":"Sun Nov 29 2020 21:56:53 GMT-0500 (Eastern Standard Time)","bookmarks":"5fc45dfc29c5ca840fbb6c7b","_id":"5fc45f75f75ac2846d2573f1","updatedAt":"2020-11-30T02:56:53.956Z","createdAt":"2020-11-30T02:56:53.956Z","__v":0}]
+
+___________________________________________________________________________
+
+Purpose : Adds a bookbook to the user
+
+URL : '/addBookmark'
+
+Method: POST
+
+URL Params: None
+
+Data Parameters: {
+    "user_id" : (user's id),
+    "listing_id" : (listing's id),  
+}
+
+Sucess Response: Code: 200 Content : Bookmark's Id
+
+Error Response: Code: 400 Content: {error: This BookMark Exist!}
+
+Sample call : curl -d '{
+    "user_id": "5f8f255e9957d00018c06208",
+    "listing_id":"5f9cbf7068f6060018582d7e"
+}' -H "Content-Type: application/json" -X POST https://job-5cells.herokuapp.com/addBookMark
+
+Sample Response : "5fc6a91580cafb00182c5b5e"
+
+___________________________________________________________________________
+
+Purpose : Get all the listings in the database
+
+URL : '/bookmarks/delete'
+
+Method: POST
+
+URL Params: None
+
+Data Parameters: {
+    "user_id" : (user's id),
+    "bookmark_id" : (Bookmark's id),  
+}
+
+Sucess Response: Code: 200 Content : Deleted successfully
+
+Error Response: Code: 400 Content: {error: Listing not Found!}
+
+Sample call : curl -d '{
+    "user_id": "5f8f255e9957d00018c06208",
+    "bookmark_id":"5fc6a91580cafb00182c5b5e"
+}' -H "Content-Type: application/json" -X POST https://job-5cells.herokuapp.com/bookmarks/delete
+
+Sample Response : Deleted successfully

@@ -59,7 +59,7 @@ app.post("/bookmarks/delete", async(req,res) =>{
               res.status(200).send("Deleted successfully");
             }
             else{
-              res.status(404).send("Listing not Found")
+              res.status(404).send("BookMark not Found")
             }
          
         })
