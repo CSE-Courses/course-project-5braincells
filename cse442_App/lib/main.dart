@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'bookmark_screen/bookmark_screen.dart';
+
 import 'edit_widget.dart';
 import 'home screen/home_screen.dart';
 import 'profile screen/profile_screen.dart';
@@ -52,8 +54,9 @@ class _MyAppState extends State<MyApp> {
     Widget home = HomeScreen(user: user);
     Widget profile = ProfileScreen(user: user, sameUser: true);
     Widget nearby = NearbyScreen(user: user);
+    Widget bookmark = BookmarkScreen(user: user);
 
-    final _pageOptions = [home, nearby, Text("Bookmarked Page"), profile];
+    final _pageOptions = [home, nearby, bookmark, profile];
 
     return MaterialApp(
       home: Scaffold(
