@@ -272,6 +272,18 @@ class ServiceListState extends State<ServiceList> {
         appBar: AppBar(
           title: Text("List of Services"),
           centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
+              onPressed: () async {
+                setState(() {});
+                testingUserList = await getListing();
+              },
+            )
+          ],
         ),
         body: Stack(children: <Widget>[
           Container(
@@ -282,17 +294,6 @@ class ServiceListState extends State<ServiceList> {
                 vertical: 40.0,
               ),
               child: Column(children: [
-                Container(
-                  child: IconButton(
-                    icon: Icon(Icons.refresh),
-                    onPressed: () async {
-                      testingUserList = await getListing();
-                      setState(() {
-                        testingUserList = testingUserList;
-                      });
-                    },
-                  ),
-                ),
                 Container(
                     alignment: Alignment.topLeft,
                     child: RaisedButton(

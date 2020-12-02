@@ -1,28 +1,20 @@
+import 'package:cse442_App/user%20model/user_listings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
-import 'dart:math';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
-import 'package:flappy_search_bar/scaled_tile.dart';
-
-import 'service_list.dart';
-import 'request_list.dart';
 import '../user model/user_model.dart';
 import 'new_listing_page.dart';
 import 'package:cse442_App/user%20model/user_model.dart';
 import 'search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
+  @override
   final UserModel user;
   HomeScreen({this.user});
-  @override
-  State<StatefulWidget> createState() {
-    /*  */
-    // TODO: implement createState
-    return HomeScreenState(user: user);
-  }
+  HomeScreenState createState() => HomeScreenState(user: user);
 }
 
 // Used to send verification email to user to add verification badge to their profile.
@@ -50,22 +42,10 @@ Future<bool> sendVerifyEmail(String _userId, String _email) async {
 class HomeScreenState extends State<HomeScreen> {
   final UserModel user;
   HomeScreenState({this.user});
-  bool pressON = false;
-  bool _firstPress = true;
-  String location;
-  Position _userPos;
+
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-  // Used in search bar
-  bool isReplay = false;
+  Position _userPos;
 
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getLocation();
-    });
-  }
-
-  // Obtains current location from the user's device (if enabled)
   void getLocation() async {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 
@@ -74,7 +54,7 @@ class HomeScreenState extends State<HomeScreen> {
         .then((Position position) async {
       print(position);
       final String location =
-          await _getAddressFromLatLng(position.latitude, position.longitude);
+      await _getAddressFromLatLng(position.latitude, position.longitude);
       print(location);
       final String apiUrl = "https://job-5cells.herokuapp.com/update/location";
       final response = await http.post(apiUrl,
@@ -111,222 +91,307 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Main build function of home screen
+  bool pressON = false;
+  bool _firstPress = true;
+
+  Widget getVerificationButton(){
+    if (user.verify == null || user.verify == false){
+      return Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            alignment: Alignment.center,
+            child: Text(
+              "Your email has not been verified",
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+          // Email button to send email verification link
+          Container(
+              child: RaisedButton(
+                textColor: Colors.white,
+                child: pressON
+                    ? Text("Verification email has been sent.")
+                    : Text("Click here to send verification email."),
+                onPressed: () async {
+                  if (_firstPress) {
+                    print(user.id);
+                    print(user.email);
+                    final bool emailSent = await sendVerifyEmail(
+                        user.id.toString(), user.email.toString());
+                    print(emailSent.toString());
+                    if (emailSent) _firstPress = false;
+                    setState(() {
+                      pressON = !pressON;
+                    });
+                  }
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: Colors.blue,
+              )
+          ),
+        ],
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  String dropdownValue = 'English';
+  final dropdownLanguages = [
+    'English',
+    'Spanish',
+    'Arabic',
+    'Armenian',
+    'Bengali',
+    'Cantonese',
+    'Creole',
+    'Croatian',
+    'French',
+    'German',
+    'Greek',
+    'Gujarati',
+    'Hebrew',
+    'Hindi',
+    'Italian',
+    'Japanese',
+    'Korean',
+    'Mandarin',
+    'Persian',
+    'Polish',
+    'Portuguese',
+    'Punjabi',
+    'Russian',
+    'Serbian',
+    'Tagalog',
+    'Tai–Kadai',
+    'Tamil',
+    'Telugu',
+    'Urdu',
+    'Vietnamese',
+    'Yiddish',
+    'Pig Latin']
+      .map<DropdownMenuItem<String>>((String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(value),
+    );
+  }).toList();
+  bool services = true;
+
+  List<UserListingsModel> initList;
+  List<UserListingsModel> searchList;
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      asyncGet();
+    });
+  }
+
+  void asyncGet() async {
+    final List<UserListingsModel> list = await getListing();
+    setState(() {
+      initList = list;
+      print(initList.length);
+    });
+  }
+
+  Future<List<UserListingsModel>> getListing() async {
+    print("Getting listings");
+
+    String apiUrl = '';
+    if (services){
+      apiUrl = "https://job-5cells.herokuapp.com/allListings";
+    } else {
+      apiUrl = "https://job-5cells.herokuapp.com/allRequest";
+    }
+    final response = await http.get(apiUrl);
+
+    final String temp = response.body;
+    return userListingsModelFromJson(temp);
+  }
+
+  Future<List<UserListingsModel>> search(String text) async {
+    List<UserListingsModel> searchedListings = [];
+    await Future.delayed(Duration(seconds: 3));
+    print(dropdownValue.toLowerCase());
+    for (int i = 0; i < initList.length; i++) {
+      print(initList[i].language.toLowerCase());
+      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase()){
+        if (initList[i]
+            .jobType
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        } else if (initList[i]
+            .description
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        } else if (initList[i]
+            .owner
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        } else if (initList[i]
+            .language
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        }
+      }
+    }
+
+    return searchedListings;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(user);
-    print(user.verify);
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          // Flappy Search Bar
-          Padding(
-            padding: EdgeInsets.fromLTRB(50, 20, 50, 10),
-            child: RaisedButton(
-              child: Container(
-                height: 55,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Colors.cyanAccent,
-                    Colors.lightBlue,
-                    Colors.blue,
-                    Colors.lightBlue,
-                    Colors.cyanAccent,
-                  ]),
-                ),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0)),
-                    Text(
-                      "Search for Listings",
-                      style: TextStyle(color: Colors.white, fontSize: 24),
-                    ),
-                  ],
+      body: Flex(
+        direction: Axis.vertical,
+        children: [
+          // Email Verification Banner
+          getVerificationButton(),
+          Flexible(
+            child: SearchBar<UserListingsModel>(
+              crossAxisCount: 1,
+              icon: Icon(Icons.search,),
+              searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
+              mainAxisSpacing: 0,
+              hintText: "Search",
+              iconActiveColor: Colors.blue,
+              cancellationWidget: Text('Cancel'),
+              header: Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(width: 2, color: Colors.grey[300])
+                      )
+                  ),
+                  width: double.infinity,
+                  child: ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 150,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.blue,
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton<String>(
+                          isExpanded: true,
+                          dropdownColor: Colors.blue,
+                          underline: SizedBox(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),
+                          value: dropdownValue,
+                          icon: Icon(Icons.arrow_downward),
+                          iconEnabledColor: Colors.white,
+                          onChanged: (String newValue) {
+                            setState(() {dropdownValue = newValue;});
+                          },
+                          items: dropdownLanguages,
+                        ),
+                      ),
+                      ButtonTheme(
+                        minWidth: 150,
+                        height: 50,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          child: Text(
+                            services ? "Services" : "Requests",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                          onPressed: () async {
+                            services = !services;
+                            initList = await getListing();
+                            setState(() {});
+                          },
+                        ),
+                      )
+                    ],
+                  )
+              ),
+              onError: (error) {
+                return Center(
+                  child: Text("Error occurred : $error"),
+                );
+              },
+              emptyWidget: Center(child: Text("No results found")),
+              loader: Center(
+                child: Text(
+                  "loading...",
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
-              padding: EdgeInsets.all(0.0),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FlapSearchBar(user: user)));
+              // Creates a delayed screen for the listings to prevent null error when loading the listings
+              suggestions: initList == null ? [] : initList,
+              textStyle:
+              TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+              onSearch: search,
+              onItemFound: (UserListingsModel listing, int index) {
+                return Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(width: 2, color: Colors.grey[300])
+                      )
+                  ),
+                  child: ListTile(
+                    title: Text(listing.jobType,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                    subtitle: Text(listing.description,
+                        style: TextStyle(color: Colors.black)),
+                    // tileColor: Colors.blue,
+                    leading: Icon(
+                      Icons.description,
+                      color: Colors.blue,
+                    ),
+                    trailing: Icon(
+                      Icons.keyboard_arrow_right,
+                      size: 30,
+                      color: Colors.blue,
+                    ),
+                    contentPadding: EdgeInsets.all(10),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Detail(
+                            listing: listing,
+                          )));
+                    },
+                  ),
+                );
               },
             ),
           ),
-
-          // First Row of Buttons (Services / Requests)
-          ButtonBar(
-            buttonPadding: EdgeInsets.all(12),
-            alignment: MainAxisAlignment.center,
-            buttonHeight: 75,
-            buttonMinWidth: 150,
-            children: <Widget>[
-              RaisedButton(
-                color: Colors.lightBlueAccent,
-                child: Text(
-                  "Services",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(color: Colors.lightBlue, width: 2.0)),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ServiceList(user: user)));
-                },
-              ),
-              RaisedButton(
-                color: Colors.lightBlueAccent,
-                child: Text(
-                  "Requests",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(color: Colors.lightBlue, width: 2.0)),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RequestList(user: user)));
-                },
-              ),
-            ],
-          ),
-          // Second Row of Buttons (Tutoring / Transport / Services)
-          ButtonBar(
-            alignment: MainAxisAlignment.center,
-            buttonMinWidth: 100.0,
-            buttonHeight: 100.0,
-            children: <Widget>[
-              RaisedButton(
-                color: Colors.blue,
-                child: Text("Baby Sitting"),
-                onPressed: () => "CLICK",
-              ),
-              RaisedButton(
-                color: Colors.blue,
-                child: Text("Cleaning"),
-                onPressed: () => "CLICK",
-              ),
-              RaisedButton(
-                color: Colors.blue,
-                child: Text("Construction"),
-                onPressed: () => "CLICK",
-              ),
-            ],
-          ),
-          // Third Row of Buttons (Ex.4 / Ex.5 / Ex.6)
-          ButtonBar(
-            alignment: MainAxisAlignment.center,
-            buttonMinWidth: 100.0,
-            buttonHeight: 100.0,
-            children: <Widget>[
-              RaisedButton(
-                color: Colors.blue,
-                child: Text("Tutoring"),
-                onPressed: () => "CLICK",
-              ),
-              RaisedButton(
-                color: Colors.blue,
-                child: Text("Transport"),
-                onPressed: () => "CLICK",
-              ),
-              RaisedButton(
-                color: Colors.blue,
-                child: Text("Barber"),
-                onPressed: () => "CLICK",
-              ),
-            ],
-          ),
-          // Email Verification Banner
-          if (user.verify == null || user.verify == false)
-            Container(
-              alignment: Alignment.center,
-              child: Text(
-                "Your email has not been verified",
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          // Email button to send email verification link
-          if (user.verify == null || user.verify == false)
-            Container(
-                padding: EdgeInsets.symmetric(vertical: 0.0),
-                width: 0.0,
-                child: RaisedButton(
-                  elevation: 5.0,
-                  child: pressON
-                      ? Text("Verification Email has been sent.")
-                      : Text("Click here to send verification email."),
-                  onPressed: () async {
-                    if (_firstPress) {
-                      print(user.id);
-                      print(user.email);
-                      final bool emailSent = await sendVerifyEmail(
-                          user.id.toString(), user.email.toString());
-                      print(emailSent.toString());
-                      if (emailSent) _firstPress = false;
-                      setState(() {
-                        pressON = !pressON;
-                      });
-                    }
-                  },
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.blue)),
-                  color: Colors.white,
-                )),
-          if (user.verify == null || user.verify == false)
-            Container(
-                alignment: Alignment.bottomRight,
-                height: 75.0,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    print(user);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NewListing(user: user)));
-                  },
-                  splashColor: Colors.blue,
-                  elevation: 1.0,
-                  fillColor: Colors.lightBlueAccent,
-                  child: Icon(
-                    Icons.add_circle_outline,
-                    size: 35,
-                  ),
-                  padding: EdgeInsets.all(15.0),
-                  shape: CircleBorder(),
-                )),
-          if (user.verify == true)
-            Container(
-                alignment: Alignment.bottomRight,
-                height: 100.0,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    print(user);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NewListing(user: user)));
-                  },
-                  splashColor: Colors.blue,
-                  elevation: 1.0,
-                  fillColor: Colors.lightBlueAccent,
-                  child: Icon(
-                    Icons.add_circle_outline,
-                    size: 35,
-                  ),
-                  padding: EdgeInsets.all(15.0),
-                  shape: CircleBorder(),
-                )),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print(user);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => NewListing(user: user)));
+        },
+        child: Icon(Icons.post_add),
       ),
     );
   }

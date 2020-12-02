@@ -201,6 +201,18 @@ class RequestListState extends State<RequestList> {
         appBar: AppBar(
           title: Text("List of Request"),
           centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
+              onPressed: () async {
+                setState(() {});
+                testingUserList = await getListing();
+              },
+            )
+          ],
         ),
         body: Stack(children: <Widget>[
           Container(
@@ -211,29 +223,6 @@ class RequestListState extends State<RequestList> {
                 vertical: 40.0,
               ),
               child: Column(children: [
-                Container(
-                    alignment: Alignment.topLeft,
-                    child: RaisedButton(
-                      elevation: 5.0,
-                      onPressed: () async {
-                        setState(() {});
-                        testingUserList = await getListing();
-                      },
-                      padding: EdgeInsets.all(20.0),
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.blue)),
-                      color: Colors.white,
-                      child: Text(
-                        'refresh',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          letterSpacing: 1.5,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'OpenSans',
-                        ),
-                      ),
-                    )),
                 Text("Filter by Language"),
                 Container(
                   decoration: new BoxDecoration(

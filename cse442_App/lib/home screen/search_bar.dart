@@ -28,6 +28,48 @@ class _FlapSearchBarState extends State<FlapSearchBar> {
   final UserModel user;
   _FlapSearchBarState({this.user});
 
+  String dropdownValue = 'English';
+  final dropdownLanguages = [
+    'English',
+    'Spanish',
+    'Arabic',
+    'Armenian',
+    'Bengali',
+    'Cantonese',
+    'Creole',
+    'Croatian',
+    'French',
+    'German',
+    'Greek',
+    'Gujarati',
+    'Hebrew',
+    'Hindi',
+    'Italian',
+    'Japanese',
+    'Korean',
+    'Mandarin',
+    'Persian',
+    'Polish',
+    'Portuguese',
+    'Punjabi',
+    'Russian',
+    'Serbian',
+    'Tagalog',
+    'Tai–Kadai',
+    'Tamil',
+    'Telugu',
+    'Urdu',
+    'Vietnamese',
+    'Yiddish',
+    'Pig Latin']
+      .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+  }).toList();
+  bool services = true;
+
   List<UserListingsModel> initList;
   List<UserListingsModel> searchList;
   void initState() {
@@ -51,7 +93,12 @@ class _FlapSearchBarState extends State<FlapSearchBar> {
   Future<List<UserListingsModel>> getListing() async {
     print("Getting listings");
 
-    final String apiUrl = "https://job-5cells.herokuapp.com/allListings";
+    String apiUrl = '';
+    if (services){
+      apiUrl = "https://job-5cells.herokuapp.com/allListings";
+    } else {
+      apiUrl = "https://job-5cells.herokuapp.com/allRequest";
+    }
     final response = await http.get(apiUrl);
 
     final String temp = response.body;
@@ -60,32 +107,36 @@ class _FlapSearchBarState extends State<FlapSearchBar> {
 
   Future<List<UserListingsModel>> search(String text) async {
     List<UserListingsModel> searchedListings = [];
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
+    print(dropdownValue.toLowerCase());
     for (int i = 0; i < initList.length; i++) {
-      if (initList[i]
-          .jobType
-          .toString()
-          .toLowerCase()
-          .contains(text.toLowerCase())) {
-        searchedListings.add(initList[i]);
-      } else if (initList[i]
-          .description
-          .toString()
-          .toLowerCase()
-          .contains(text.toLowerCase())) {
-        searchedListings.add(initList[i]);
-      } else if (initList[i]
-          .owner
-          .toString()
-          .toLowerCase()
-          .contains(text.toLowerCase())) {
-        searchedListings.add(initList[i]);
-      } else if (initList[i]
-          .language
-          .toString()
-          .toLowerCase()
-          .contains(text.toLowerCase())) {
-        searchedListings.add(initList[i]);
+      print(initList[i].language.toLowerCase());
+      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase()){
+        if (initList[i]
+            .jobType
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        } else if (initList[i]
+            .description
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        } else if (initList[i]
+            .owner
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        } else if (initList[i]
+            .language
+            .toString()
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchedListings.add(initList[i]);
+        }
       }
     }
 
@@ -99,37 +150,92 @@ class _FlapSearchBarState extends State<FlapSearchBar> {
         title: Text("Service App"),
         centerTitle: true,
       ),
+
       body: Flex(
         direction: Axis.vertical,
         children: [
-          Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 10)),
+          //Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 10)),
           Flexible(
             child: SearchBar<UserListingsModel>(
               crossAxisCount: 1,
-              indexedScaledTileBuilder: (int index) => ScaledTile.count(1, .3),
-              icon: Icon(
-                Icons.search,
-                color: Colors.blue,
-              ),
+              //indexedScaledTileBuilder: (int index) => ScaledTile.count(1, .3),
+              icon: Icon(Icons.search,),
               searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
-              headerPadding: EdgeInsets.symmetric(horizontal: 10),
-              listPadding: EdgeInsets.symmetric(horizontal: 10),
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 15,
+              //headerPadding: EdgeInsets.symmetric(horizontal: 10),
+              //listPadding: EdgeInsets.symmetric(horizontal: 0),
+              mainAxisSpacing: 0,
+              //crossAxisSpacing: 20,
               hintText: "Search",
-              iconActiveColor: Colors.red,
-              // placeHolder: Center(
-              //   child: Text(
-              //     "Search for Listings",
-              //     style: TextStyle(fontSize: 18),
-              //   ),
-              // ),
+              iconActiveColor: Colors.blue,
+              cancellationWidget: Text('Cancel'),
+              header: Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(width: 2, color: Colors.grey[300])
+                      )
+                  ),
+                  //height: 80,
+                  width: double.infinity,
+                  //color: Colors.white,
+                  child: ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 150,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.blue,
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton<String>(
+                          isExpanded: true,
+                          dropdownColor: Colors.blue,
+                          underline: SizedBox(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),
+                          value: dropdownValue,
+                          icon: Icon(Icons.arrow_downward),
+                          iconEnabledColor: Colors.white,
+                          onChanged: (String newValue) {
+                            setState(() {dropdownValue = newValue;});
+                          },
+                          items: dropdownLanguages,
+                        ),
+                      ),
+                      ButtonTheme(
+                        minWidth: 150,
+                        height: 50,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          child: Text(
+                            services ? "Services" : "Requests",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                            ),
+                          ),
+                          onPressed: () async {
+                            services = !services;
+                            initList = await getListing();
+                            setState(() {});
+                          },
+                        ),
+                      )
+                    ],
+                  )
+              ),
               onError: (error) {
                 return Center(
                   child: Text("Error occurred : $error"),
                 );
               },
-              emptyWidget: Text("No results found"),
+              emptyWidget: Center(child: Text("No results found")),
               loader: Center(
                 child: Text(
                   "loading...",
@@ -142,34 +248,38 @@ class _FlapSearchBarState extends State<FlapSearchBar> {
                   TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
               onSearch: search,
               onItemFound: (UserListingsModel listing, int index) {
-                return ListTile(
-                  title: Text(listing.jobType,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20)),
-                  subtitle: Text(listing.description,
-                      style: TextStyle(color: Colors.white)),
-                  // tileColor: Colors.blue,
-                  leading: Icon(
-                    Icons.description,
-                    color: Colors.white,
+                return Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 2, color: Colors.grey[300])
+                      )
                   ),
-                  trailing: Icon(
-                    Icons.keyboard_arrow_right,
-                    size: 30,
-                    color: Colors.white,
+                  child: ListTile(
+                    title: Text(listing.jobType,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                    subtitle: Text(listing.description,
+                        style: TextStyle(color: Colors.black)),
+                    // tileColor: Colors.blue,
+                    leading: Icon(
+                      Icons.description,
+                      color: Colors.blue,
+                    ),
+                    trailing: Icon(
+                      Icons.keyboard_arrow_right,
+                      size: 30,
+                      color: Colors.blue,
+                    ),
+                    contentPadding: EdgeInsets.all(10),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Detail(
+                            listing: listing,
+                          )));
+                    },
                   ),
-                  contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                  selected: true,
-                  shape: RoundedRectangleBorder(),
-                  selectedTileColor: Colors.lightBlue[500],
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Detail(
-                              listing: listing,
-                            )));
-                  },
                 );
               },
             ),
@@ -195,7 +305,7 @@ class Detail extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(padding: EdgeInsets.symmetric(vertical: 20)),
-            // Listing Title
+            //Listing Title
             Center(
               child: Container(
                 child: Text(
