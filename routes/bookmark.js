@@ -19,6 +19,17 @@ app.get('/getBookmarks', async(req,res) =>{
         res.sendStatus(err);
     }
 })
+app.get('/bookmarkById/:id', async(req,res) =>{
+    let id  = req.params.id;
+    console.log(id);
+    try{
+        let bookmark = await BookMarks.findById(id);
+        res.send(bookmark);
+    }catch(err){
+            res.send(err);
+    }
+})
+
 app.post('/addBookMark', async(req,res) =>{
     try{
         let user_id = req.body.user_id;
