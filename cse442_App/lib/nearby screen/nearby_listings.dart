@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import '../profile screen/avg.dart';
 import '../user model/user_model.dart';
 import '../user model/user_list_model.dart';
-import '../home screen/service_list.dart';
 import '../user model/user_listings_model.dart';
 import '../profile screen/profile_screen.dart';
 
