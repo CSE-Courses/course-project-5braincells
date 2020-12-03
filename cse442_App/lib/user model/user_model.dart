@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:cse442_App/user%20model/user_listings_model.dart';
+
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJson(UserModel data) => json.encode(data.toJson());
@@ -21,6 +23,7 @@ class UserModel {
     this.language,
     this.description,
     this.listOfRequest,
+    this.recent,
     this.verify,
     this.id,
     this.updatedAt,
@@ -41,6 +44,7 @@ class UserModel {
   String language;
   String description;
   List<String> listOfRequest;
+  List<UserListingsModel> recent = new List();
   bool verify;
   String id;
   DateTime updatedAt;

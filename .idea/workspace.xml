@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="49ba0dcc-7286-46ce-9dd4-21ff625d3735" name="Default Changelist" comment="">
+    <list default="true" id="49ba0dcc-7286-46ce-9dd4-21ff625d3735" name="Default Changelist" comment="#90 - Create a recently used listing functionality for the homepage&#10;#111 - Create UI to display the recently viewed listings on the home page">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/android/.gradle/5.6.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cse442_App/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cse442_App/lib/home screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/lib/home screen/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cse442_App/lib/home screen/request_list.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cse442_App/lib/home screen/search_bar.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cse442_App/lib/home screen/service_list.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cse442_App/lib/nearby screen/nearby_listings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/lib/nearby screen/nearby_listings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cse442_App/lib/user model/user_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/cse442_App/lib/user model/user_model.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,13 +74,22 @@
       <option name="project" value="LOCAL" />
       <updated>1606887698070</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Deleted unnecessary files">
+      <created>1606887976242</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606887976242</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="#37 - Create UI to delete listings&#10;#69 - Create UI widget to add rating&#10;#51 - Create function to differentiate between profile owner/visitor" />
     <MESSAGE value="#88 - Create a better UI for the homepage and get rid of the unused buttons&#10;#112 - Create better UI for search page&#10;#113 - Create better UI for services and requests page" />
-    <option name="LAST_COMMIT_MESSAGE" value="#88 - Create a better UI for the homepage and get rid of the unused buttons&#10;#112 - Create better UI for search page&#10;#113 - Create better UI for services and requests page" />
+    <MESSAGE value="Deleted unnecessary files" />
+    <MESSAGE value="#90 - Create a recently used listing functionality for the homepage&#10;#111 - Create UI to display the recently viewed listings on the home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="#90 - Create a recently used listing functionality for the homepage&#10;#111 - Create UI to display the recently viewed listings on the home page" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603963342795">
@@ -92,31 +104,31 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="458" y="201" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900@0.0.1440.900" timestamp="1606887894089" />
-    <state x="100" y="79" width="1240" height="719" key="AVDManager" timestamp="1606887136594">
+    <state x="100" y="79" width="1240" height="719" key="AVDManager" timestamp="1606965192707">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="100" y="79" width="1240" height="719" key="AVDManager/0.0.1440.900@0.0.1440.900" timestamp="1606887136594" />
+    <state x="100" y="79" width="1240" height="719" key="AVDManager/0.0.1440.900@0.0.1440.900" timestamp="1606965192707" />
     <state x="100" y="100" width="1240" height="700" key="AVDManager/0.23.1440.877@0.23.1440.877" timestamp="1604432037965" />
-    <state x="188" y="25" width="1058" height="875" key="CommitChangelistDialog2" timestamp="1606887697446">
+    <state x="188" y="25" width="1058" height="875" key="CommitChangelistDialog2" timestamp="1606965238469">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="188" y="25" width="1058" height="875" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1606887697446" />
-    <state width="1398" height="274" key="GridCell.Tab.0.bottom" timestamp="1606884309169">
+    <state x="188" y="25" width="1058" height="875" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1606965238469" />
+    <state width="1398" height="274" key="GridCell.Tab.0.bottom" timestamp="1606958535830">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="274" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1606884309169" />
-    <state width="1398" height="274" key="GridCell.Tab.0.center" timestamp="1606884309167">
+    <state width="1398" height="274" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1606958535830" />
+    <state width="1398" height="274" key="GridCell.Tab.0.center" timestamp="1606958535828">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="274" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1606884309167" />
-    <state width="1398" height="274" key="GridCell.Tab.0.left" timestamp="1606884309164">
+    <state width="1398" height="274" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1606958535828" />
+    <state width="1398" height="274" key="GridCell.Tab.0.left" timestamp="1606958535827">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="274" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1606884309164" />
-    <state width="1398" height="274" key="GridCell.Tab.0.right" timestamp="1606884309168">
+    <state width="1398" height="274" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1606958535827" />
+    <state width="1398" height="274" key="GridCell.Tab.0.right" timestamp="1606958535829">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="274" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1606884309168" />
+    <state width="1398" height="274" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1606958535829" />
     <state x="144" y="76" key="MergeDialog" timestamp="1606857670319">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
