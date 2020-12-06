@@ -117,7 +117,7 @@
     },
     {
       "name": "google_maps_flutter_platform_interface",
-      "rootUri": "file:///Users/yingweili/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.0.4",
+      "rootUri": "file:///Users/yingweili/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.3"
     },
@@ -183,7 +183,7 @@
     },
     {
       "name": "pedantic",
-      "rootUri": "file:///Users/yingweili/.pub-cache/hosted/pub.dartlang.org/pedantic-1.9.0",
+      "rootUri": "file:///Users/yingweili/.pub-cache/hosted/pub.dartlang.org/pedantic-1.9.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
@@ -266,7 +266,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-12-06T06:44:10.725029Z",
+  "generated": "2020-12-06T08:38:12.261102Z",
   "generator": "pub",
   "generatorVersion": "2.12.0-3.0.dev"
 }
