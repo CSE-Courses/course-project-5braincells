@@ -35,6 +35,7 @@ class _ImageCaptureState extends State<ImageCapture> {
     File selected = await ImagePicker.pickImage(source: source);
     setState(() {
       _imageFile = selected;
+      print(_imageFile);
     });
   }
 
@@ -72,7 +73,7 @@ class _ImageCaptureState extends State<ImageCapture> {
                 FlatButton(onPressed: _clear, child: Icon(Icons.refresh))
               ],
             ),
-            Uploader(file: _imageFile)
+            Uploader(file: _imageFile, user: user)
           }
         ]));
   }

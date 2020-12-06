@@ -27,6 +27,7 @@ class UserModel {
     this.createdAt,
     this.lat,
     this.long,
+    this.imgSrc,
     this.v,
   });
 
@@ -47,6 +48,7 @@ class UserModel {
   DateTime createdAt;
   double lat;
   double long;
+  String imgSrc;
   int v;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -67,6 +69,7 @@ class UserModel {
         createdAt: DateTime.parse(json["createdAt"]),
         lat: json["lat"],
         long: json["long"],
+        imgSrc: json["profilePic"],
         v: json["__v"],
       );
 
@@ -88,6 +91,7 @@ class UserModel {
         "createdAt": createdAt.toIso8601String(),
         "lat": lat,
         "long": long,
+        "imgSrc": imgSrc,
         "__v": v,
       };
 }

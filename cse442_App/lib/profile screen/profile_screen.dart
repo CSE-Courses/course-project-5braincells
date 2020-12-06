@@ -24,8 +24,8 @@ class ProfileScreen extends StatefulWidget {
   ProfileScreen({this.user, this.sameUser});
   @override
   State<StatefulWidget> createState() {
-    print("profile");
-    print(user.id);
+    print(user.imgSrc);
+    // print(user.id);
 
     // TODO: implement createState
     return ProfileScreenState(user: user, sameUser: sameUser);
@@ -39,6 +39,7 @@ class ProfileScreen extends StatefulWidget {
 class ProfileScreenState extends State<ProfileScreen> {
   final UserModel user;
   final bool sameUser;
+  String profilePic = 'https://i.imgur.com/sdWgnbV.png';
   ProfileScreenState({this.user, this.sameUser});
   double stars = 0.0;
 
@@ -61,6 +62,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       print(avg);
       if (avg != null) {
         setState(() {
+          profilePic = user.imgSrc;
           stars = avg.avg;
           print(avg.avg);
         });
@@ -71,7 +73,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   List<String> tabNames = ["Bio", "Listings", "Reviews"];
-
+  String holder = "https://i.imgur.com/bX2AcOK.png";
   String result = "";
 
   Widget bio() {
@@ -228,8 +230,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://external-preview.redd.it/9AWn6JJOzBSl3XLfNHCtEtfjaw3iUPriDltGV10P5A4.jpg?auto=webp&s=19b8fe70cd041d6fc3e49fbee361c9b0c46c049f"),
+                              image: NetworkImage(profilePic),
                               fit: BoxFit.cover),
                           boxShadow: [
                             BoxShadow(

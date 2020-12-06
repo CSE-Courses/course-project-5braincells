@@ -56,6 +56,18 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "firebase_core",
+      "rootUri": "file:///Users/yingweili/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.0+8",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "firebase_storage",
+      "rootUri": "file:///Users/yingweili/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flappy_search_bar",
       "rootUri": "file:///Users/yingweili/.pub-cache/hosted/pub.dartlang.org/flappy_search_bar-1.7.2",
       "packageUri": "lib/",
@@ -254,7 +266,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-11-30T06:35:43.014693Z",
+  "generated": "2020-12-06T06:44:10.725029Z",
   "generator": "pub",
   "generatorVersion": "2.12.0-3.0.dev"
 }
