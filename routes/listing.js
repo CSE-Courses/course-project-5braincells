@@ -28,6 +28,16 @@ module.exports = app =>{
 
 })
 
+app.get('/listingFromBooks/:id', async(req,res) =>{
+  try{
+      const listing = await Listings.findById(req.params.id);
+      res.send(listing);
+  }
+  catch(err){
+    res.send(err).send("Lol why it fail tho")
+  }
+})
+
   app.get('/allListings' , async(req,res)=>{
 
 
