@@ -25,7 +25,7 @@ app.get('/listingfromBooks/:id', async(req,res) =>{
     console.log(id);
     try{
         let bookmark = await BookMarks.findById(id);
-        res.send(bookmark.bookmark);
+        res.send(bookmark.bookmarks);
     }catch(err){
             res.send(err);
     }
