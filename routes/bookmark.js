@@ -20,7 +20,7 @@ app.get('/getBookmarks', async(req,res) =>{
     }
 })
 //This returns the listingid from bookmark id
-app.get('/listingfromBooks/:id', async(req,res) =>{
+app.get('/listidFromBook/:id', async(req,res) =>{
     let id  = req.params.id;
     console.log(id);
     try{
