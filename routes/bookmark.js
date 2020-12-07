@@ -19,12 +19,13 @@ app.get('/getBookmarks', async(req,res) =>{
         res.sendStatus(err);
     }
 })
-app.get('/bookmarkById/:id', async(req,res) =>{
+//This returns the listingid from bookmark id
+app.get('/listingfromBooks/:id', async(req,res) =>{
     let id  = req.params.id;
     console.log(id);
     try{
         let bookmark = await BookMarks.findById(id);
-        res.send(bookmark);
+        res.send(bookmark.bookmark);
     }catch(err){
             res.send(err);
     }
