@@ -1,3 +1,4 @@
+import 'package:cse442_App/home%20screen/listing_widget.dart';
 import 'package:cse442_App/user%20model/user_listings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -53,7 +54,7 @@ class HomeScreenState extends State<HomeScreen> {
         .then((Position position) async {
       print(position);
       final String location =
-      await _getAddressFromLatLng(position.latitude, position.longitude);
+          await _getAddressFromLatLng(position.latitude, position.longitude);
       print(location);
       final String apiUrl = "https://job-5cells.herokuapp.com/update/location";
       final response = await http.post(apiUrl,
@@ -93,8 +94,8 @@ class HomeScreenState extends State<HomeScreen> {
   bool pressON = false;
   bool _firstPress = true;
 
-  Widget getVerificationButton(){
-    if (user.verify == null || user.verify == false){
+  Widget getVerificationButton() {
+    if (user.verify == null || user.verify == false) {
       return Stack(
         children: [
           Container(
@@ -108,28 +109,27 @@ class HomeScreenState extends State<HomeScreen> {
           // Email button to send email verification link
           Container(
               child: RaisedButton(
-                textColor: Colors.white,
-                child: pressON
-                    ? Text("Verification email has been sent.")
-                    : Text("Click here to send verification email."),
-                onPressed: () async {
-                  if (_firstPress) {
-                    print(user.id);
-                    print(user.email);
-                    final bool emailSent = await sendVerifyEmail(
-                        user.id.toString(), user.email.toString());
-                    print(emailSent.toString());
-                    if (emailSent) _firstPress = false;
-                    setState(() {
-                      pressON = !pressON;
-                    });
-                  }
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                color: Colors.blue,
-              )
-          ),
+            textColor: Colors.white,
+            child: pressON
+                ? Text("Verification email has been sent.")
+                : Text("Click here to send verification email."),
+            onPressed: () async {
+              if (_firstPress) {
+                print(user.id);
+                print(user.email);
+                final bool emailSent = await sendVerifyEmail(
+                    user.id.toString(), user.email.toString());
+                print(emailSent.toString());
+                if (emailSent) _firstPress = false;
+                setState(() {
+                  pressON = !pressON;
+                });
+              }
+            },
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color: Colors.blue,
+          )),
         ],
       );
     } else {
@@ -137,6 +137,7 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Set<UserListingsModel> bookMarkedList = Set<UserListingsModel>();
   String dropdownValue = 'English';
   final dropdownLanguages = [
     'English',
@@ -170,8 +171,8 @@ class HomeScreenState extends State<HomeScreen> {
     'Urdu',
     'Vietnamese',
     'Yiddish',
-    'Pig Latin']
-      .map<DropdownMenuItem<String>>((String value) {
+    'Pig Latin'
+  ].map<DropdownMenuItem<String>>((String value) {
     return DropdownMenuItem<String>(
       value: value,
       child: Text(value),
@@ -196,11 +197,32 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // bool isFavorite = true;
+  // List favorites = [];
+  // void addFavorite(){
+
+  // }
+  // Widget favorite(isFavorite) {
+  //   if (isFavorite == false) {
+  //     return IconButton(
+  //         icon: Icon(Icons.favorite_border),
+  //         onPressed: () {
+  //           isFavorite = true;
+  //         });
+  //   } else if (isFavorite == true) {
+  //     return IconButton(
+  //         icon: Icon(Icons.favorite),
+  //         onPressed: () {
+  //           isFavorite = false;
+  //         });
+  //   }
+  // }
+
   Future<List<UserListingsModel>> getListing() async {
     print("Getting listings");
 
     String apiUrl = '';
-    if (services){
+    if (services) {
       apiUrl = "https://job-5cells.herokuapp.com/allListings";
     } else {
       apiUrl = "https://job-5cells.herokuapp.com/allRequest";
@@ -217,7 +239,7 @@ class HomeScreenState extends State<HomeScreen> {
     print(dropdownValue.toLowerCase());
     for (int i = 0; i < initList.length; i++) {
       print(initList[i].language.toLowerCase());
-      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase()){
+      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase()) {
         if (initList[i]
             .jobType
             .toString()
@@ -260,7 +282,9 @@ class HomeScreenState extends State<HomeScreen> {
           Flexible(
             child: SearchBar<UserListingsModel>(
               crossAxisCount: 1,
-              icon: Icon(Icons.search,),
+              icon: Icon(
+                Icons.search,
+              ),
               searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
               mainAxisSpacing: 0,
               hintText: "Search",
@@ -269,9 +293,8 @@ class HomeScreenState extends State<HomeScreen> {
               header: Container(
                   decoration: BoxDecoration(
                       border: Border(
-                          bottom: BorderSide(width: 2, color: Colors.grey[300])
-                      )
-                  ),
+                          bottom:
+                              BorderSide(width: 2, color: Colors.grey[300]))),
                   width: double.infinity,
                   child: ButtonBar(
                     alignment: MainAxisAlignment.center,
@@ -288,15 +311,14 @@ class HomeScreenState extends State<HomeScreen> {
                           isExpanded: true,
                           dropdownColor: Colors.blue,
                           underline: SizedBox(),
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                           value: dropdownValue,
                           icon: Icon(Icons.arrow_downward),
                           iconEnabledColor: Colors.white,
                           onChanged: (String newValue) {
-                            setState(() {dropdownValue = newValue;});
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
                           },
                           items: dropdownLanguages,
                         ),
@@ -324,8 +346,7 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                       )
                     ],
-                  )
-              ),
+                  )),
               onError: (error) {
                 return Center(
                   child: Text("Error occurred : $error"),
@@ -341,15 +362,15 @@ class HomeScreenState extends State<HomeScreen> {
               // Creates a delayed screen for the listings to prevent null error when loading the listings
               suggestions: initList == null ? [] : initList,
               textStyle:
-              TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                  TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
               onSearch: search,
               onItemFound: (UserListingsModel listing, int index) {
+                bool isBookmarked = bookMarkedList.contains(listing);
                 return Container(
                   decoration: BoxDecoration(
                       border: Border(
-                          bottom: BorderSide(width: 2, color: Colors.grey[300])
-                      )
-                  ),
+                          bottom:
+                              BorderSide(width: 2, color: Colors.grey[300]))),
                   child: ListTile(
                     title: Text(listing.jobType,
                         style: TextStyle(
@@ -364,16 +385,29 @@ class HomeScreenState extends State<HomeScreen> {
                       color: Colors.blue,
                     ),
                     trailing: Icon(
-                      Icons.keyboard_arrow_right,
-                      size: 30,
-                      color: Colors.blue,
-                    ),
+                        isBookmarked
+                            ? Icons.favorite
+                            : Icons.favorite_border_outlined,
+                        color: isBookmarked ? Colors.blue : null),
+                    // IconButton(
+                    //   icon: Icon(Icons.favorite_border_outlined),
+                    //   // size: 30,
+                    //   color: Colors.blue,
+                    //   onPressed: () {},
+                    // ),
                     contentPadding: EdgeInsets.all(10),
                     onTap: () {
+                      setState(() {
+                        if (isBookmarked) {
+                          bookMarkedList.remove(listing);
+                        } else {
+                          bookMarkedList.add(listing);
+                        }
+                      });
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Detail(
-                            listing: listing,
-                          )));
+                                listing: listing,
+                              )));
                     },
                   ),
                 );
@@ -385,10 +419,8 @@ class HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print(user);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => NewListing(user: user)));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NewListing(user: user)));
         },
         child: Icon(Icons.post_add),
       ),
@@ -474,4 +506,3 @@ class Detail extends StatelessWidget {
     );
   }
 }
-
