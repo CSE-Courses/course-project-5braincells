@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:cse442_App/user%20model/user_listings_model.dart';
+
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJson(UserModel data) => json.encode(data.toJson());
@@ -21,12 +23,14 @@ class UserModel {
     this.language,
     this.description,
     this.listOfRequest,
+    this.recent,
     this.verify,
     this.id,
     this.updatedAt,
     this.createdAt,
     this.lat,
     this.long,
+    this.imgSrc,
     this.v,
   });
 
@@ -41,12 +45,14 @@ class UserModel {
   String language;
   String description;
   List<String> listOfRequest;
+  List<UserListingsModel> recent = new List();
   bool verify;
   String id;
   DateTime updatedAt;
   DateTime createdAt;
   double lat;
   double long;
+  String imgSrc;
   int v;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -67,6 +73,7 @@ class UserModel {
         createdAt: DateTime.parse(json["createdAt"]),
         lat: json["lat"],
         long: json["long"],
+        imgSrc: json["profilePic"],
         v: json["__v"],
       );
 
@@ -88,6 +95,7 @@ class UserModel {
         "createdAt": createdAt.toIso8601String(),
         "lat": lat,
         "long": long,
+        "imgSrc": imgSrc,
         "__v": v,
       };
 }

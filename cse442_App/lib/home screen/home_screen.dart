@@ -43,12 +43,11 @@ class HomeScreenState extends State<HomeScreen> {
   final UserModel user;
   HomeScreenState({this.user});
 
+  /** Geolocator **************************************************************/
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   Position _userPos;
-
   void getLocation() async {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) async {
@@ -67,7 +66,6 @@ class HomeScreenState extends State<HomeScreen> {
             "long": position.longitude,
             "location": location
           }));
-
       setState(() {
         _userPos = position;
         user.lat = position.latitude;
@@ -90,10 +88,11 @@ class HomeScreenState extends State<HomeScreen> {
       print(e);
     }
   }
+  /**------------------------------------------------------------------------**/
 
+  /** Checks for email verification and shows bannet & button if not **********/
   bool pressON = false;
   bool _firstPress = true;
-
   Widget getVerificationButton() {
     if (user.verify == null || user.verify == false) {
       return Stack(
@@ -106,6 +105,7 @@ class HomeScreenState extends State<HomeScreen> {
               style: TextStyle(color: Colors.red),
             ),
           ),
+
           // Email button to send email verification link
           Container(
               child: RaisedButton(
@@ -136,8 +136,10 @@ class HomeScreenState extends State<HomeScreen> {
       return Container();
     }
   }
+  /**------------------------------------------------------------------------**/
 
   Set<UserListingsModel> bookMarkedList = Set<UserListingsModel>();
+  /** Dropdown button language options ****************************************/
   String dropdownValue = 'English';
   final dropdownLanguages = [
     'English',
@@ -178,10 +180,16 @@ class HomeScreenState extends State<HomeScreen> {
       child: Text(value),
     );
   }).toList();
-  bool services = true;
+  /**------------------------------------------------------------------------**/
 
+  /** Get listing data from server ********************************************/
+  bool services = true;
+  bool history = false;
+  List<UserListingsModel> serviceHistory = new List();
+  List<UserListingsModel> requestHistory = new List();
   List<UserListingsModel> initList;
   List<UserListingsModel> searchList;
+
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -197,43 +205,38 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // bool isFavorite = true;
-  // List favorites = [];
-  // void addFavorite(){
-
-  // }
-  // Widget favorite(isFavorite) {
-  //   if (isFavorite == false) {
-  //     return IconButton(
-  //         icon: Icon(Icons.favorite_border),
-  //         onPressed: () {
-  //           isFavorite = true;
-  //         });
-  //   } else if (isFavorite == true) {
-  //     return IconButton(
-  //         icon: Icon(Icons.favorite),
-  //         onPressed: () {
-  //           isFavorite = false;
-  //         });
-  //   }
-  // }
-
+  // Gets listings from server and returns list of items to be displayed
   Future<List<UserListingsModel>> getListing() async {
     print("Getting listings");
-
-    String apiUrl = '';
-    if (services) {
-      apiUrl = "https://job-5cells.herokuapp.com/allListings";
+    if (history) {
+      if (services) {
+        return serviceHistory;
+      } else {
+        return requestHistory;
+      }
     } else {
-      apiUrl = "https://job-5cells.herokuapp.com/allRequest";
-    }
-    final response = await http.get(apiUrl);
+      String apiUrl = '';
+      if (services) {
+        apiUrl = "https://job-5cells.herokuapp.com/allListings";
+      } else {
+        apiUrl = "https://job-5cells.herokuapp.com/allRequest";
+      }
+      final response = await http.get(apiUrl);
 
-    final String temp = response.body;
-    return userListingsModelFromJson(temp);
+      final String temp = response.body;
+      List<UserListingsModel> original = userListingsModelFromJson(temp);
+      List<UserListingsModel> reversed = new List();
+      for (UserListingsModel listing in original.reversed) {
+        reversed.add(listing);
+      }
+      return reversed;
+    }
   }
 
+  // Search function
   Future<List<UserListingsModel>> search(String text) async {
+    history = false;
+    setState(() {});
     List<UserListingsModel> searchedListings = [];
     await Future.delayed(Duration(seconds: 3));
     print(dropdownValue.toLowerCase());
@@ -267,10 +270,11 @@ class HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-
     return searchedListings;
   }
+  /**------------------------------------------------------------------------**/
 
+  /** GUI Layout **************************************************************/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -280,6 +284,7 @@ class HomeScreenState extends State<HomeScreen> {
           // Email Verification Banner
           getVerificationButton(),
           Flexible(
+            // Search bar
             child: SearchBar<UserListingsModel>(
               crossAxisCount: 1,
               icon: Icon(
@@ -291,17 +296,19 @@ class HomeScreenState extends State<HomeScreen> {
               iconActiveColor: Colors.blue,
               cancellationWidget: Text('Cancel'),
               header: Container(
+                  // Buttons under search bar
                   decoration: BoxDecoration(
                       border: Border(
                           bottom:
                               BorderSide(width: 2, color: Colors.grey[300]))),
-                  width: double.infinity,
+                  //width: double.infinity,
                   child: ButtonBar(
                     alignment: MainAxisAlignment.center,
                     children: [
+                      // Language Dropdown Button
                       Container(
-                        width: 150,
-                        height: 50,
+                        width: 100,
+                        height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.blue,
@@ -311,7 +318,7 @@ class HomeScreenState extends State<HomeScreen> {
                           isExpanded: true,
                           dropdownColor: Colors.blue,
                           underline: SizedBox(),
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(color: Colors.white, fontSize: 15),
                           value: dropdownValue,
                           icon: Icon(Icons.arrow_downward),
                           iconEnabledColor: Colors.white,
@@ -323,9 +330,11 @@ class HomeScreenState extends State<HomeScreen> {
                           items: dropdownLanguages,
                         ),
                       ),
+
+                      // Services/Requests Button
                       ButtonTheme(
-                        minWidth: 150,
-                        height: 50,
+                        minWidth: 100,
+                        height: 40,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -335,11 +344,35 @@ class HomeScreenState extends State<HomeScreen> {
                             services ? "Services" : "Requests",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                           ),
                           onPressed: () async {
                             services = !services;
+                            initList = await getListing();
+                            setState(() {});
+                          },
+                        ),
+                      ),
+
+                      // History Button
+                      ButtonTheme(
+                        minWidth: 100,
+                        height: 40,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: BorderSide(color: Colors.blue)),
+                        child: RaisedButton(
+                          color: history ? Colors.white : Colors.blue,
+                          child: Text(
+                            "History",
+                            style: TextStyle(
+                              color: history ? Colors.blue : Colors.white,
+                              fontSize: 15,
+                            ),
+                          ),
+                          onPressed: () async {
+                            history = !history;
                             initList = await getListing();
                             setState(() {});
                           },
@@ -359,6 +392,7 @@ class HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+
               // Creates a delayed screen for the listings to prevent null error when loading the listings
               suggestions: initList == null ? [] : initList,
               textStyle:
@@ -384,26 +418,31 @@ class HomeScreenState extends State<HomeScreen> {
                       Icons.description,
                       color: Colors.blue,
                     ),
-                    trailing: Icon(
-                        isBookmarked
-                            ? Icons.favorite
-                            : Icons.favorite_border_outlined,
-                        color: isBookmarked ? Colors.blue : null),
-                    // IconButton(
-                    //   icon: Icon(Icons.favorite_border_outlined),
-                    //   // size: 30,
-                    //   color: Colors.blue,
-                    //   onPressed: () {},
-                    // ),
+                    trailing: IconButton(
+                      icon: Icon(
+                          isBookmarked
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                          color: isBookmarked ? Colors.blue : null),
+                      onPressed: () {
+                        setState(() {
+                          if (isBookmarked) {
+                            bookMarkedList.remove(listing);
+                          } else {
+                            bookMarkedList.add(listing);
+                          }
+                        });
+                      },
+                    ),
+                    
                     contentPadding: EdgeInsets.all(10),
                     onTap: () {
-                      setState(() {
-                        if (isBookmarked) {
-                          bookMarkedList.remove(listing);
-                        } else {
-                          bookMarkedList.add(listing);
-                        }
-                      });
+                      if (services) {
+                        serviceHistory.insert(0, listing);
+                      } else {
+                        requestHistory.insert(0, listing);
+                      }
+
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Detail(
                                 listing: listing,
@@ -416,6 +455,8 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+
+      // Floating add listing button
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print(user);
@@ -427,7 +468,9 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+/**--------------------------------------------------------------------------**/
 
+/** Screen When Listing Tile Is Tapped ****************************************/
 class Detail extends StatelessWidget {
   final UserListingsModel listing;
   Detail({this.listing});
@@ -506,3 +549,4 @@ class Detail extends StatelessWidget {
     );
   }
 }
+/**--------------------------------------------------------------------------**/

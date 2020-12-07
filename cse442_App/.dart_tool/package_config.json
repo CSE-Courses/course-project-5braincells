@@ -56,6 +56,18 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "firebase_core",
+      "rootUri": "file:///C:/Users/Navid/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.0+8",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "firebase_storage",
+      "rootUri": "file:///C:/Users/Navid/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flappy_search_bar",
       "rootUri": "file:///C:/Users/Navid/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/flappy_search_bar-1.7.2",
       "packageUri": "lib/",
@@ -105,7 +117,7 @@
     },
     {
       "name": "google_maps_flutter_platform_interface",
-      "rootUri": "file:///C:/Users/Navid/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.0.4",
+      "rootUri": "file:///C:/Users/Navid/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.3"
     },
@@ -171,7 +183,7 @@
     },
     {
       "name": "pedantic",
-      "rootUri": "file:///C:/Users/Navid/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.9.0",
+      "rootUri": "file:///C:/Users/Navid/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.9.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
@@ -254,7 +266,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-12-02T18:58:43.419567Z",
+  "generated": "2020-12-07T17:01:57.963279Z",
   "generator": "pub",
   "generatorVersion": "2.10.3"
 }
