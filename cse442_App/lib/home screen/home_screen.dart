@@ -1,10 +1,6 @@
 import 'package:cse442_App/home%20screen/listing_widget.dart';
-import 'package:cse442_App/profile%20screen/avg.dart';
-import 'package:cse442_App/profile%20screen/profile_screen.dart';
 import 'package:cse442_App/user%20model/user_listings_model.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -142,8 +138,9 @@ class HomeScreenState extends State<HomeScreen> {
   /**------------------------------------------------------------------------**/
 
   /** Dropdown button language options ****************************************/
-  String dropdownValue = 'English';
+  String dropdownValue = 'Language';
   final dropdownLanguages = [
+    'Language',
     'English',
     'Spanish',
     'Arabic',
@@ -210,7 +207,8 @@ class HomeScreenState extends State<HomeScreen> {
     }
     setState(() {
       initList = list;
-      print(initList.length);
+      print("initList.length = " + initList.length.toString());
+      print("initList = " + initList.toString());
     });
   }
 
@@ -292,6 +290,11 @@ class HomeScreenState extends State<HomeScreen> {
       for (UserListingsModel listing in original.reversed) {
         reversed.add(listing);
       }
+      if (dropdownValue != 'Language') {
+        reversed = reversed
+            .where((element) => element.language.contains(dropdownValue))
+            .toList();
+      }
       return reversed;
     }
   }
@@ -305,7 +308,8 @@ class HomeScreenState extends State<HomeScreen> {
     print(dropdownValue.toLowerCase());
     for (int i = 0; i < initList.length; i++) {
       print(initList[i].language.toLowerCase());
-      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase()) {
+      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase() ||
+          dropdownValue == 'Language') {
         if (initList[i]
             .jobType
             .toString()
@@ -356,6 +360,7 @@ class HomeScreenState extends State<HomeScreen> {
               searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
               mainAxisSpacing: 0,
               hintText: "Search",
+              minimumChars: 2,
               iconActiveColor: Colors.blue,
               cancellationWidget: Text('Cancel'),
               header: Container(
@@ -370,7 +375,7 @@ class HomeScreenState extends State<HomeScreen> {
                     children: [
                       // Language Dropdown Button
                       Container(
-                        width: 100,
+                        width: 125,
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -385,10 +390,10 @@ class HomeScreenState extends State<HomeScreen> {
                           value: dropdownValue,
                           icon: Icon(Icons.arrow_downward),
                           iconEnabledColor: Colors.white,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              dropdownValue = newValue;
-                            });
+                          onChanged: (String newValue) async {
+                            dropdownValue = newValue;
+                            initList = await getListing();
+                            setState(() {});
                           },
                           items: dropdownLanguages,
                         ),
@@ -469,10 +474,6 @@ class HomeScreenState extends State<HomeScreen> {
                           bottom:
                               BorderSide(width: 2, color: Colors.grey[300]))),
                   child: ListTile(
-                    leading: Icon(
-                      Icons.home_repair_service,
-                      color: Colors.blue,
-                    ),
                     title: Text(listing.jobType,
                         style: TextStyle(
                             color: Colors.black,
@@ -481,7 +482,10 @@ class HomeScreenState extends State<HomeScreen> {
                     subtitle: Text(listing.description,
                         style: TextStyle(color: Colors.black)),
                     // tileColor: Colors.blue,
-
+                    leading: Icon(
+                      Icons.description,
+                      color: Colors.blue,
+                    ),
                     trailing: IconButton(
                       icon: Icon(
                           isBookmarked
@@ -508,7 +512,9 @@ class HomeScreenState extends State<HomeScreen> {
                       }
 
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Detail(listing: listing)));
+                          builder: (context) => Detail(
+                                listing: listing,
+                              )));
                     },
                   ),
                 );
@@ -533,97 +539,12 @@ class HomeScreenState extends State<HomeScreen> {
 /**--------------------------------------------------------------------------**/
 
 /** Screen When Listing Tile Is Tapped ****************************************/
-class Detail extends StatefulWidget {
-  @override
+class Detail extends StatelessWidget {
   final UserListingsModel listing;
   Detail({this.listing});
 
-  State<StatefulWidget> createState() {
-    return DetailState(listing: listing);
-  }
-}
-
-class DetailState extends State<Detail> {
-  UserListingsModel listing;
-  DetailState({this.listing});
-
-  String username = "";
-  double stars = 0.0;
-  String phoneNumber = "";
-
-  UserModel user;
-  bool sameUser = false;
-
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      asyncGet();
-    });
-  }
-
-  Future<UserModel> newUserInstance(String userId) async {
-    print("Create User is called");
-
-    final String apiUrl = "https://job-5cells.herokuapp.com/getById/" + userId;
-    final response = await http.get(apiUrl);
-    print(response.body);
-    if (response.statusCode == 200) {
-      final String resString = response.body;
-      return userModelFromJson(resString);
-    } else {
-      return null;
-    }
-  }
-
-  void asyncGet() async {
-    UserModel user = await newUserInstance(listing.owner);
-    setState(() {
-      //user = newUser;
-      username = user.firstname;
-      phoneNumber = user.phone;
-    });
-  }
-
-  Future updateUsername(String owner) async {
-    String toGet = "https://job-5cells.herokuapp.com/getById/" + owner;
-    var data = await http.get(toGet);
-    //String username = "";
-
-    if (!data.body.contains("null")) {
-      user = userModelFromJson(data.body);
-      print(user.firstname);
-      username = user.firstname;
-    }
-    setState(() {
-      username = user.firstname;
-    });
-  }
-
-  Future updateDescription(BuildContext context, String owner) async {
-    String toGet = "https://job-5cells.herokuapp.com/getById/" + owner;
-    var data = await http.get(toGet);
-    UserModel user;
-    if (!data.body.contains("null")) {
-      user = userModelFromJson(data.body);
-      print(user.firstname);
-      username = user.firstname;
-    }
-    //double stars = 0.0;
-    String ratingURL = "https://job-5cells.herokuapp.com/getAvgStars/" + owner;
-    var ratingData = await http.get(ratingURL);
-    if (!ratingData.body.contains("null")) {
-      Avg avg = avgFromJson(ratingData.body);
-      if (avg != null) {
-        stars = avg.avg;
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    // updateUsername(listing.owner);
-    // print(username);
-    updateDescription(context, listing.owner);
     return Scaffold(
       appBar: AppBar(
         title: Text("Service App"),
@@ -637,24 +558,21 @@ class DetailState extends State<Detail> {
             Center(
               child: Container(
                 child: Text(
-                  "Job: " + listing.jobType,
+                  listing.jobType,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 20,
+                      color: Colors.white,
+                      fontSize: 40,
                       fontWeight: FontWeight.bold),
                 ),
                 width: 350,
                 decoration: new BoxDecoration(
-                  //color: Colors.lightBlue,
-                  border: Border.all(
-                    color: Colors.blue,
-                  ),
+                  color: Colors.lightBlue,
                   borderRadius: BorderRadius.circular(20),
-                  // gradient: new LinearGradient(
-                  //     colors: [Colors.lightBlue, Colors.blueAccent],
-                  //     begin: Alignment.centerRight,
-                  //     end: Alignment.centerLeft),
+                  gradient: new LinearGradient(
+                      colors: [Colors.lightBlue, Colors.blueAccent],
+                      begin: Alignment.centerRight,
+                      end: Alignment.centerLeft),
                 ),
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
               ),
@@ -662,109 +580,36 @@ class DetailState extends State<Detail> {
             // Listing Description
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
-              child: Container(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(children: [
-                    TextSpan(
-                      text: "Description: " + listing.description + "\n\n",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                    ),
-                    TextSpan(
-                      text: "Preferred Language: " + listing.language + "\n\n",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                    ),
-                    TextSpan(
-                      //children:[] ,
-                      text: "By: " + username + "\n\n",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                      // Clickable link that will allow users to view new profiles
-
-                      // recognizer: TapGestureRecognizer()
-                      //   ..onTap = () {
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => ProfileScreen(
-                      //                 user: user,
-                      //                 sameUser: sameUser,
-                      //               )),
-                      //     );
-                      //   }
-                    ),
-                    TextSpan(
-                      text: "Rating: " +
-                          stars.toString().substring(0, 3) +
-                          "\n\n",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                    ),
-                    TextSpan(
-                      text: "Date Created: " +
-                          listing.createdAt.toString().substring(0, 10) +
-                          "\n\n",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                    ),
-                    TextSpan(
-                      text: "Contact Info: " + phoneNumber.toString() + "\n\n",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ]),
-                ),
-                // Text(
-                //   "Description: " +
-                //       listing.description +
-                //       "\n\n" +
-                //       "Preferred Language: " +
-                //       listing.language +
-                //       "\n\n" +
-                //       "By: " +
-                //       username +
-                //       "\n\n" +
-                //       "Rating: " +
-                //       stars.toString().substring(0, 3) +
-                //       "\n\n" +
-                //       "Date Created: " +
-                //       listing.createdAt.toString().substring(0, 10) +
-                //       "\n\n" +
-                //       "Contact Info: " +
-                //       phoneNumber.toString(),
-                //   textAlign: TextAlign.center,
-                //   style: TextStyle(
-                //       color: Colors.black,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.normal),
-                // ),
-                width: 350,
-                decoration: new BoxDecoration(
-                  border: Border.all(
-                    color: Colors.blue,
+              child: Center(
+                child: Container(
+                  child: Text(
+                    "Description: " + listing.description,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                  // gradient: new LinearGradient(
-                  //     colors: [Colors.lightBlue, Colors.blueAccent],
-                  //     begin: Alignment.centerRight,
-                  //     end: Alignment.centerLeft),
+                  width: 350,
+                  decoration: new BoxDecoration(
+                    color: Colors.lightBlue,
+                    borderRadius: BorderRadius.circular(3),
+                    gradient: new LinearGradient(
+                        colors: [Colors.lightBlue, Colors.blueAccent],
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft),
+                  ),
+                  padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                 ),
-                padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
               ),
+            ),
+            Text(
+              listing.language,
+              style: TextStyle(fontSize: 16),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(listing.createdAt.toString()),
             ),
           ],
         ),
@@ -772,5 +617,4 @@ class DetailState extends State<Detail> {
     );
   }
 }
-
 /**--------------------------------------------------------------------------**/

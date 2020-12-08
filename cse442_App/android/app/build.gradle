@@ -44,7 +44,7 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-
+        multiDexEnabled true
         // Set the properties within `local.properties` into a `Properties` class so that values
         // within `local.properties` (e.g. Maps API key) are accessible in this file.
         Properties properties = new Properties()
