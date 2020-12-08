@@ -10,11 +10,15 @@
         android:label="cse442_App"
         android:icon="@mipmap/ic_launcher">
 
-        <!-- Google Maps API Key --> 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyAYHZdkun8H8EXX9cOnL2BIDybq-reMRss" 
-               />
+        <!-- Google Maps API Key  -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${mapsApiKey}" />
 
+        <activity android:name="com.yalantis.ucrop.UCropActivity"
+        android:screenOrientation = "portrait"
+        android:theme = "@style/Theme.AppCompat.Light.NoActionBar"
+        />
                
         <activity
             android:name=".MainActivity"

@@ -1,15 +1,15 @@
 import 'dart:ui';
 
-import 'package:cse442_App/user_model.dart';
+import 'bookmark_screen/bookmark_screen.dart';
 
 import 'edit_widget.dart';
-import 'home_screen.dart';
-import 'profile_screen.dart';
-import 'nearby_screen.dart';
-import 'login_page.dart';
+import 'home screen/home_screen.dart';
+import 'profile screen/profile_screen.dart';
+import 'nearby screen/nearby_screen.dart';
+import 'login and signup screen/login_page.dart';
 import 'package:flutter/material.dart';
-import 'login_or_signup.dart';
-import 'user_model.dart';
+import 'login and signup screen/login_or_signup.dart';
+import 'user model/user_model.dart';
 import 'dart:convert';
 
 void main() {
@@ -54,8 +54,9 @@ class _MyAppState extends State<MyApp> {
     Widget home = HomeScreen(user: user);
     Widget profile = ProfileScreen(user: user, sameUser: true);
     Widget nearby = NearbyScreen(user: user);
+    Widget bookmark = BookmarkScreen(user: user);
 
-    final _pageOptions = [home, nearby, Text("Bookmarked Page"), profile];
+    final _pageOptions = [home, nearby, bookmark, profile];
 
     return MaterialApp(
       home: Scaffold(
