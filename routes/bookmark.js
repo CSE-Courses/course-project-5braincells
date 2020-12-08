@@ -42,16 +42,24 @@ app.post('/addBookMark', async(req,res) =>{
         let createdMark =  await bookmark.save();
         let bmid = createdMark._id;
         if(bmid){
+            bool = true;
             let markers = await Users.findById(user_id);
             let arr = markers.bookmarks;
             for(var i = 0; i<arr.length; i++){
                 let book = await BookMarks.findById(arr[i]);
                 if(book.bookmarks == listing_id){
-                    res.status(400).send("This BookMark Exist!");
+                    bool = false;
+                    res.send("This BookMark Exist!");
+                    console.log("run this");
                 }
             }
-           
-            const ello = await Users.findByIdAndUpdate(user_id, {"$push" :{"bookmarks": bmid}});
+            if(bool){
+                const ello = await Users.findByIdAndUpdate(user_id, {"$push" :{"bookmarks": bmid}});
+            }
+            else{
+                res.status(400).send("This BookMark Exist!");
+            }
+        
             res.send(bmid);
         }
 
