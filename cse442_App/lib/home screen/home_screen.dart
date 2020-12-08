@@ -138,7 +138,6 @@ class HomeScreenState extends State<HomeScreen> {
   }
   /**------------------------------------------------------------------------**/
 
-  Set<UserListingsModel> bookMarkedList = Set<UserListingsModel>();
   /** Dropdown button language options ****************************************/
   String dropdownValue = 'English';
   final dropdownLanguages = [
@@ -189,6 +188,8 @@ class HomeScreenState extends State<HomeScreen> {
   List<UserListingsModel> requestHistory = new List();
   List<UserListingsModel> initList;
   List<UserListingsModel> searchList;
+  List<String> bookMarkedList = [];
+  List<String> bookmarkedListingslist = [];
 
   void initState() {
     super.initState();
@@ -198,11 +199,57 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void asyncGet() async {
+      bookMarkedList = user.bookmarks;
     final List<UserListingsModel> list = await getListing();
+    for (var listing in bookMarkedList) {
+          await getBookmark(listing);
+        }
     setState(() {
       initList = list;
       print(initList.length);
     });
+  }
+
+  //returns listing id from bookmark id
+  Future<String> getBookmark(String bookmarkID) async {
+    final String apiUrl =
+        "https://job-5cells.herokuapp.com/listidFromBook/" + bookmarkID;
+    final response = await http.get(apiUrl);
+    final String temp = response.body;
+    setState(() {
+      bookmarkedListingslist.add(temp);
+    });
+  }
+
+  Future<String> addBookmarkListing(String userId, String listingId) async {
+    final String apiUrl =
+        "https://job-5cells.herokuapp.com/addBookMark";
+      final response = await http.post(apiUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({
+        "user_id": userId,
+        "listing_id": listingId,
+      }));
+    final String temp = response.body;
+    print(temp);
+    return temp;
+  }
+
+  void removeBookmarkListing(String bookmarkId, String userId) async {
+    final String apiUrl =
+        "https://job-5cells.herokuapp.com/bookmarks/delete";
+      final response = await http.post(apiUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({
+        "bookmark_id": bookmarkId,
+        "user_id": userId,
+      }));
+    final String temp = response.body;
+    print(temp);
   }
 
   // Gets listings from server and returns list of items to be displayed
@@ -232,6 +279,7 @@ class HomeScreenState extends State<HomeScreen> {
       return reversed;
     }
   }
+
 
   // Search function
   Future<List<UserListingsModel>> search(String text) async {
@@ -399,7 +447,7 @@ class HomeScreenState extends State<HomeScreen> {
                   TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
               onSearch: search,
               onItemFound: (UserListingsModel listing, int index) {
-                bool isBookmarked = bookMarkedList.contains(listing);
+                bool isBookmarked = bookmarkedListingslist.contains(listing.id);
                 return Container(
                   decoration: BoxDecoration(
                       border: Border(
@@ -424,12 +472,14 @@ class HomeScreenState extends State<HomeScreen> {
                               ? Icons.favorite
                               : Icons.favorite_border_outlined,
                           color: isBookmarked ? Colors.blue : null),
-                      onPressed: () {
+                      onPressed: () async {
+                        final String fuckmylife = await addBookmarkListing(user.id, listing.id);
                         setState(() {
                           if (isBookmarked) {
-                            bookMarkedList.remove(listing);
+                            //idk
                           } else {
-                            bookMarkedList.add(listing);
+                            bookmarkedListingslist.add(fuckmylife);
+                            isBookmarked = true;
                           }
                         });
                       },

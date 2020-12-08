@@ -29,6 +29,7 @@ class UserModel {
     this.updatedAt,
     this.createdAt,
     this.lat,
+    this.bookmarks,
     this.long,
     this.imgSrc,
     this.v,
@@ -54,6 +55,8 @@ class UserModel {
   double long;
   String imgSrc;
   int v;
+  List<String> bookmarks;
+
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         firstname: json["firstname"],
@@ -75,6 +78,7 @@ class UserModel {
         long: json["long"],
         imgSrc: json["profilePic"],
         v: json["__v"],
+        bookmarks: List<String>.from(json["bookmarks"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,5 +101,6 @@ class UserModel {
         "long": long,
         "imgSrc": imgSrc,
         "__v": v,
+        "bookmarks": List<dynamic>.from(bookmarks.map((x) => x)),
       };
 }
