@@ -143,8 +143,9 @@ class HomeScreenState extends State<HomeScreen> {
   /**------------------------------------------------------------------------**/
 
   /** Dropdown button language options ****************************************/
-  String dropdownValue = 'English';
+  String dropdownValue = 'Language';
   final dropdownLanguages = [
+    'Language',
     'English',
     'Spanish',
     'Arabic',
@@ -211,7 +212,8 @@ class HomeScreenState extends State<HomeScreen> {
     }
     setState(() {
       initList = list;
-      print(initList.length);
+      print("initList.length = " + initList.length.toString());
+      print("initList = " + initList.toString());
     });
   }
 
@@ -293,6 +295,11 @@ class HomeScreenState extends State<HomeScreen> {
       for (UserListingsModel listing in original.reversed) {
         reversed.add(listing);
       }
+      if (dropdownValue != 'Language') {
+        reversed = reversed
+            .where((element) => element.language.contains(dropdownValue))
+            .toList();
+      }
       return reversed;
     }
   }
@@ -306,7 +313,8 @@ class HomeScreenState extends State<HomeScreen> {
     print(dropdownValue.toLowerCase());
     for (int i = 0; i < initList.length; i++) {
       print(initList[i].language.toLowerCase());
-      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase()) {
+      if (initList[i].language.toLowerCase() == dropdownValue.toLowerCase() ||
+          dropdownValue == 'Language') {
         if (initList[i]
             .jobType
             .toString()
@@ -357,6 +365,7 @@ class HomeScreenState extends State<HomeScreen> {
               searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
               mainAxisSpacing: 0,
               hintText: "Search",
+              minimumChars: 2,
               iconActiveColor: Colors.blue,
               cancellationWidget: Text('Cancel'),
               header: Container(
@@ -371,7 +380,7 @@ class HomeScreenState extends State<HomeScreen> {
                     children: [
                       // Language Dropdown Button
                       Container(
-                        width: 100,
+                        width: 125,
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -386,10 +395,10 @@ class HomeScreenState extends State<HomeScreen> {
                           value: dropdownValue,
                           icon: Icon(Icons.arrow_downward),
                           iconEnabledColor: Colors.white,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              dropdownValue = newValue;
-                            });
+                          onChanged: (String newValue) async {
+                            dropdownValue = newValue;
+                            initList = await getListing();
+                            setState(() {});
                           },
                           items: dropdownLanguages,
                         ),
@@ -682,26 +691,26 @@ class DetailState extends State<Detail> {
                           fontWeight: FontWeight.normal),
                     ),
                     TextSpan(
-                        //children:[] ,
-                        text: "By: " + username + "\n\n",
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal),
-                        // Clickable link that will allow users to view new profiles
+                      //children:[] ,
+                      text: "By: " + username + "\n\n",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                      // Clickable link that will allow users to view new profiles
 
-                        // recognizer: TapGestureRecognizer()
-                        //   ..onTap = () {
-                        //     Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) => ProfileScreen(
-                        //                 user: user,
-                        //                 sameUser: sameUser,
-                        //               )),
-                        //     );
-                        //   }
-                          ),
+                      // recognizer: TapGestureRecognizer()
+                      //   ..onTap = () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => ProfileScreen(
+                      //                 user: user,
+                      //                 sameUser: sameUser,
+                      //               )),
+                      //     );
+                      //   }
+                    ),
                     TextSpan(
                       text: "Rating: " +
                           stars.toString().substring(0, 3) +
