@@ -122,23 +122,46 @@ class Listing_widgetState extends State<Listing_widget> {
                     itemCount: initList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: const EdgeInsets.all(12.0),
-                        padding: const EdgeInsets.all(0.1),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                          color: Colors.lightBlue,
-                        )),
-                        height: 70,
-                        child: ListTile(
-                          title: Text('(' +
-                              initList[index][0].language +
-                              ')' +
-                              initList[index][0].jobType.toString()),
-                          subtitle:
-                              Text(initList[index][0].description.toString()),
-                          trailing: getDeleteButton(initList[index][0].id),
-                        ),
-                      );
+                          margin: const EdgeInsets.all(6.0),
+                          padding: const EdgeInsets.all(0.1),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                            color: Colors.lightBlue,
+                          )),
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.home_repair_service,
+                              color: Colors.blue,
+                            ),
+                            title: Text(
+                                '(' +
+                                    initList[index][0].language +
+                                    ')' +
+                                    initList[index][0].jobType.toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16)),
+                            subtitle: Text(
+                                initList[index][0].description.toString(),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16)),
+                            trailing: getDeleteButton(initList[index][0].id),
+                            contentPadding: EdgeInsets.all(10),
+                            selected: true,
+                            shape: RoundedRectangleBorder(),
+                            //selectedTileColor: Colors.lightBlue[500],
+                          )
+                          // (
+                          //   title: Text('(' +
+                          //       initList[index][0].language +
+                          //       ')' +
+                          //       initList[index][0].jobType.toString()),
+                          //   subtitle:
+                          //       Text(initList[index][0].description.toString()),
+                          //   trailing: getDeleteButton(initList[index][0].id),
+                          // ),
+                          );
                     });
               }
             }),

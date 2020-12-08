@@ -1,6 +1,10 @@
 import 'package:cse442_App/home%20screen/listing_widget.dart';
+import 'package:cse442_App/profile%20screen/avg.dart';
+import 'package:cse442_App/profile%20screen/profile_screen.dart';
 import 'package:cse442_App/user%20model/user_listings_model.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -465,6 +469,10 @@ class HomeScreenState extends State<HomeScreen> {
                           bottom:
                               BorderSide(width: 2, color: Colors.grey[300]))),
                   child: ListTile(
+                    leading: Icon(
+                      Icons.home_repair_service,
+                      color: Colors.blue,
+                    ),
                     title: Text(listing.jobType,
                         style: TextStyle(
                             color: Colors.black,
@@ -473,10 +481,7 @@ class HomeScreenState extends State<HomeScreen> {
                     subtitle: Text(listing.description,
                         style: TextStyle(color: Colors.black)),
                     // tileColor: Colors.blue,
-                    leading: Icon(
-                      Icons.description,
-                      color: Colors.blue,
-                    ),
+
                     trailing: IconButton(
                       icon: Icon(
                           isBookmarked
@@ -503,9 +508,7 @@ class HomeScreenState extends State<HomeScreen> {
                       }
 
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Detail(
-                                listing: listing,
-                              )));
+                          builder: (context) => Detail(listing: listing)));
                     },
                   ),
                 );
@@ -530,12 +533,97 @@ class HomeScreenState extends State<HomeScreen> {
 /**--------------------------------------------------------------------------**/
 
 /** Screen When Listing Tile Is Tapped ****************************************/
-class Detail extends StatelessWidget {
+class Detail extends StatefulWidget {
+  @override
   final UserListingsModel listing;
   Detail({this.listing});
 
+  State<StatefulWidget> createState() {
+    return DetailState(listing: listing);
+  }
+}
+
+class DetailState extends State<Detail> {
+  UserListingsModel listing;
+  DetailState({this.listing});
+
+  String username = "";
+  double stars = 0.0;
+  String phoneNumber = "";
+
+  UserModel user;
+  bool sameUser = false;
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      asyncGet();
+    });
+  }
+
+  Future<UserModel> newUserInstance(String userId) async {
+    print("Create User is called");
+
+    final String apiUrl = "https://job-5cells.herokuapp.com/getById/" + userId;
+    final response = await http.get(apiUrl);
+    print(response.body);
+    if (response.statusCode == 200) {
+      final String resString = response.body;
+      return userModelFromJson(resString);
+    } else {
+      return null;
+    }
+  }
+
+  void asyncGet() async {
+    UserModel user = await newUserInstance(listing.owner);
+    setState(() {
+      //user = newUser;
+      username = user.firstname;
+      phoneNumber = user.phone;
+    });
+  }
+
+  Future updateUsername(String owner) async {
+    String toGet = "https://job-5cells.herokuapp.com/getById/" + owner;
+    var data = await http.get(toGet);
+    //String username = "";
+
+    if (!data.body.contains("null")) {
+      user = userModelFromJson(data.body);
+      print(user.firstname);
+      username = user.firstname;
+    }
+    setState(() {
+      username = user.firstname;
+    });
+  }
+
+  Future updateDescription(BuildContext context, String owner) async {
+    String toGet = "https://job-5cells.herokuapp.com/getById/" + owner;
+    var data = await http.get(toGet);
+    UserModel user;
+    if (!data.body.contains("null")) {
+      user = userModelFromJson(data.body);
+      print(user.firstname);
+      username = user.firstname;
+    }
+    //double stars = 0.0;
+    String ratingURL = "https://job-5cells.herokuapp.com/getAvgStars/" + owner;
+    var ratingData = await http.get(ratingURL);
+    if (!ratingData.body.contains("null")) {
+      Avg avg = avgFromJson(ratingData.body);
+      if (avg != null) {
+        stars = avg.avg;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // updateUsername(listing.owner);
+    // print(username);
+    updateDescription(context, listing.owner);
     return Scaffold(
       appBar: AppBar(
         title: Text("Service App"),
@@ -549,21 +637,24 @@ class Detail extends StatelessWidget {
             Center(
               child: Container(
                 child: Text(
-                  listing.jobType,
+                  "Job: " + listing.jobType,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
+                      color: Colors.blue,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
                 width: 350,
                 decoration: new BoxDecoration(
-                  color: Colors.lightBlue,
+                  //color: Colors.lightBlue,
+                  border: Border.all(
+                    color: Colors.blue,
+                  ),
                   borderRadius: BorderRadius.circular(20),
-                  gradient: new LinearGradient(
-                      colors: [Colors.lightBlue, Colors.blueAccent],
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft),
+                  // gradient: new LinearGradient(
+                  //     colors: [Colors.lightBlue, Colors.blueAccent],
+                  //     begin: Alignment.centerRight,
+                  //     end: Alignment.centerLeft),
                 ),
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
               ),
@@ -571,36 +662,109 @@ class Detail extends StatelessWidget {
             // Listing Description
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
-              child: Center(
-                child: Container(
-                  child: Text(
-                    "Description: " + listing.description,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  width: 350,
-                  decoration: new BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(3),
-                    gradient: new LinearGradient(
-                        colors: [Colors.lightBlue, Colors.blueAccent],
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft),
-                  ),
-                  padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+              child: Container(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: "Description: " + listing.description + "\n\n",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    TextSpan(
+                      text: "Preferred Language: " + listing.language + "\n\n",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    TextSpan(
+                      //children:[] ,
+                      text: "By: " + username + "\n\n",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                      // Clickable link that will allow users to view new profiles
+
+                      // recognizer: TapGestureRecognizer()
+                      //   ..onTap = () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => ProfileScreen(
+                      //                 user: user,
+                      //                 sameUser: sameUser,
+                      //               )),
+                      //     );
+                      //   }
+                    ),
+                    TextSpan(
+                      text: "Rating: " +
+                          stars.toString().substring(0, 3) +
+                          "\n\n",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    TextSpan(
+                      text: "Date Created: " +
+                          listing.createdAt.toString().substring(0, 10) +
+                          "\n\n",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    TextSpan(
+                      text: "Contact Info: " + phoneNumber.toString() + "\n\n",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ]),
                 ),
+                // Text(
+                //   "Description: " +
+                //       listing.description +
+                //       "\n\n" +
+                //       "Preferred Language: " +
+                //       listing.language +
+                //       "\n\n" +
+                //       "By: " +
+                //       username +
+                //       "\n\n" +
+                //       "Rating: " +
+                //       stars.toString().substring(0, 3) +
+                //       "\n\n" +
+                //       "Date Created: " +
+                //       listing.createdAt.toString().substring(0, 10) +
+                //       "\n\n" +
+                //       "Contact Info: " +
+                //       phoneNumber.toString(),
+                //   textAlign: TextAlign.center,
+                //   style: TextStyle(
+                //       color: Colors.black,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.normal),
+                // ),
+                width: 350,
+                decoration: new BoxDecoration(
+                  border: Border.all(
+                    color: Colors.blue,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  // gradient: new LinearGradient(
+                  //     colors: [Colors.lightBlue, Colors.blueAccent],
+                  //     begin: Alignment.centerRight,
+                  //     end: Alignment.centerLeft),
+                ),
+                padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
               ),
-            ),
-            Text(
-              listing.language,
-              style: TextStyle(fontSize: 16),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(listing.createdAt.toString()),
             ),
           ],
         ),
@@ -608,4 +772,5 @@ class Detail extends StatelessWidget {
     );
   }
 }
+
 /**--------------------------------------------------------------------------**/
