@@ -518,7 +518,10 @@ class HomeScreenState extends State<HomeScreen> {
                       }
 
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Detail(listing: listing)));
+                          builder: (context) => Detail(
+                                listing: listing,
+                                user: user,
+                              )));
                     },
                   ),
                 );
@@ -546,22 +549,24 @@ class HomeScreenState extends State<HomeScreen> {
 class Detail extends StatefulWidget {
   @override
   final UserListingsModel listing;
-  Detail({this.listing});
+  final UserModel user;
+  Detail({this.listing, this.user});
 
   State<StatefulWidget> createState() {
-    return DetailState(listing: listing);
+    return DetailState(listing: listing, user: user);
   }
 }
 
 class DetailState extends State<Detail> {
   UserListingsModel listing;
-  DetailState({this.listing});
+  UserModel user;
+
+  DetailState({this.listing, this.user});
 
   String username = "";
   double stars = 0.0;
   String phoneNumber = "";
 
-  UserModel user;
   bool sameUser = false;
 
   void initState() {
@@ -586,9 +591,9 @@ class DetailState extends State<Detail> {
   }
 
   void asyncGet() async {
-    UserModel user = await newUserInstance(listing.owner);
+    UserModel newUser = await newUserInstance(listing.owner);
     setState(() {
-      //user = newUser;
+      user = newUser;
       username = user.firstname;
       phoneNumber = user.phone;
     });
@@ -603,6 +608,7 @@ class DetailState extends State<Detail> {
       user = userModelFromJson(data.body);
       print(user.firstname);
       username = user.firstname;
+      user = user;
     }
     setState(() {
       username = user.firstname;
@@ -691,26 +697,25 @@ class DetailState extends State<Detail> {
                           fontWeight: FontWeight.normal),
                     ),
                     TextSpan(
-                      //children:[] ,
-                      text: "By: " + username + "\n\n",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                      // Clickable link that will allow users to view new profiles
+                        //children:[] ,
+                        text: "By: " + username + "\n\n",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal),
+                        // Clickable link that will allow users to view new profiles
 
-                      // recognizer: TapGestureRecognizer()
-                      //   ..onTap = () {
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => ProfileScreen(
-                      //                 user: user,
-                      //                 sameUser: sameUser,
-                      //               )),
-                      //     );
-                      //   }
-                    ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileScreen(
+                                        user: user,
+                                        sameUser: sameUser,
+                                      )),
+                            );
+                          }),
                     TextSpan(
                       text: "Rating: " +
                           stars.toString().substring(0, 3) +
