@@ -103,7 +103,9 @@ class BookmarkScreenState extends State<BookmarkScreen> {
 
   Widget getInformationBox(String jobType, String description, String owner,
       String bId, String lid, int index) {
-    return Container(
+    return Column(
+      children: [
+        Container(
         decoration: BoxDecoration(
             border:
                 Border(bottom: BorderSide(width: 2, color: Colors.grey[300]))),
@@ -136,7 +138,10 @@ class BookmarkScreenState extends State<BookmarkScreen> {
                       listing: difListing,
                     )));
           },
-        )); //here
+        ))
+      ],
+    )
+    ; //here
   }
 
   var testList = [

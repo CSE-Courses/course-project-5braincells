@@ -1,3 +1,4 @@
+import 'package:cse442_App/bookmark_screen/bookmark_screen.dart';
 import 'package:cse442_App/home%20screen/listing_widget.dart';
 import 'package:cse442_App/profile%20screen/avg.dart';
 import 'package:cse442_App/profile%20screen/profile_screen.dart';
@@ -681,26 +682,26 @@ class DetailState extends State<Detail> {
                           fontWeight: FontWeight.normal),
                     ),
                     TextSpan(
-                      //children:[] ,
-                      text: "By: " + username + "\n\n",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
-                      // Clickable link that will allow users to view new profiles
+                        //children:[] ,
+                        text: "By: " + username + "\n\n",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal),
+                        // Clickable link that will allow users to view new profiles
 
-                      // recognizer: TapGestureRecognizer()
-                      //   ..onTap = () {
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => ProfileScreen(
-                      //                 user: user,
-                      //                 sameUser: sameUser,
-                      //               )),
-                      //     );
-                      //   }
-                    ),
+                        // recognizer: TapGestureRecognizer()
+                        //   ..onTap = () {
+                        //     Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (context) => ProfileScreen(
+                        //                 user: user,
+                        //                 sameUser: sameUser,
+                        //               )),
+                        //     );
+                        //   }
+                          ),
                     TextSpan(
                       text: "Rating: " +
                           stars.toString().substring(0, 3) +
@@ -728,30 +729,6 @@ class DetailState extends State<Detail> {
                     ),
                   ]),
                 ),
-                // Text(
-                //   "Description: " +
-                //       listing.description +
-                //       "\n\n" +
-                //       "Preferred Language: " +
-                //       listing.language +
-                //       "\n\n" +
-                //       "By: " +
-                //       username +
-                //       "\n\n" +
-                //       "Rating: " +
-                //       stars.toString().substring(0, 3) +
-                //       "\n\n" +
-                //       "Date Created: " +
-                //       listing.createdAt.toString().substring(0, 10) +
-                //       "\n\n" +
-                //       "Contact Info: " +
-                //       phoneNumber.toString(),
-                //   textAlign: TextAlign.center,
-                //   style: TextStyle(
-                //       color: Colors.black,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.normal),
-                // ),
                 width: 350,
                 decoration: new BoxDecoration(
                   border: Border.all(

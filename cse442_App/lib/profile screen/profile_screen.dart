@@ -24,7 +24,7 @@ class ProfileScreen extends StatefulWidget {
   ProfileScreen({this.user, this.sameUser});
   @override
   State<StatefulWidget> createState() {
-    print(user.imgSrc);
+    //print(user.imgSrc);
     // print(user.id);
 
     // TODO: implement createState
