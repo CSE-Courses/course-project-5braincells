@@ -30,16 +30,32 @@ class BookmarkScreenState extends State<BookmarkScreen> {
     });
   }
 
+  Future<UserModel> newUserInstance(String userId) async {
+    print("Create User is called");
+
+    final String apiUrl = "https://job-5cells.herokuapp.com/getById/" + userId;
+    final response = await http.get(apiUrl);
+    print(response.body);
+    if (response.statusCode == 200) {
+      final String resString = response.body;
+      return userModelFromJson(resString);
+    } else {
+      return null;
+    }
+  }
+
   void asyncGet() async {
-        bookmarkList = user.bookmarks;
-        for (var listing in bookmarkList) {
-          await getBookmark(listing);
-        }
-        final List<SingleListing> randomtemporaryholder = singleListingFromJson(finalList.toString());
-        setState(() {
-          finaltemplist = randomtemporaryholder;
-          print(finaltemplist.length);
-      });
+    UserModel newUser = await newUserInstance(user.id);
+    bookmarkList = newUser.bookmarks;
+    for (var listing in bookmarkList) {
+      await getBookmark(listing);
+    }
+    final List<SingleListing> randomtemporaryholder =
+        singleListingFromJson(finalList.toString());
+    setState(() {
+      finaltemplist = randomtemporaryholder;
+      print(finaltemplist.length);
+    });
   }
 
   void getBookmark(String bookmarkID) async {
@@ -107,19 +123,20 @@ class BookmarkScreenState extends State<BookmarkScreen> {
         direction: Axis.vertical,
         children: [
           Center(
-            child: 
-              Text(
-                "Bookmarked Listings",
-                style: TextStyle(
-                    fontSize: 30.0,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "Roboto"),
-              ),
+            child: Text(
+              "Bookmarked Listings",
+              style: TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Roboto"),
+            ),
           ),
-          if(finaltemplist != null)
+          //this should be in listview or something, gives a error if there is too much listings to the bottom of the screen
+          if (finaltemplist != null)
             for (var listing in finaltemplist)
-              getInformationBox(listing.jobType, listing.description, listing.owner),
+              getInformationBox(
+                  listing.jobType, listing.description, listing.owner),
         ],
       ),
     );

@@ -1,5 +1,7 @@
+import 'package:cse442_App/home%20screen/home_screen.dart';
 import 'package:cse442_App/profile%20screen/new_review_page.dart';
 
+import '../main.dart';
 import 'reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
@@ -129,8 +131,7 @@ class _UploaderState extends State<Uploader> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ProfileScreen(user: user, sameUser: true)));
+                            builder: (context) => MyApp(user: user)));
                   }),
             ],
           );

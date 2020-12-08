@@ -11,7 +11,6 @@ import 'new_listing_page.dart';
 import 'package:cse442_App/user%20model/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  @override
   final UserModel user;
   HomeScreen({this.user});
   HomeScreenState createState() => HomeScreenState(user: user);
@@ -199,11 +198,12 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void asyncGet() async {
-      bookMarkedList = user.bookmarks;
+    UserModel newUser = await newUserInstance(user.id);
+    bookMarkedList = newUser.bookmarks;
     final List<UserListingsModel> list = await getListing();
     for (var listing in bookMarkedList) {
-          await getBookmark(listing);
-        }
+      await getBookmark(listing);
+    }
     setState(() {
       initList = list;
       print(initList.length);
@@ -222,34 +222,46 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Future<String> addBookmarkListing(String userId, String listingId) async {
-    final String apiUrl =
-        "https://job-5cells.herokuapp.com/addBookMark";
-      final response = await http.post(apiUrl,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: json.encode({
-        "user_id": userId,
-        "listing_id": listingId,
-      }));
+    final String apiUrl = "https://job-5cells.herokuapp.com/addBookMark";
+    final response = await http.post(apiUrl,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode({
+          "user_id": userId,
+          "listing_id": listingId,
+        }));
     final String temp = response.body;
     print(temp);
     return temp;
   }
 
   void removeBookmarkListing(String bookmarkId, String userId) async {
-    final String apiUrl =
-        "https://job-5cells.herokuapp.com/bookmarks/delete";
-      final response = await http.post(apiUrl,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: json.encode({
-        "bookmark_id": bookmarkId,
-        "user_id": userId,
-      }));
+    final String apiUrl = "https://job-5cells.herokuapp.com/bookmarks/delete";
+    final response = await http.post(apiUrl,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode({
+          "bookmark_id": bookmarkId,
+          "user_id": userId,
+        }));
     final String temp = response.body;
     print(temp);
+  }
+
+  Future<UserModel> newUserInstance(String userId) async {
+    print("Create User is called");
+
+    final String apiUrl = "https://job-5cells.herokuapp.com/getById/" + userId;
+    final response = await http.get(apiUrl);
+    print(response.body);
+    if (response.statusCode == 200) {
+      final String resString = response.body;
+      return userModelFromJson(resString);
+    } else {
+      return null;
+    }
   }
 
   // Gets listings from server and returns list of items to be displayed
@@ -279,7 +291,6 @@ class HomeScreenState extends State<HomeScreen> {
       return reversed;
     }
   }
-
 
   // Search function
   Future<List<UserListingsModel>> search(String text) async {
@@ -473,18 +484,16 @@ class HomeScreenState extends State<HomeScreen> {
                               : Icons.favorite_border_outlined,
                           color: isBookmarked ? Colors.blue : null),
                       onPressed: () async {
-                        final String fuckmylife = await addBookmarkListing(user.id, listing.id);
-                        setState(() {
-                          if (isBookmarked) {
-                            //idk
-                          } else {
-                            bookmarkedListingslist.add(fuckmylife);
-                            isBookmarked = true;
-                          }
-                        });
+                        if (isBookmarked) {
+                          //remove bookmark
+                        } else {
+                          addBookmarkListing(user.id, listing.id);
+                          bookmarkedListingslist.add(listing.id);
+                        }
+                        setState(() {});
                       },
                     ),
-                    
+
                     contentPadding: EdgeInsets.all(10),
                     onTap: () {
                       if (services) {
