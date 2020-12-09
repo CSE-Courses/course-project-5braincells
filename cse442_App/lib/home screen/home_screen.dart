@@ -101,39 +101,41 @@ class HomeScreenState extends State<HomeScreen> {
     if (user.verify == null || user.verify == false) {
       return Stack(
         children: [
+          // Email button to send email verification link
           Container(
-            padding: EdgeInsets.all(5),
+            child: Center(
+              child: RaisedButton(
+                textColor: Colors.white,
+                child: pressON
+                    ? Text("Verification email has been sent.")
+                    : Text("Click here to send verification email."),
+                onPressed: () async {
+                  if (_firstPress) {
+                    print(user.id);
+                    print(user.email);
+                    final bool emailSent = await sendVerifyEmail(
+                        user.id.toString(), user.email.toString());
+                    print(emailSent.toString());
+                    if (emailSent) _firstPress = false;
+                    setState(() {
+                      pressON = !pressON;
+                    });
+                  }
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: Colors.blue,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
             alignment: Alignment.center,
             child: Text(
               "Your email has not been verified",
               style: TextStyle(color: Colors.red),
             ),
           ),
-
-          // Email button to send email verification link
-          Container(
-              child: RaisedButton(
-            textColor: Colors.white,
-            child: pressON
-                ? Text("Verification email has been sent.")
-                : Text("Click here to send verification email."),
-            onPressed: () async {
-              if (_firstPress) {
-                print(user.id);
-                print(user.email);
-                final bool emailSent = await sendVerifyEmail(
-                    user.id.toString(), user.email.toString());
-                print(emailSent.toString());
-                if (emailSent) _firstPress = false;
-                setState(() {
-                  pressON = !pressON;
-                });
-              }
-            },
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            color: Colors.blue,
-          )),
         ],
       );
     } else {
