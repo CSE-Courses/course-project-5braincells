@@ -22,7 +22,7 @@ environment:
 
 dependencies:
   flappy_search_bar: 1.7.2
-  google_maps_flutter: ^0.5.27+3
+  google_maps_flutter: ^1.0.3
   flutter:
     sdk: flutter
 
