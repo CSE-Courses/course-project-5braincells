@@ -80,6 +80,10 @@ module.exports = app =>{
 });
 //add listings
 app.post('/addListing', async(req,res) =>{
+
+  try{
+
+  
   const user_id = req.body.user_id;
   console.log(user_id)
   const newList = new Listings();
@@ -111,9 +115,13 @@ app.post('/addListing', async(req,res) =>{
     
 
   }
+}catch(err){
+    res.send(err)
+}
 })
 //Add ratings
 app.post('/addRatings', async(req,res) =>{
+  try{
   const user_id = req.body.user_id;
 
   const newRate = new Ratings();
@@ -143,9 +151,13 @@ app.post('/addRatings', async(req,res) =>{
     
 
   }
+}catch(err){
+  res.send(err)
+}
 })
 
 app.post('/addRequest', async(req,res) =>{
+  try{
   const user_id = req.body.user_id;
 
   const newRequest = new Requests();
@@ -177,6 +189,9 @@ app.post('/addRequest', async(req,res) =>{
     
 
   }
+}catch(err){
+  res.send(err)
+}
 })
 
 app.post('/updateName', async(req,res)=>{
